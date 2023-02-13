@@ -1,3 +1,4 @@
+import { fetchBaseQuery } from '@reduxjs/toolkit/dist/query'
 import { AuthResponse, LoginBody, RegistrationBody, User } from '../../types'
 import apiSlice from './apiSlice'
 
@@ -17,8 +18,14 @@ const authApiSlice = apiSlice.injectEndpoints({
         body,
       }),
     }),
+    getMe: builder.query<User, void>({
+      query: () => ({
+        url: 'user/get-me',
+      }),
+    }),
   }),
   overrideExisting: true,
 })
 
-export const { useRegistrationMutation, useLoginMutation } = authApiSlice
+export const { useRegistrationMutation, useLoginMutation, useGetMeQuery } =
+  authApiSlice
