@@ -1,4 +1,4 @@
-import { Box, Divider, Typography, useTheme } from '@mui/material'
+import { Box, Divider, Menu, Typography, useTheme } from '@mui/material'
 import { FunctionComponent, useState, useEffect } from 'react'
 import AsideItem from './AsideItem'
 import TodayIcon from '@mui/icons-material/Today'
@@ -11,10 +11,11 @@ import AsideButton from './AsideButton'
 import AsideListButton from './AsideListButton'
 import { useGetListsQuery } from '../../api/listApiSlice'
 import { useGetTagsQuery } from '../../api/tagApiSlice'
-import Tag from '../Tag'
+import Tag from '../Tag/Tag'
 import { useGetTasksQuery } from '../../api/taskApiSlice'
 import { Link, matchPath, useLocation, useParams } from 'react-router-dom'
 import AsideHeader from './AsideHeader'
+import Tags from '../Tag/Tags'
 
 const Aside: FunctionComponent = () => {
   const { palette } = useTheme()
@@ -148,34 +149,7 @@ const Aside: FunctionComponent = () => {
           </AsideItem>
           <Divider sx={{ paddingTop: '15px', marginBottom: '15px' }} light />
           <AsideItem text="Теги">
-            <Box
-              display="inline-flex"
-              gap="5px"
-              flexWrap="wrap"
-              width="100%"
-              overflow="hidden"
-            >
-              {tags?.map((item) => (
-                <Tag
-                  key={item._id}
-                  selected={page.page === 'tag' && page.id === item._id}
-                  {...item}
-                />
-              ))}
-              <Box
-                sx={{
-                  backgroundColor: palette.grey.A100,
-                  cursor: 'pointer',
-                  '&:hover': { backgroundColor: palette.grey.A200 },
-                  transition: 'background 0.15s',
-                }}
-                borderRadius="5px"
-                padding="4px 10px"
-                width="fit-content"
-              >
-                <Typography color={palette.grey[700]}>+ Додати тег</Typography>
-              </Box>
-            </Box>
+            <Tags tags={tags || []} />
           </AsideItem>
         </Box>
         <Box padding="30px 20px 0">
