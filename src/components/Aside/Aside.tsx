@@ -1,16 +1,5 @@
-import {
-  Box,
-  Button,
-  Divider,
-  IconButton,
-  InputAdornment,
-  TextField,
-  Typography,
-  useTheme,
-} from '@mui/material'
+import { Box, Divider, Typography, useTheme } from '@mui/material'
 import { FunctionComponent, useState, useEffect } from 'react'
-import Logo from '../Logo'
-import SearchIcon from '@mui/icons-material/Search'
 import AsideItem from './AsideItem'
 import TodayIcon from '@mui/icons-material/Today'
 import StickyNote2Icon from '@mui/icons-material/StickyNote2'
@@ -25,7 +14,6 @@ import { useGetTagsQuery } from '../../api/tagApiSlice'
 import Tag from '../Tag'
 import { useGetTasksQuery } from '../../api/taskApiSlice'
 import { Link, matchPath, useLocation, useParams } from 'react-router-dom'
-import { Page } from '../../../types'
 import AsideHeader from './AsideHeader'
 
 const Aside: FunctionComponent = () => {
@@ -98,7 +86,7 @@ const Aside: FunctionComponent = () => {
                   className={page.page === 'upcoming' ? 'selected' : ''}
                   fullWidth
                 >
-                  Найближчі
+                  <span>Найближчі</span>
                 </AsideButton>
               </Link>
               <Link to="/today">
@@ -122,7 +110,7 @@ const Aside: FunctionComponent = () => {
                   className={page.page === 'today' ? 'selected' : ''}
                   fullWidth
                 >
-                  Сьогодні
+                  <span>Сьогодні</span>
                 </AsideButton>
               </Link>
               <Link to="/notes">
@@ -133,7 +121,7 @@ const Aside: FunctionComponent = () => {
                   className={page.page === 'notes' ? 'selected' : ''}
                   fullWidth
                 >
-                  Нотатки
+                  <span>Нотатки</span>
                 </AsideButton>
               </Link>
             </Box>
@@ -154,13 +142,19 @@ const Aside: FunctionComponent = () => {
                 startIcon={<AddIcon />}
                 fullWidth
               >
-                Додати список
+                <span>Додати список</span>
               </AsideButton>
             </Box>
           </AsideItem>
           <Divider sx={{ paddingTop: '15px', marginBottom: '15px' }} light />
           <AsideItem text="Теги">
-            <Box display="inline-flex" gap="5px" flexWrap="wrap">
+            <Box
+              display="inline-flex"
+              gap="5px"
+              flexWrap="wrap"
+              width="100%"
+              overflow="hidden"
+            >
               {tags?.map((item) => (
                 <Tag
                   key={item._id}
@@ -184,7 +178,7 @@ const Aside: FunctionComponent = () => {
             </Box>
           </AsideItem>
         </Box>
-        <Box padding="40px 20px 0">
+        <Box padding="30px 20px 0">
           <AsideButton
             variant="text"
             size="large"

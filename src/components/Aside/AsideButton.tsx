@@ -7,7 +7,13 @@ const AsideButton = styled(Button)({
   textTransform: 'none',
   color: '#525252',
   '& > span': {
-    '&:nth-of-type(2)': { marginLeft: 'auto !important' },
+    '&:nth-of-type(3)': { marginLeft: 'auto !important' },
+    '&:nth-of-type(2)': {
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      paddingRight: '5px',
+      whiteSpace: 'nowrap',
+    },
   },
   '&:hover': {
     color: '#507963',

@@ -46,7 +46,7 @@ const ListAsideButton: FunctionComponent<List & { selected?: boolean }> = ({
         className={selected ? 'selected' : ''}
         fullWidth
       >
-        {name}
+        <span>{name}</span>
       </AsideButton>
     </Link>
   )

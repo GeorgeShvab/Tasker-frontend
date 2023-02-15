@@ -70,7 +70,6 @@ const AsideHeader: FunctionComponent<{
                 ),
               }}
               defaultValue={searchParams.get('q')}
-              focused
               fullWidth
             />
           </form>

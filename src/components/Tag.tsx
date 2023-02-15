@@ -12,7 +12,7 @@ const Tag: FunctionComponent<tags.Tag & { selected: boolean }> = ({
 }) => {
   const { palette } = useTheme()
   return (
-    <Link to={'/tag/' + _id}>
+    <Link to={'/tag/' + _id} style={{ maxWidth: '100%' }}>
       <Box
         sx={{
           backgroundColor: selected ? color + 'd9' : color + '80',
@@ -22,8 +22,17 @@ const Tag: FunctionComponent<tags.Tag & { selected: boolean }> = ({
         borderRadius="5px"
         padding="4px 10px"
         width="fit-content"
+        maxWidth="100%"
       >
-        <Typography color={palette.grey[700]}>{name}</Typography>
+        <Typography
+          color={palette.grey[700]}
+          whiteSpace="nowrap"
+          overflow="hidden"
+          textOverflow="ellipsis"
+          maxWidth="100%"
+        >
+          {name}
+        </Typography>
       </Box>
     </Link>
   )
