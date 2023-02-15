@@ -1,17 +1,17 @@
 import { FunctionComponent, ReactElement } from 'react'
 import { Navigate } from 'react-router-dom'
-import { isAuthorized } from '../redux/slices/auth'
+import { selectUser } from '../redux/slices/auth'
 import { useAppSelector } from '../redux/store'
 
 const ProtectRoute: FunctionComponent<{
   children: ReactElement
   protectFromAuthorized?: boolean
 }> = ({ children, protectFromAuthorized = false }) => {
-  const isUserAuthorized = useAppSelector(isAuthorized)
+  const user = useAppSelector(selectUser)
 
-  if (!isUserAuthorized && !protectFromAuthorized) {
+  if (!user.data && !user.isLoading && !protectFromAuthorized) {
     return <Navigate to="/login" />
-  } else if (isUserAuthorized && protectFromAuthorized) {
+  } else if (user.data && protectFromAuthorized) {
     return <Navigate to="/upcoming" />
   }
 
