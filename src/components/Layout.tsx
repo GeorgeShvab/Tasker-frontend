@@ -1,22 +1,42 @@
-import { Box, createTheme, CssBaseline, ThemeProvider } from '@mui/material'
-import { FunctionComponent, ReactElement, useEffect, useMemo } from 'react'
-import { selectMode } from '../redux/slices/mode'
-import { useAppSelector } from '../redux/store'
-import { themeSettings } from '../theme'
+import { Box, useMediaQuery, useTheme } from '@mui/material'
+import { FunctionComponent, ReactElement } from 'react'
+import Aside from './Aside/Aside'
 
 const Layout: FunctionComponent<{ children: ReactElement }> = ({
   children,
 }) => {
-  const mode = useAppSelector(selectMode)
-  const theme = useMemo(() => themeSettings(mode), [mode])
+  const { palette } = useTheme()
+
+  const isNotMobile = useMediaQuery('(min-width: 769px)')
 
   return (
-    <>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Box sx={{ background: theme.palette.background.main }}>{children}</Box>
-      </ThemeProvider>
-    </>
+    <Box display="flex">
+      <Box
+        flex="0 0 280px"
+        height="100vh"
+        overflow="auto"
+        sx={
+          isNotMobile
+            ? {
+                '&::-webkit-scrollbar': {
+                  width: '5px',
+                },
+                '&::-webkit-scrollbar-track': {
+                  backgroundColor: palette.grey.A100,
+                },
+                '&::-webkit-scrollbar-thumb': {
+                  backgroundColor: palette.grey[200],
+                },
+              }
+            : {}
+        }
+      >
+        <Aside />
+      </Box>
+      <Box component="main" flex="3 0 auto">
+        {children}
+      </Box>
+    </Box>
   )
 }
 

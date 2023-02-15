@@ -60,3 +60,34 @@ export interface AuthResponse {
   refreshToken: string
   user: User
 }
+
+export interface List {
+  _id: string
+  name: string
+  color: string
+  creator: ObjectId
+  tasks: number
+}
+
+export interface Tag {
+  _id: string
+  name: string
+  creator: ObjectId
+  color: string
+  tasks: number
+}
+
+export interface Task {
+  _id: string
+  name: string
+  description: string
+  list: ObjectId
+  date: Date
+  tags: ObjectId[]
+  creator: ObjectId
+  completed: boolean
+  createdAt: string
+  updatedAt: string
+}
+
+export type Page = 'list' | 'tag' | 'upcoming' | 'today' | 'notes'

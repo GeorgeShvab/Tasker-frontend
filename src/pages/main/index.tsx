@@ -1,7 +1,7 @@
 import { FunctionComponent } from 'react'
 
-const Index: FunctionComponent = () => {
+const MainPage: FunctionComponent = () => {
   return <div></div>
 }
 
-export default Index
+export default MainPage

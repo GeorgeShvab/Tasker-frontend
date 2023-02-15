@@ -8,13 +8,13 @@ import {
 } from '@mui/material'
 import LoadingButton from '@mui/lab/LoadingButton'
 import { Formik, FormikHelpers } from 'formik'
-import { FunctionComponent, useEffect, useState } from 'react'
+import { FunctionComponent, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import * as yup from 'yup'
 import { RegistrationBody } from '../../../types'
 import { useRegistrationMutation } from '../../api/authApiSlice'
 import { useAppDispatch } from '../../redux/store'
-import { setUser } from '../../redux/slices/auth'
+import { authorizeUser } from '../../redux/slices/auth'
 
 const schema = yup.object().shape({
   firstName: yup
@@ -68,7 +68,7 @@ const RegistrationForm: FunctionComponent = () => {
     try {
       const data = await registration(values).unwrap()
 
-      dispatch(setUser(data))
+      dispatch(authorizeUser(data))
 
       navigate('/')
     } catch (e: any) {

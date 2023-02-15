@@ -14,12 +14,6 @@ const Registration: FunctionComponent = () => {
 
   const isMobile = useMediaQuery('(max-width: 768px)')
 
-  const isUserAuthorized = useAppSelector(isAuthorized)
-
-  if (isUserAuthorized) {
-    return <Navigate to="/" />
-  }
-
   return (
     <CenterContainer position="relative" minHeight="100vh" overflow="hidden">
       <Box

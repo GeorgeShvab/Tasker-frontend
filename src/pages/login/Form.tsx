@@ -12,7 +12,7 @@ import { FunctionComponent, useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { LoginBody } from '../../../types'
 import { useLoginMutation } from '../../api/authApiSlice'
-import { setUser } from '../../redux/slices/auth'
+import { authorizeUser } from '../../redux/slices/auth'
 import { useAppDispatch } from '../../redux/store'
 import * as yup from 'yup'
 
@@ -44,7 +44,7 @@ const LoginForm: FunctionComponent = () => {
     try {
       const data = await login(values).unwrap()
 
-      dispatch(setUser(data))
+      dispatch(authorizeUser(data))
 
       navigate('/')
     } catch (e: any) {

@@ -11,7 +11,7 @@ const Logo: FC<{ sx?: SxProps }> = ({ sx }) => {
         variant="h3"
         fontWeight="800"
         sx={{ width: 'fit-content', ...sx }}
-        color={theme.palette.grey[900]}
+        color={theme.palette.primary.main}
       >
         Tasker
       </Typography>
