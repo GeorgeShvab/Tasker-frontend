@@ -8,7 +8,7 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp'
 import SettingsIcon from '@mui/icons-material/Settings'
 import AddIcon from '@mui/icons-material/Add'
 import AsideButton from './AsideButton'
-import AsideListButton from './AsideListButton'
+import AsideListButton from '../List/List'
 import { useGetListsQuery } from '../../api/listApiSlice'
 import { useGetTagsQuery } from '../../api/tagApiSlice'
 import Tag from '../Tag/Tag'
@@ -16,6 +16,7 @@ import { useGetTasksQuery } from '../../api/taskApiSlice'
 import { Link, matchPath, useLocation, useParams } from 'react-router-dom'
 import AsideHeader from './AsideHeader'
 import Tags from '../Tag/Tags'
+import Lists from '../List/Lists'
 
 const Aside: FunctionComponent = () => {
   const { palette } = useTheme()
@@ -129,27 +130,11 @@ const Aside: FunctionComponent = () => {
           </AsideItem>
           <Divider sx={{ paddingTop: '15px', marginBottom: '15px' }} light />
           <AsideItem text="Списки">
-            <Box>
-              {lists?.map((item) => (
-                <AsideListButton
-                  key={item._id}
-                  selected={page.page === 'list' && page.id === item._id}
-                  {...item}
-                />
-              ))}
-              <AsideButton
-                variant="text"
-                size="large"
-                startIcon={<AddIcon />}
-                fullWidth
-              >
-                <span>Додати список</span>
-              </AsideButton>
-            </Box>
+            <Lists lists={lists || []} page={page} />
           </AsideItem>
           <Divider sx={{ paddingTop: '15px', marginBottom: '15px' }} light />
           <AsideItem text="Теги">
-            <Tags tags={tags || []} />
+            <Tags tags={tags || []} page={page} />
           </AsideItem>
         </Box>
         <Box padding="30px 20px 0">

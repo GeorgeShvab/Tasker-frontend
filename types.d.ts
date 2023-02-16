@@ -91,3 +91,9 @@ export interface Task {
 }
 
 export type Page = 'list' | 'tag' | 'upcoming' | 'today' | 'notes'
+
+export interface AlertStatus {
+  msg: string
+  type: 'success' | 'error'
+  status: boolean
+}

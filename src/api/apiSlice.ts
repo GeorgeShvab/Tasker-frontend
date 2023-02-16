@@ -83,7 +83,7 @@ const baseQueryWithRefetch: typeof baseQuery = async (
 const apiSlice = createApi({
   baseQuery: baseQueryWithRefetch,
   endpoints: (build) => ({}),
-  tagTypes: ['Tags'],
+  tagTypes: ['Tags', 'Lists'],
 })
 
 export default apiSlice

@@ -8,21 +8,18 @@ import {
   DialogTitle,
   Snackbar,
   TextField,
-  Typography,
   useTheme,
 } from '@mui/material'
 import { Formik } from 'formik'
-import { FunctionComponent, useState, useEffect } from 'react'
+import { FunctionComponent, useState } from 'react'
 import * as types from '../../../types'
-import Tag from './Tag'
+import { AlertStatus } from '../../../types'
+import { useCreateListMutation } from '../../api/listApiSlice'
 import * as yup from 'yup'
-import { useCreateTagMutation } from '../../api/tagApiSlice'
-
-interface AlertStatus {
-  msg: string
-  type: 'success' | 'error'
-  status: boolean
-}
+import AsideButton from '../Aside/AsideButton'
+import AddIcon from '@mui/icons-material/Add'
+import List from './List'
+import { FocusTrap } from '@mui/base'
 
 const nameSchema = yup.object().shape({
   name: yup
@@ -32,30 +29,28 @@ const nameSchema = yup.object().shape({
     .max(15, 'Назва тега не може містити більше 15 символів'),
 })
 
-const Tags: FunctionComponent<{
-  tags: types.Tag[]
+const Lists: FunctionComponent<{
+  lists: types.List[]
   callback?: (id: string) => void
   page?: {
     id: string | undefined
     page: string
   }
-}> = ({ tags, callback, page }) => {
-  const { palette } = useTheme()
-
+}> = ({ lists, callback, page }) => {
   const [open, setOpen] = useState<boolean>(false)
 
   const [alertStatus, setAlertStatus] = useState<null | AlertStatus>(null)
 
-  const [createTag] = useCreateTagMutation()
+  const [createList] = useCreateListMutation()
 
   const handleSubmit = async (values: { name: string }) => {
     try {
-      const data = await createTag({
+      const data = await createList({
         name: values.name,
       }).unwrap()
 
       setAlertStatus({
-        msg: 'Тег створено',
+        msg: 'Список створено',
         type: 'success',
         status: true,
       })
@@ -63,7 +58,7 @@ const Tags: FunctionComponent<{
       if (callback) callback(data._id)
     } catch (e) {
       setAlertStatus({
-        msg: 'Помилка при створенні тега',
+        msg: 'Помилка при створенні списку',
         type: 'error',
         status: true,
       })
@@ -74,34 +69,23 @@ const Tags: FunctionComponent<{
 
   return (
     <>
-      <Box
-        display="inline-flex"
-        gap="5px"
-        flexWrap="wrap"
-        width="100%"
-        overflow="hidden"
-      >
-        {tags?.map((item) => (
-          <Tag
+      <Box>
+        {lists?.map((item) => (
+          <List
             key={item._id}
-            selected={page?.page === 'tag' && page?.id === item._id}
+            selected={page?.page === 'list' && page?.id === item._id}
             {...item}
           />
         ))}
-        <Box
-          sx={{
-            backgroundColor: palette.grey.A100,
-            cursor: 'pointer',
-            '&:hover': { backgroundColor: palette.grey.A200 },
-            transition: 'background 0.15s',
-          }}
-          borderRadius="5px"
-          padding="4px 10px"
-          width="fit-content"
+        <AsideButton
+          variant="text"
+          startIcon={<AddIcon />}
           onClick={() => setOpen(true)}
+          onPointerDown={(e: any) => e.preventDefault()}
+          fullWidth
         >
-          <Typography color={palette.grey[700]}>+ Додати тег</Typography>
-        </Box>
+          <span>Додати список</span>
+        </AsideButton>
       </Box>
       <Dialog open={open} onClose={() => setOpen(false)} fullWidth>
         <Formik
@@ -118,7 +102,7 @@ const Tags: FunctionComponent<{
             handleSubmit,
           }) => (
             <form onSubmit={handleSubmit}>
-              <DialogTitle>Введіть назву нового тега</DialogTitle>
+              <DialogTitle>Введіть назву нового списку</DialogTitle>
               <DialogContent>
                 <TextField
                   type="text"
@@ -160,4 +144,4 @@ const Tags: FunctionComponent<{
   )
 }
 
-export default Tags
+export default Lists
