@@ -1,5 +1,5 @@
-import { Box, Paper, useTheme } from '@mui/material'
-import { FunctionComponent } from 'react'
+import { Alert, Box, Paper, Snackbar, useTheme } from '@mui/material'
+import { FunctionComponent, useState } from 'react'
 import * as types from '../../../types'
 import Sticker from './Sticker'
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
@@ -11,15 +11,19 @@ const Stickers: FunctionComponent<{ stickers: types.Sticker[] }> = ({
 }) => {
   const { palette } = useTheme()
 
-  const stickersNames = stickers.map((item) => item.name)
+  const [alertStatus, setAlertStatus] = useState<types.AlertStatus | null>(null)
 
   const [createSticker] = useCreateStickerMutation()
 
   const handleCreateSticker = async () => {
     try {
-      await createSticker({ name: 'Хаха' }).unwrap()
+      await createSticker({ name: 'Новий список' }).unwrap()
     } catch (e) {
-      console.log('error')
+      setAlertStatus({
+        status: true,
+        msg: "Не вдалось створити нотатку, будь ласка, перевірте інтернет-з'єднання",
+        type: 'error',
+      })
     }
   }
 
@@ -51,6 +55,20 @@ const Stickers: FunctionComponent<{ stickers: types.Sticker[] }> = ({
       {stickers?.map((item) => (
         <Sticker key={item._id} {...item} />
       ))}
+      <Snackbar
+        open={alertStatus?.status}
+        autoHideDuration={10000}
+        onClose={() =>
+          setAlertStatus((prev) =>
+            prev !== null ? { ...prev, status: false } : null
+          )
+        }
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      >
+        <Alert severity={alertStatus?.type} sx={{ width: '100%' }}>
+          {alertStatus?.msg}
+        </Alert>
+      </Snackbar>
     </Box>
   )
 }

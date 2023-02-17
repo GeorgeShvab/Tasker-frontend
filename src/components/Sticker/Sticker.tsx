@@ -98,6 +98,8 @@ const Sticker: FunctionComponent<types.Sticker> = ({
         type: 'error',
       })
     }
+
+    setStickerAction(null)
   }
 
   const handleFocus = () => {
@@ -142,7 +144,7 @@ const Sticker: FunctionComponent<types.Sticker> = ({
     } catch (e) {
       setAlertStatus({
         status: true,
-        msg: "Не вдалось оновити нотатку, будь ласка, пеервірте з'єднання з інтернетом",
+        msg: "Не вдалось оновити нотатку, будь ласка, перевірте інтернет-з'єднання",
         type: 'error',
       })
     }
@@ -151,7 +153,6 @@ const Sticker: FunctionComponent<types.Sticker> = ({
   handleNameInput = debounce(handleNameInput, 1500)
 
   const handleDescriptionWrapperClick = () => {
-    if (focus) return
     descriptionInputEl.current?.focus()
 
     descriptionInputEl.current?.setSelectionRange(
@@ -186,6 +187,7 @@ const Sticker: FunctionComponent<types.Sticker> = ({
             backgroundColor: '#ffffff',
           }}
           onClick={handleFocus}
+          onFocus={handleFocus}
           ref={containerRef}
         >
           <Paper
@@ -222,6 +224,7 @@ const Sticker: FunctionComponent<types.Sticker> = ({
                     lineHeight: '20px',
                     fontWeight: '800',
                   },
+                  maxLength: 100,
                 }}
                 onInput={handleNameInput}
                 multiline
@@ -247,6 +250,7 @@ const Sticker: FunctionComponent<types.Sticker> = ({
                 defaultValue={description}
                 inputRef={descriptionInputEl}
                 onInput={handleDescriptionInput}
+                inputProps={{ maxLength: 2000 }}
                 multiline
                 fullWidth
               />
