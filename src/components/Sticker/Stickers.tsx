@@ -2,9 +2,9 @@ import { Alert, Box, Paper, Snackbar, useTheme } from '@mui/material'
 import { FunctionComponent, useState } from 'react'
 import * as types from '../../../types'
 import Sticker from './Sticker'
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
 import AddIcon from '@mui/icons-material/Add'
 import { useCreateStickerMutation } from '../../api/stickerApiSlice'
+import useMediaQuery from '@mui/material/useMediaQuery'
 
 const Stickers: FunctionComponent<{ stickers: types.Sticker[] }> = ({
   stickers,
@@ -27,25 +27,35 @@ const Stickers: FunctionComponent<{ stickers: types.Sticker[] }> = ({
     }
   }
 
+  let gridTemplateColumns: string = 'repeat(auto-fit, minmax(300px, 0.3333fr))'
+
+  //const isGreaterThan800 = useMediaQuery('(min-width: 800px)')
+  //const isGreaterThan872 = useMediaQuery('(min-width: 872px)')
+  const isGreaterThan1290 = useMediaQuery('(min-width: 1290px)')
+  const isGreaterThan924 = useMediaQuery('(min-width: 924px)')
+
+  if (isGreaterThan1290) {
+    gridTemplateColumns = 'repeat(auto-fit, minmax(300px, 0.3333fr))'
+  } else if (isGreaterThan924) {
+    gridTemplateColumns = 'repeat(auto-fit, minmax(250px, 0.5fr))'
+  } else {
+    gridTemplateColumns = '1fr'
+  }
+
   return (
-    <Box
-      display="grid"
-      gridTemplateColumns="repeat(auto-fit, minmax(300px, 0.3333fr))"
-      gap="15px"
-    >
+    <Box display="grid" gridTemplateColumns={gridTemplateColumns} gap="15px">
       <Paper
         sx={{
           padding: '20px',
           backgroundColor: palette.grey[100],
           '&:hover': { backgroundColor: palette.grey[200] },
           transition: 'background 0.15s',
-          maxHeight: '400px',
           aspectRatio: '1 / 1',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
           '& > *': {
-            fontSize: '60px',
+            fontSize: '55px !important',
           },
         }}
         onClick={handleCreateSticker}

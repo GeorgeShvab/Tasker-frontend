@@ -153,6 +153,7 @@ const Sticker: FunctionComponent<types.Sticker> = ({
   handleNameInput = debounce(handleNameInput, 1500)
 
   const handleDescriptionWrapperClick = () => {
+    if (descriptionInputEl.current === document.activeElement) return
     descriptionInputEl.current?.focus()
 
     descriptionInputEl.current?.setSelectionRange(
@@ -170,7 +171,6 @@ const Sticker: FunctionComponent<types.Sticker> = ({
           aspectRatio: '1 / 1',
           position: 'relative',
           overflow: focus ? 'unset' : 'hidden',
-          maxHeight: '400px',
           boxShadow: focus ? 'unset' : undefined,
           paddingBottom: '20px',
         }}
