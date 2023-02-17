@@ -105,7 +105,7 @@ const Tags: FunctionComponent<{
       </Box>
       <Dialog open={open} onClose={() => setOpen(false)} fullWidth>
         <Formik
-          initialValues={{ name: '' }}
+          initialValues={{ name: 'Новий тег' }}
           validationSchema={nameSchema}
           onSubmit={handleSubmit}
         >

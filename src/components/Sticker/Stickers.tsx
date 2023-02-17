@@ -17,7 +17,7 @@ const Stickers: FunctionComponent<{ stickers: types.Sticker[] }> = ({
 
   const handleCreateSticker = async () => {
     try {
-      await createSticker({ name: 'Новий список' }).unwrap()
+      await createSticker({ name: 'Нова нотатка' }).unwrap()
     } catch (e) {
       setAlertStatus({
         status: true,
@@ -27,10 +27,10 @@ const Stickers: FunctionComponent<{ stickers: types.Sticker[] }> = ({
     }
   }
 
+  const isNotMobile = useMediaQuery('(min-width: 769px)')
+
   let gridTemplateColumns: string = 'repeat(auto-fit, minmax(300px, 0.3333fr))'
 
-  //const isGreaterThan800 = useMediaQuery('(min-width: 800px)')
-  //const isGreaterThan872 = useMediaQuery('(min-width: 872px)')
   const isGreaterThan1290 = useMediaQuery('(min-width: 1290px)')
   const isGreaterThan924 = useMediaQuery('(min-width: 924px)')
 
@@ -43,7 +43,11 @@ const Stickers: FunctionComponent<{ stickers: types.Sticker[] }> = ({
   }
 
   return (
-    <Box display="grid" gridTemplateColumns={gridTemplateColumns} gap="15px">
+    <Box
+      display="grid"
+      gridTemplateColumns={gridTemplateColumns}
+      gap={isNotMobile ? '15px' : '10px'}
+    >
       <Paper
         sx={{
           padding: '20px',
@@ -58,6 +62,7 @@ const Stickers: FunctionComponent<{ stickers: types.Sticker[] }> = ({
             fontSize: '55px !important',
           },
         }}
+        elevation={2}
         onClick={handleCreateSticker}
       >
         <AddIcon fontSize="large" />

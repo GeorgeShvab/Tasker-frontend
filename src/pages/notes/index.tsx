@@ -3,6 +3,7 @@ import Box from '@mui/material/Box'
 import { FunctionComponent, useState, UIEvent, useEffect } from 'react'
 import { useGetStickersQuery } from '../../api/stickerApiSlice'
 import MainContentWrapper from '../../components/MainContentWrapper'
+import MenuBtn from '../../components/MenuBtn'
 import Sticker from '../../components/Sticker/Sticker'
 import Stickers from '../../components/Sticker/Stickers'
 import Title from '../../components/Title'
@@ -25,7 +26,7 @@ const Notes: FunctionComponent = () => {
     }
   }
 
-  handleScroll = throttle(handleScroll, 50)
+  handleScroll = throttle(handleScroll, 25)
 
   return (
     <Box
@@ -51,30 +52,31 @@ const Notes: FunctionComponent = () => {
     >
       <Box
         component="header"
-        padding="15px 30px"
+        padding={isNotMobile ? '15px 30px' : '15px 10px'}
         position="sticky"
         width="100%"
         zIndex="2"
         top="0"
         sx={{
           backgroundColor: palette.background.main,
-          /*'&::after': {
-            dispaly: 'block',
-            height: '1px',
-            width: '100%',
-            content: `""`,
-            background: scrolled ? palette.grey.A200 : palette.grey.A200 + '00',
-          },*/
         }}
         borderBottom={
           scrolled
             ? '1px solid ' + palette.grey.A200
             : '1px solid ' + palette.grey.A200 + '00'
         }
+        display="flex"
+        gap="20px"
+        alignItems="center"
       >
+        <MenuBtn />
         <Title>Нотатки</Title>
       </Box>
-      <Box component="main" padding="20px" paddingTop="50px">
+      <Box
+        component="main"
+        padding={isNotMobile ? '20px' : '10px'}
+        paddingTop={isNotMobile ? '50px' : '20px'}
+      >
         <MainContentWrapper>
           <Stickers stickers={stickers || []} />
         </MainContentWrapper>

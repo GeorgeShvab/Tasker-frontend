@@ -24,9 +24,9 @@ import { FocusTrap } from '@mui/base'
 const nameSchema = yup.object().shape({
   name: yup
     .string()
-    .required('Введіть назву тега')
-    .min(1, 'Назва тега повинна складатись принанні з одного символа')
-    .max(15, 'Назва тега не може містити більше 15 символів'),
+    .required('Введіть назву списку')
+    .min(1, 'Назва списку повинна складатись принанні з одного символа')
+    .max(50, 'Назва списку не може містити більше 50 символів'),
 })
 
 const Lists: FunctionComponent<{
@@ -89,7 +89,7 @@ const Lists: FunctionComponent<{
       </Box>
       <Dialog open={open} onClose={() => setOpen(false)} fullWidth>
         <Formik
-          initialValues={{ name: '' }}
+          initialValues={{ name: 'Новий список' }}
           validationSchema={nameSchema}
           onSubmit={handleSubmit}
         >
@@ -114,6 +114,7 @@ const Lists: FunctionComponent<{
                   value={values.name}
                   error={Boolean(touched.name) && Boolean(errors.name)}
                   helperText={(touched.name && errors.name) || ' '}
+                  autoComplete="false"
                   fullWidth
                   autoFocus
                 />

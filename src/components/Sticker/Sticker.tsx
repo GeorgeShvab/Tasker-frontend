@@ -11,6 +11,7 @@ import {
   Alert,
   Snackbar,
   TextareaAutosize,
+  useMediaQuery,
 } from '@mui/material'
 import Box from '@mui/material/Box'
 import Paper from '@mui/material/Paper'
@@ -44,6 +45,8 @@ const Sticker: FunctionComponent<types.Sticker> = ({
 }) => {
   const [deleteSticker] = useDeleteStickerMutation()
   const [updateSticker] = useUpdateStickerMutation()
+
+  const isNotMobile = useMediaQuery('(min-width: 769px)')
 
   const [focus, setFocus] = useState<boolean>(false)
 
@@ -174,6 +177,7 @@ const Sticker: FunctionComponent<types.Sticker> = ({
           boxShadow: focus ? 'unset' : undefined,
           paddingBottom: '20px',
         }}
+        elevation={2}
       >
         <Box
           sx={{
@@ -193,7 +197,7 @@ const Sticker: FunctionComponent<types.Sticker> = ({
           <Paper
             ref={anchorRef}
             sx={{
-              padding: '20px',
+              padding: isNotMobile ? '20px' : '12px',
               backgroundColor: focus ? color + '80' : color + '40',
               '&:hover': { backgroundColor: color + '80' },
               transition: 'background 0.15s',
@@ -227,6 +231,7 @@ const Sticker: FunctionComponent<types.Sticker> = ({
                   maxLength: 100,
                 }}
                 onInput={handleNameInput}
+                onSelectCapture={(e) => e.stopPropagation()}
                 multiline
                 fullWidth
               />
