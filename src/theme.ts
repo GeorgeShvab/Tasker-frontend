@@ -67,24 +67,30 @@ export const themeSettings = (mode: Mode) => {
       fontSize: 12,
       h1: {
         fontSize: 40,
+        color: lightThemeTokens.grey[800],
       },
       h2: {
         fontSize: 32,
+        color: lightThemeTokens.grey[800],
       },
       h3: {
         fontSize: 24,
+        color: lightThemeTokens.grey[800],
       },
       h4: {
         fontSize: 20,
+        color: lightThemeTokens.grey[800],
       },
       h5: {
         fontSize: 16,
+        color: lightThemeTokens.grey[800],
       },
       h6: {
         fontSize: 14,
+        color: lightThemeTokens.grey[800],
       },
     },
   })
 
-  return responsiveFontSizes(theme)
+  return theme
 }

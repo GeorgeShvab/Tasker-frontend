@@ -33,9 +33,7 @@ const Layout: FunctionComponent<{ children: ReactElement }> = ({
       >
         <Aside />
       </Box>
-      <Box component="main" flex="3 0 auto">
-        {children}
-      </Box>
+      <Box flex="3 0 auto">{children}</Box>
     </Box>
   )
 }

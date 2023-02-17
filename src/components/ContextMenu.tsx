@@ -5,6 +5,7 @@ import {
   ClickAwayListener,
   MenuList,
   MenuItem,
+  SxProps,
 } from '@mui/material'
 import {
   useState,
@@ -14,12 +15,15 @@ import {
   ReactElement,
   RefObject,
 } from 'react'
+import { Placement } from '../../types'
 import useOutsideClick from '../hooks/useOutsideClick'
 
 const ContextMenu: FunctionComponent<{
   children: ((closeMenu: () => void) => ReactElement) | ReactElement
   anchor: RefObject<HTMLElement>
-}> = ({ children, anchor }) => {
+  placement?: Placement
+  sx?: SxProps
+}> = ({ children, anchor, placement = 'bottom-start', sx }) => {
   const [open, setOpen] = useState(false)
 
   const menuRef = useRef<HTMLDivElement>(null)
@@ -74,8 +78,8 @@ const ContextMenu: FunctionComponent<{
       open={open}
       anchorEl={anchor.current}
       role={undefined}
-      placement="bottom-start"
-      sx={{ zIndex: 1 }}
+      placement={placement}
+      sx={{ zIndex: 1, ...sx }}
       ref={menuRef}
       transition
       disablePortal

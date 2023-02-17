@@ -12,6 +12,7 @@ import { useEffect, useMemo } from 'react'
 import { selectMode } from './redux/slices/mode'
 import { themeSettings } from './theme'
 import ProtectRoute from './components/ProtectRoute'
+import Notes from './pages/notes'
 
 function App() {
   useAuthorize()
@@ -49,7 +50,7 @@ function App() {
                   <ProtectRoute>
                     <Routes>
                       <Route path="/" element={<MainPage />} />
-                      <Route path="/notes" element={<></>} />
+                      <Route path="/notes" element={<Notes />} />
                       <Route path="/upcoming" element={<></>} />
                       <Route path="/today" element={<></>} />
                       <Route path="list">
