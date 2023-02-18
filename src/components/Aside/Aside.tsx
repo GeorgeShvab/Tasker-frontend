@@ -21,8 +21,8 @@ import Lists from '../List/Lists'
 const Aside: FunctionComponent = () => {
   const { palette } = useTheme()
 
-  const { data: lists } = useGetListsQuery()
-  const { data: tags } = useGetTagsQuery()
+  const lists = useGetListsQuery()
+  const tags = useGetTagsQuery()
   const { data: todaysTasks } = useGetTasksQuery('?period=today')
   const { data: upcomingTasks } = useGetTasksQuery('?period=upcoming')
 
@@ -130,11 +130,19 @@ const Aside: FunctionComponent = () => {
           </AsideItem>
           <Divider sx={{ paddingTop: '15px', marginBottom: '15px' }} light />
           <AsideItem text="Списки">
-            <Lists lists={lists || []} page={page} />
+            <Lists
+              lists={lists.data || []}
+              page={page}
+              isLoading={lists.isLoading}
+            />
           </AsideItem>
           <Divider sx={{ paddingTop: '15px', marginBottom: '15px' }} light />
           <AsideItem text="Теги">
-            <Tags tags={tags || []} page={page} />
+            <Tags
+              tags={tags.data || []}
+              page={page}
+              isLoading={tags.isLoading}
+            />
           </AsideItem>
         </Box>
         <Box padding="30px 20px 0">

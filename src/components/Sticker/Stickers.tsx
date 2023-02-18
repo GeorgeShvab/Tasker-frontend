@@ -1,4 +1,4 @@
-import { Alert, Box, Paper, Snackbar, useTheme } from '@mui/material'
+import { Alert, Box, Paper, Skeleton, Snackbar, useTheme } from '@mui/material'
 import { FunctionComponent, useState } from 'react'
 import * as types from '../../../types'
 import Sticker from './Sticker'
@@ -6,9 +6,10 @@ import AddIcon from '@mui/icons-material/Add'
 import { useCreateStickerMutation } from '../../api/stickerApiSlice'
 import useMediaQuery from '@mui/material/useMediaQuery'
 
-const Stickers: FunctionComponent<{ stickers: types.Sticker[] }> = ({
-  stickers,
-}) => {
+const Stickers: FunctionComponent<{
+  stickers: types.Sticker[]
+  isLoading: boolean
+}> = ({ stickers, isLoading }) => {
   const { palette } = useTheme()
 
   const [alertStatus, setAlertStatus] = useState<types.AlertStatus | null>(null)
@@ -48,28 +49,45 @@ const Stickers: FunctionComponent<{ stickers: types.Sticker[] }> = ({
       gridTemplateColumns={gridTemplateColumns}
       gap={isNotMobile ? '15px' : '10px'}
     >
-      <Paper
-        sx={{
-          padding: '20px',
-          backgroundColor: palette.grey[100],
-          '&:hover': { backgroundColor: palette.grey[200] },
-          transition: 'background 0.15s',
-          aspectRatio: '1 / 1',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          '& > *': {
-            fontSize: '55px !important',
-          },
-        }}
-        elevation={2}
-        onClick={handleCreateSticker}
-      >
-        <AddIcon fontSize="large" />
-      </Paper>
-      {stickers?.map((item) => (
-        <Sticker key={item._id} {...item} />
-      ))}
+      {!isLoading ? (
+        <>
+          <Paper
+            sx={{
+              padding: '20px',
+              backgroundColor: palette.grey[100],
+              '&:hover': { backgroundColor: palette.grey[200] },
+              transition: 'background 0.15s',
+              aspectRatio: '1 / 1',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              '& > *': {
+                fontSize: '55px !important',
+              },
+            }}
+            elevation={2}
+            onClick={handleCreateSticker}
+          >
+            <AddIcon fontSize="large" />
+          </Paper>
+          {stickers?.map((item) => (
+            <Sticker key={item._id} {...item} />
+          ))}
+        </>
+      ) : (
+        new Array(10)
+          .fill(null)
+          .map((item, index) => (
+            <Skeleton
+              variant="rectangular"
+              width={'100%'}
+              height={'100%'}
+              sx={{ aspectRatio: '1 / 1', borderRadius: 1 }}
+              key={index}
+            />
+          ))
+      )}
+
       <Snackbar
         open={alertStatus?.status}
         autoHideDuration={10000}

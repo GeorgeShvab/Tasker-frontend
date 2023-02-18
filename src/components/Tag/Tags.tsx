@@ -10,6 +10,7 @@ import {
   TextField,
   Typography,
   useTheme,
+  Skeleton,
 } from '@mui/material'
 import { Formik } from 'formik'
 import { FunctionComponent, useState, useEffect } from 'react'
@@ -39,7 +40,8 @@ const Tags: FunctionComponent<{
     id: string | undefined
     page: string
   }
-}> = ({ tags, callback, page }) => {
+  isLoading: boolean
+}> = ({ tags, callback, page, isLoading }) => {
   const { palette } = useTheme()
 
   const [open, setOpen] = useState<boolean>(false)
@@ -81,27 +83,44 @@ const Tags: FunctionComponent<{
         width="100%"
         overflow="hidden"
       >
-        {tags?.map((item) => (
-          <Tag
-            key={item._id}
-            selected={page?.page === 'tag' && page?.id === item._id}
-            {...item}
-          />
-        ))}
-        <Box
-          sx={{
-            backgroundColor: palette.grey.A100,
-            cursor: 'pointer',
-            '&:hover': { backgroundColor: palette.grey.A200 },
-            transition: 'background 0.15s',
-          }}
-          borderRadius="5px"
-          padding="4px 10px"
-          width="fit-content"
-          onClick={() => setOpen(true)}
-        >
-          <Typography color={palette.grey[700]}>+ Додати тег</Typography>
-        </Box>
+        {!isLoading ? (
+          <>
+            {tags?.map((item) => (
+              <Tag
+                key={item._id}
+                selected={page?.page === 'tag' && page?.id === item._id}
+                {...item}
+              />
+            ))}
+            <Box
+              sx={{
+                backgroundColor: palette.grey.A100,
+                cursor: 'pointer',
+                '&:hover': { backgroundColor: palette.grey.A200 },
+                transition: 'background 0.15s',
+              }}
+              borderRadius="5px"
+              padding="4px 10px"
+              width="fit-content"
+              onClick={() => setOpen(true)}
+            >
+              <Typography color={palette.grey[700]}>+ Додати тег</Typography>
+            </Box>
+          </>
+        ) : (
+          [80, 50, 90, 70].map((item, index) => (
+            <Skeleton
+              variant="rectangular"
+              width={item + 'px'}
+              height={'28.56px'}
+              sx={{
+                aspectRatio: '1 / 1',
+                borderRadius: 1,
+              }}
+              key={index}
+            />
+          ))
+        )}
       </Box>
       <Dialog open={open} onClose={() => setOpen(false)} fullWidth>
         <Formik

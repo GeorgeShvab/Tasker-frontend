@@ -9,6 +9,7 @@ import {
   Snackbar,
   TextField,
   useTheme,
+  Skeleton,
 } from '@mui/material'
 import { Formik } from 'formik'
 import { FunctionComponent, useState } from 'react'
@@ -19,7 +20,6 @@ import * as yup from 'yup'
 import AsideButton from '../Aside/AsideButton'
 import AddIcon from '@mui/icons-material/Add'
 import List from './List'
-import { FocusTrap } from '@mui/base'
 
 const nameSchema = yup.object().shape({
   name: yup
@@ -36,7 +36,8 @@ const Lists: FunctionComponent<{
     id: string | undefined
     page: string
   }
-}> = ({ lists, callback, page }) => {
+  isLoading: boolean
+}> = ({ lists, callback, page, isLoading }) => {
   const [open, setOpen] = useState<boolean>(false)
 
   const [alertStatus, setAlertStatus] = useState<null | AlertStatus>(null)
@@ -70,22 +71,41 @@ const Lists: FunctionComponent<{
   return (
     <>
       <Box>
-        {lists?.map((item) => (
-          <List
-            key={item._id}
-            selected={page?.page === 'list' && page?.id === item._id}
-            {...item}
-          />
-        ))}
-        <AsideButton
-          variant="text"
-          startIcon={<AddIcon />}
-          onClick={() => setOpen(true)}
-          onPointerDown={(e: any) => e.preventDefault()}
-          fullWidth
-        >
-          <span>Додати список</span>
-        </AsideButton>
+        {!isLoading ? (
+          <>
+            {lists?.map((item) => (
+              <List
+                key={item._id}
+                selected={page?.page === 'list' && page?.id === item._id}
+                {...item}
+              />
+            ))}
+            <AsideButton
+              variant="text"
+              startIcon={<AddIcon />}
+              onClick={() => setOpen(true)}
+              onPointerDown={(e: any) => e.preventDefault()}
+              size="large"
+              fullWidth
+            >
+              <span>Додати список</span>
+            </AsideButton>
+          </>
+        ) : (
+          new Array(4).fill(null).map((item, index) => (
+            <Box padding="3.25px 0" key={index}>
+              <Skeleton
+                variant="rectangular"
+                width={'100%'}
+                height={'32px'}
+                sx={{
+                  aspectRatio: '1 / 1',
+                  borderRadius: 1,
+                }}
+              />
+            </Box>
+          ))
+        )}
       </Box>
       <Dialog open={open} onClose={() => setOpen(false)} fullWidth>
         <Formik

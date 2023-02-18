@@ -80,7 +80,7 @@ const Layout: FunctionComponent<{ children: ReactElement }> = ({
         }
       >
         <Box
-          minWidth="75vw"
+          minWidth={isNotMobile ? undefined : '75vw'}
           onTouchStart={handleAsideTouchStart}
           onTouchEnd={handleAsideTouchEnd}
         >

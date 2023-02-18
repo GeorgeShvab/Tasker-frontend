@@ -10,7 +10,7 @@ import Title from '../../components/Title'
 import throttle from '../../utils/throttle'
 
 const Notes: FunctionComponent = () => {
-  const { data: stickers } = useGetStickersQuery()
+  const { data: stickers, isLoading } = useGetStickersQuery()
 
   const isNotMobile = useMediaQuery('(min-width: 769px)')
 
@@ -65,11 +65,11 @@ const Notes: FunctionComponent = () => {
             ? '1px solid ' + palette.grey.A200
             : '1px solid ' + palette.grey.A200 + '00'
         }
-        display="flex"
+        display={isNotMobile ? 'block' : 'flex'}
         gap="20px"
         alignItems="center"
       >
-        <MenuBtn />
+        {!isNotMobile && <MenuBtn />}
         <Title>Нотатки</Title>
       </Box>
       <Box
@@ -78,7 +78,7 @@ const Notes: FunctionComponent = () => {
         paddingTop={isNotMobile ? '50px' : '20px'}
       >
         <MainContentWrapper>
-          <Stickers stickers={stickers || []} />
+          <Stickers stickers={stickers || []} isLoading={isLoading} />
         </MainContentWrapper>
       </Box>
     </Box>
