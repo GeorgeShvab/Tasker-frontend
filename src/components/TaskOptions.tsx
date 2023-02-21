@@ -191,8 +191,7 @@ const TaskOptions: FunctionComponent = () => {
   return (
     <>
       <Box
-        padding={isNotMobile ? '20px 25px 30px' : '20px 25px'}
-        minHeight="100%"
+        padding={isNotMobile ? '20px 25px' : '20px 25px'}
         sx={{ background: palette.background.dark }}
       >
         <Formik
@@ -216,8 +215,8 @@ const TaskOptions: FunctionComponent = () => {
                 display="flex"
                 flexDirection="column"
                 justifyContent="space-between"
-                minHeight="calc(var(--full-height) - 60px)"
                 gap="30px"
+                minHeight="calc(var(--full-height) - 40px)"
               >
                 <Box>
                   <Box

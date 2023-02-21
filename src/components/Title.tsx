@@ -27,7 +27,7 @@ const Title: FunctionComponent<{
         <Typography
           variant="h4"
           fontWeight="800"
-          lineHeight="35px"
+          lineHeight="33px"
           minWidth="35px"
           textAlign="center"
           border={'1px solid ' + palette.grey[100]}

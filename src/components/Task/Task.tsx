@@ -73,10 +73,23 @@ const Task: FunctionComponent<
                 textDecoration: completed ? 'line-through' : 'none',
                 wordBreak: 'break-word',
               }}
-              mb="8px"
+              mb="6px"
             >
               {props.name}
             </Typography>
+            {props.description && (
+              <Typography
+                fontWeight="500"
+                sx={{
+                  textDecoration: completed ? 'line-through' : 'none',
+                  wordBreak: 'break-word',
+                }}
+                color={palette.grey[300]}
+                mb="6px"
+              >
+                {props.description}
+              </Typography>
+            )}
             {(props.date || props.list) && (
               <Box
                 display="flex"

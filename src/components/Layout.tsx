@@ -160,7 +160,7 @@ const Layout: FunctionComponent<{ children: ReactElement }> = ({
       >
         <Box
           width={isNotMobile ? '350px' : '100vw'}
-          height="fit-content"
+          height="var(--full-height)"
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTaskBarTouchEnd}
         >
