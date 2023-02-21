@@ -14,7 +14,7 @@ const useAuthorize = () => {
     } else if (!data && !isLoading) {
       dispatch(setLoading(false))
     }
-  }, [data])
+  }, [data, isLoading])
 }
 
 export default useAuthorize

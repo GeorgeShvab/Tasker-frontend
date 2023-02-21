@@ -24,6 +24,7 @@ import {
 } from '../../api/tagApiSlice'
 import ContextMenu from '../ContextMenu'
 import * as yup from 'yup'
+import { useDrag } from 'react-dnd'
 
 type TagAction = 'delete' | 'rename' | 'change_color' | null
 
@@ -45,6 +46,8 @@ const Tag: FunctionComponent<tags.Tag & { selected: boolean }> = ({
   _id,
   name,
   color,
+  createdAt,
+  updatedAt,
   selected,
 }) => {
   const { palette } = useTheme()
@@ -59,6 +62,11 @@ const Tag: FunctionComponent<tags.Tag & { selected: boolean }> = ({
 
   const [deleteTag] = useDeleteTagMutation()
   const [updateTag] = useUpdateTagMutation()
+
+  const [collected, drag, dragPreview] = useDrag(() => ({
+    type: 'Tag',
+    item: { _id, name, color, createdAt, updatedAt },
+  }))
 
   const handleDeleteTag = async () => {
     try {
@@ -129,7 +137,7 @@ const Tag: FunctionComponent<tags.Tag & { selected: boolean }> = ({
 
   return (
     <>
-      <Link to={'/tag/' + _id} style={{ maxWidth: '100%' }}>
+      <Link to={'/tag/' + _id} style={{ maxWidth: '100%' }} ref={drag}>
         <Box
           sx={{
             backgroundColor: selected ? color + 'd9' : color + '80',

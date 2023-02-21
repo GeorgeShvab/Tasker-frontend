@@ -23,7 +23,7 @@ const ContextMenu: FunctionComponent<{
   anchor: RefObject<HTMLElement>
   placement?: Placement
   sx?: SxProps
-}> = ({ children, anchor, placement = 'bottom-start', sx }) => {
+}> = ({ children, anchor, placement = 'bottom', sx }) => {
   const [open, setOpen] = useState(false)
 
   const menuRef = useRef<HTMLDivElement>(null)

@@ -13,12 +13,18 @@ import { selectMode } from './redux/slices/mode'
 import { themeSettings } from './theme'
 import ProtectRoute from './components/ProtectRoute'
 import Notes from './pages/notes'
+import List from './pages/list'
 
 function App() {
   useAuthorize()
 
   const mode = useAppSelector(selectMode)
   const theme = useMemo(() => themeSettings(mode), [mode])
+
+  useEffect(() => {
+    let vh = window.innerHeight * 0.01
+    document.documentElement.style.setProperty('--vh', `${vh}px`)
+  }, [])
 
   return (
     <div className="app">
@@ -54,7 +60,7 @@ function App() {
                       <Route path="/upcoming" element={<></>} />
                       <Route path="/today" element={<></>} />
                       <Route path="list">
-                        <Route path=":id" element={<></>} />
+                        <Route path=":id" element={<List />} />
                       </Route>
                       <Route path="tag">
                         <Route path=":id" element={<></>} />

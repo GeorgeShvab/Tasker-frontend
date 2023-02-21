@@ -35,7 +35,7 @@ const nameSchema = yup.object().shape({
 
 const Tags: FunctionComponent<{
   tags: types.Tag[]
-  callback?: (id: string) => void
+  callback: (values: { name: string }) => void
   page?: {
     id: string | undefined
     page: string
@@ -48,21 +48,15 @@ const Tags: FunctionComponent<{
 
   const [alertStatus, setAlertStatus] = useState<null | AlertStatus>(null)
 
-  const [createTag] = useCreateTagMutation()
-
   const handleSubmit = async (values: { name: string }) => {
     try {
-      const data = await createTag({
-        name: values.name,
-      }).unwrap()
+      await callback(values)
 
       setAlertStatus({
         msg: 'Тег створено',
         type: 'success',
         status: true,
       })
-
-      if (callback) callback(data._id)
     } catch (e) {
       setAlertStatus({
         msg: 'Помилка при створенні тега',

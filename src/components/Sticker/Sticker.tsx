@@ -197,7 +197,7 @@ const Sticker: FunctionComponent<types.Sticker> = ({
           <Paper
             ref={anchorRef}
             sx={{
-              padding: isNotMobile ? '20px' : '12px',
+              padding: isNotMobile ? '20px' : '17.5px',
               backgroundColor: focus ? color + '80' : color + '40',
               '&:hover': { backgroundColor: color + '80' },
               transition: 'background 0.15s',

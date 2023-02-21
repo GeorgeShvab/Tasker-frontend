@@ -10,7 +10,7 @@ import AddIcon from '@mui/icons-material/Add'
 import AsideButton from './AsideButton'
 import AsideListButton from '../List/List'
 import { useGetListsQuery } from '../../api/listApiSlice'
-import { useGetTagsQuery } from '../../api/tagApiSlice'
+import { useCreateTagMutation, useGetTagsQuery } from '../../api/tagApiSlice'
 import Tag from '../Tag/Tag'
 import { useGetTasksQuery } from '../../api/taskApiSlice'
 import { Link, matchPath, useLocation, useParams } from 'react-router-dom'
@@ -44,12 +44,20 @@ const Aside: FunctionComponent = () => {
     })
   }, [pathname])
 
+  const [createTag] = useCreateTagMutation()
+
+  const handleCreateTag = async (values: { name: string }) => {
+    const data = await createTag({
+      name: values.name,
+    }).unwrap()
+  }
+
   return (
     <Box
       component="aside"
       padding="20px 0"
       display="flex"
-      minHeight="100vh"
+      minHeight="100%"
       sx={{
         background: palette.background.dark,
         flexDirection: 'column',
@@ -142,6 +150,7 @@ const Aside: FunctionComponent = () => {
               tags={tags.data || []}
               page={page}
               isLoading={tags.isLoading}
+              callback={handleCreateTag}
             />
           </AsideItem>
         </Box>

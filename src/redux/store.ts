@@ -4,6 +4,7 @@ import apiSlice from '../api/apiSlice'
 import auth from './slices/auth'
 import menu from './slices/menu'
 import mode from './slices/mode'
+import task from './slices/task'
 
 const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ const store = configureStore({
     mode,
     auth,
     menu,
+    task,
   },
   middleware: (getDafaultMiddleware) =>
     getDefaultMiddleware().concat(apiSlice.middleware),

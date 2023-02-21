@@ -75,16 +75,18 @@ export interface Tag {
   creator: ObjectId
   color: string
   tasks: number
+  createdAt: string
+  updatedAt: string
 }
 
 export interface Task {
   _id: string
   name: string
   description: string
-  list: ObjectId
-  date: Date
-  tags: ObjectId[]
-  creator: ObjectId
+  list: List | null
+  date: string
+  tags: Tag[]
+  creator: User
   completed: boolean
   createdAt: string
   updatedAt: string
@@ -124,3 +126,10 @@ export type Placement =
   | 'top-end'
   | 'top-start'
   | 'top'
+
+export interface TouchData {
+  xStart: number | null
+  xEnd: number | null
+  yStart: number | null
+  yEnd: number | null
+}

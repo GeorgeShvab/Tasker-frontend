@@ -1,4 +1,4 @@
-import { useTheme } from '@mui/material'
+import { useMediaQuery, useTheme } from '@mui/material'
 import Box from '@mui/material/Box'
 import { SxProps } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
@@ -11,22 +11,24 @@ const Title: FunctionComponent<{
 }> = ({ children, count, sx }) => {
   const { palette } = useTheme()
 
+  const isNotMobile = useMediaQuery('(min-width: 769px)')
+
   return (
     <Box display={count ? 'flex' : 'block'} sx={sx} alignItems="center">
       <Typography
         variant="h1"
         fontWeight="800"
-        fontSize="30px"
+        fontSize={isNotMobile ? '30px' : '20px'}
         marginRight={(count && '20px') || undefined}
       >
         {children}
       </Typography>
-      {count && (
+      {Boolean(count) && isNotMobile && (
         <Typography
-          variant="h3"
+          variant="h4"
           fontWeight="800"
-          lineHeight="40px"
-          width="40px"
+          lineHeight="35px"
+          minWidth="35px"
           textAlign="center"
           border={'1px solid ' + palette.grey[100]}
           borderRadius="5px"

@@ -1,4 +1,4 @@
-import { useMediaQuery, Box, useTheme } from '@mui/material'
+import { useMediaQuery, Box, useTheme, Skeleton } from '@mui/material'
 import { FunctionComponent, ReactElement, UIEvent, useState } from 'react'
 import throttle from '../utils/throttle'
 import MenuBtn from './MenuBtn'
@@ -8,7 +8,8 @@ const ContentLayout: FunctionComponent<{
   children: ReactElement
   title: string
   count?: number
-}> = ({ children, title, count }) => {
+  isLoading?: boolean
+}> = ({ children, title, count, isLoading }) => {
   const isNotMobile = useMediaQuery('(min-width: 769px)')
 
   const [scrolled, setScrolled] = useState(false)
@@ -27,7 +28,7 @@ const ContentLayout: FunctionComponent<{
 
   return (
     <Box
-      height="100vh"
+      height="var(--full-height)"
       overflow="auto"
       position="relative"
       onScroll={handleScroll}
@@ -67,7 +68,16 @@ const ContentLayout: FunctionComponent<{
         alignItems="center"
       >
         {!isNotMobile && <MenuBtn />}
-        <Title count={count}>{title}</Title>
+        {!isLoading ? (
+          <Title count={count}>{title}</Title>
+        ) : (
+          <Skeleton
+            variant="rectangular"
+            width="200px"
+            height="35px"
+            sx={{ borderRadius: 1 }}
+          />
+        )}
       </Box>
       <Box
         component="main"

@@ -29,7 +29,10 @@ const listApiSlice = apiSlice.injectEndpoints({
         method: 'PATCH',
         body,
       }),
-      invalidatesTags: ['Lists'],
+      invalidatesTags: (result, error, args) => [
+        'Lists',
+        { type: 'List', id: args.id },
+      ],
     }),
     createList: builder.mutation<List, { name: string }>({
       query: (body) => ({
@@ -39,6 +42,12 @@ const listApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ['Lists'],
     }),
+    getList: builder.query<List, string>({
+      query: (id) => ({
+        url: 'list/' + id,
+      }),
+      providesTags: (result, error, args) => [{ type: 'List', id: args }],
+    }),
   }),
 })
 
@@ -47,4 +56,5 @@ export const {
   useDeleteListMutation,
   useUpdateListMutation,
   useCreateListMutation,
+  useGetListQuery,
 } = listApiSlice
