@@ -5,10 +5,11 @@ import {
   InputAdornment,
   Collapse,
 } from '@mui/material'
-import { FunctionComponent, useEffect, useState, FormEvent } from 'react'
+import { FunctionComponent, useState, FormEvent } from 'react'
 import SearchIcon from '@mui/icons-material/Search'
 import Logo from '../Logo'
 import { useNavigate, useSearchParams } from 'react-router-dom'
+import { PageState } from '../../../types'
 
 interface FormSubmissionEvent extends FormEvent<HTMLFormElement> {
   target: EventTarget & {
@@ -17,7 +18,7 @@ interface FormSubmissionEvent extends FormEvent<HTMLFormElement> {
 }
 
 const AsideHeader: FunctionComponent<{
-  page: { page: string; id: string | undefined }
+  page: PageState
 }> = ({ page }) => {
   const [isCollapsed, setIsCollapsed] = useState<boolean>(
     page.page === 'search'

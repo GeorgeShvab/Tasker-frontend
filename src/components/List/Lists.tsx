@@ -8,7 +8,6 @@ import {
   DialogTitle,
   Snackbar,
   TextField,
-  useTheme,
   Skeleton,
 } from '@mui/material'
 import { Formik } from 'formik'
@@ -32,10 +31,7 @@ const nameSchema = yup.object().shape({
 const Lists: FunctionComponent<{
   lists: types.List[]
   callback?: (id: string) => void
-  page?: {
-    id: string | undefined
-    page: string
-  }
+  page?: types.PageState
   isLoading: boolean
 }> = ({ lists, callback, page, isLoading }) => {
   const [open, setOpen] = useState<boolean>(false)

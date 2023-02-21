@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box'
 import IconButton from '@mui/material/IconButton'
-import { FunctionComponent, memo, MouseEvent, useEffect, useState } from 'react'
+import { FunctionComponent, memo, MouseEvent, useState } from 'react'
 import * as types from '../../../types'
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank'
 import CheckBoxIcon from '@mui/icons-material/CheckBox'

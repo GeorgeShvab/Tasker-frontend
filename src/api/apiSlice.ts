@@ -1,5 +1,4 @@
 import { QueryReturnValue } from '@reduxjs/toolkit/dist/query/baseQueryTypes'
-import { MaybePromise } from '@reduxjs/toolkit/dist/query/tsHelpers'
 import {
   createApi,
   fetchBaseQuery,

@@ -13,11 +13,10 @@ import {
   Skeleton,
 } from '@mui/material'
 import { Formik } from 'formik'
-import { FunctionComponent, useState, useEffect } from 'react'
+import { FunctionComponent, useState } from 'react'
 import * as types from '../../../types'
 import Tag from './Tag'
 import * as yup from 'yup'
-import { useCreateTagMutation } from '../../api/tagApiSlice'
 
 interface AlertStatus {
   msg: string
@@ -36,10 +35,7 @@ const nameSchema = yup.object().shape({
 const Tags: FunctionComponent<{
   tags: types.Tag[]
   callback: (values: { name: string }) => void
-  page?: {
-    id: string | undefined
-    page: string
-  }
+  page?: types.PageState
   isLoading: boolean
 }> = ({ tags, callback, page, isLoading }) => {
   const { palette } = useTheme()

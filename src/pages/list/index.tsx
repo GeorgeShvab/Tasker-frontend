@@ -1,7 +1,6 @@
-import { Box, useMediaQuery, useTheme, Typography } from '@mui/material'
-import { FunctionComponent, useState } from 'react'
+import { Box, useMediaQuery } from '@mui/material'
+import { FunctionComponent } from 'react'
 import { useParams } from 'react-router-dom'
-import { TouchData } from '../../../types'
 import { useGetListQuery } from '../../api/listApiSlice'
 import { useGetTasksByListQuery } from '../../api/taskApiSlice'
 import {
@@ -10,20 +9,13 @@ import {
   AccordionSummary,
 } from '../../components/Accordion'
 import ContentLayout from '../../components/ContentLayout'
-import MainContentWrapper from '../../components/MainContentWrapper'
 import AddTask from '../../components/Task/AddTask'
 import Tasks from '../../components/Task/Tasks'
-import TaskOptions from '../../components/TaskOptions'
-import { toggleMenu } from '../../redux/slices/menu'
-import { selectTask, setTask } from '../../redux/slices/task'
-import { useAppDispatch, useAppSelector } from '../../redux/store'
+import { setTask } from '../../redux/slices/task'
+import { useAppDispatch } from '../../redux/store'
 
 const List: FunctionComponent = () => {
   const dispatch = useAppDispatch()
-
-  const selectedTask = useAppSelector(selectTask)
-
-  const { palette } = useTheme()
 
   const { id } = useParams()
 
@@ -35,13 +27,6 @@ const List: FunctionComponent = () => {
 
   const handleAddTaskClick = () => {
     dispatch(setTask({ isSideBarOpened: true, task: null }))
-  }
-
-  const touchData: TouchData = {
-    xStart: null,
-    xEnd: null,
-    yStart: null,
-    yEnd: null,
   }
 
   return (

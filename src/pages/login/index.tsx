@@ -2,12 +2,9 @@ import { Paper, useMediaQuery, useTheme } from '@mui/material'
 import Box from '@mui/material/Box'
 import { FunctionComponent } from 'react'
 import CenterContainer from '../../components/CenterContainer'
-import { useAppSelector } from '../../redux/store'
 import LoginForm from './Form'
 import image from '../../assets/images/survey.png'
 import Logo from '../../components/Logo'
-import { isAuthorized } from '../../redux/slices/auth'
-import { Navigate, useNavigate } from 'react-router-dom'
 
 const Login: FunctionComponent = () => {
   const theme = useTheme()

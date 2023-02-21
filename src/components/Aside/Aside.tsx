@@ -1,22 +1,20 @@
-import { Box, Divider, Menu, Typography, useTheme } from '@mui/material'
-import { FunctionComponent, useState, useEffect } from 'react'
+import { Box, Divider, Typography, useTheme } from '@mui/material'
+import { FunctionComponent } from 'react'
 import AsideItem from './AsideItem'
 import TodayIcon from '@mui/icons-material/Today'
 import StickyNote2Icon from '@mui/icons-material/StickyNote2'
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight'
 import ExitToAppIcon from '@mui/icons-material/ExitToApp'
 import SettingsIcon from '@mui/icons-material/Settings'
-import AddIcon from '@mui/icons-material/Add'
 import AsideButton from './AsideButton'
-import AsideListButton from '../List/List'
 import { useGetListsQuery } from '../../api/listApiSlice'
 import { useCreateTagMutation, useGetTagsQuery } from '../../api/tagApiSlice'
-import Tag from '../Tag/Tag'
 import { useGetTasksQuery } from '../../api/taskApiSlice'
-import { Link, matchPath, useLocation, useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import AsideHeader from './AsideHeader'
 import Tags from '../Tag/Tags'
 import Lists from '../List/Lists'
+import usePage from '../../hooks/usePage'
 
 const Aside: FunctionComponent = () => {
   const { palette } = useTheme()
@@ -26,23 +24,7 @@ const Aside: FunctionComponent = () => {
   const { data: todaysTasks } = useGetTasksQuery('?period=today')
   const { data: upcomingTasks } = useGetTasksQuery('?period=upcoming')
 
-  const { pathname } = useLocation()
-
-  const currentPage = pathname.split('/')[1]
-
-  const param = matchPath(`/${currentPage}/:id`, pathname)?.params?.id
-
-  const [page, setPage] = useState<{ page: string; id: undefined | string }>({
-    page: currentPage,
-    id: param,
-  })
-
-  useEffect(() => {
-    setPage({
-      page: currentPage,
-      id: param,
-    })
-  }, [pathname])
+  const page = usePage()
 
   const [createTag] = useCreateTagMutation()
 

@@ -1,4 +1,3 @@
-import { fetchBaseQuery } from '@reduxjs/toolkit/dist/query'
 import { AuthResponse, LoginBody, RegistrationBody, User } from '../../types'
 import apiSlice from './apiSlice'
 

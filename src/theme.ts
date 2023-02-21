@@ -56,11 +56,11 @@ const lightThemeTokens = {
   },
 }
 
-export const themeSettings = (mode: Mode) => {
+export const themeSettings = () => {
   const theme = createTheme({
     palette: {
-      mode: mode,
-      ...(mode === 'light' ? lightThemeTokens : darkThemeTokens),
+      mode: 'light',
+      ...lightThemeTokens,
     },
     typography: {
       fontFamily: 'Rubik, sans-serif',

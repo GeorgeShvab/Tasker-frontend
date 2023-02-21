@@ -4,7 +4,6 @@ import { FunctionComponent } from 'react'
 import { Tag } from '../../../types'
 import CloseIcon from '@mui/icons-material/Close'
 import { useDrag } from 'react-dnd'
-import { useCreateTagMutation } from '../../api/tagApiSlice'
 
 const PoorTag: FunctionComponent<
   Tag & {

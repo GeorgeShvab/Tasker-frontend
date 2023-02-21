@@ -4,27 +4,16 @@ import {
   Dialog,
   DialogTitle,
   DialogContent,
-  DialogContentText,
   DialogActions,
   Button,
   TextField,
   Alert,
   Snackbar,
-  TextareaAutosize,
   useMediaQuery,
 } from '@mui/material'
 import Box from '@mui/material/Box'
 import Paper from '@mui/material/Paper'
-import Typography from '@mui/material/Typography'
-import {
-  FunctionComponent,
-  useState,
-  useRef,
-  ClipboardEvent,
-  KeyboardEvent,
-  ChangeEvent,
-  memo,
-} from 'react'
+import { FunctionComponent, useState, useRef, ChangeEvent, memo } from 'react'
 import * as types from '../../../types'
 import {
   useDeleteStickerMutation,
@@ -32,7 +21,6 @@ import {
 } from '../../api/stickerApiSlice'
 import useOutsideClick from '../../hooks/useOutsideClick'
 import debounce from '../../utils/debounce'
-import throttle from '../../utils/throttle'
 import ContextMenu from '../ContextMenu'
 
 type StickerAction = 'delete' | 'change_color'

@@ -36,6 +36,7 @@ import {
 } from '../api/taskApiSlice'
 import { formatDate, unformatDate } from '../utils/date'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+import usePage from '../hooks/usePage'
 
 const formSchema = yup.object().shape({
   name: yup.string().max(200, 'Назва повинна містити не більше 200 символів'),
@@ -51,9 +52,7 @@ interface FormValues {
   list: string
 }
 
-const TaskOptions: FunctionComponent<{ defaultList?: string }> = ({
-  defaultList,
-}) => {
+const TaskOptions: FunctionComponent = () => {
   const dispatch = useAppDispatch()
 
   const { palette } = useTheme()
@@ -165,10 +164,13 @@ const TaskOptions: FunctionComponent<{ defaultList?: string }> = ({
     }
   }
 
+  const page = usePage()
+
   const initialValues = {
     name: selectedTask.data?.name || '',
     description: selectedTask.data?.description || '',
-    list: selectedTask.data?.list?._id || '',
+    list:
+      selectedTask.data?.list?._id || page.page === 'list' ? page.id || '' : '',
     date: (selectedTask.data && unformatDate(selectedTask.data?.date)) || '',
   }
 

@@ -1,5 +1,5 @@
 import apiSlice from './apiSlice'
-import { Tag, Task } from '../../types'
+import { Task } from '../../types'
 
 interface UpdateTaskBody {
   _id: string

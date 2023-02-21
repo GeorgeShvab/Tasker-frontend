@@ -3,13 +3,11 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 import apiSlice from '../api/apiSlice'
 import auth from './slices/auth'
 import menu from './slices/menu'
-import mode from './slices/mode'
 import task from './slices/task'
 
 const store = configureStore({
   reducer: {
     [apiSlice.reducerPath]: apiSlice.reducer,
-    mode,
     auth,
     menu,
     task,

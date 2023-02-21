@@ -133,3 +133,10 @@ export interface TouchData {
   yStart: number | null
   yEnd: number | null
 }
+
+export type Page = 'list' | 'notes' | 'upcoming' | 'today' | 'tag' | 'settings'
+
+interface PageState {
+  page: string | undefined
+  id: string | undefined
+}

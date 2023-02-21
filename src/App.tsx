@@ -1,25 +1,22 @@
-import { BrowserRouter, Route, Routes, useParams } from 'react-router-dom'
-import { Provider } from 'react-redux'
+import { Route, Routes } from 'react-router-dom'
 import MainPage from './pages/main'
 import Login from './pages/login'
-import store, { useAppSelector } from './redux/store'
 import Layout from './components/Layout'
 import Registration from './pages/registration'
 import useAuthorize from './hooks/useAuthorize'
 import { CssBaseline, Box, ThemeProvider } from '@mui/material'
-import { createTheme } from '@mui/material/styles'
 import { useEffect, useMemo } from 'react'
-import { selectMode } from './redux/slices/mode'
 import { themeSettings } from './theme'
 import ProtectRoute from './components/ProtectRoute'
 import Notes from './pages/notes'
 import List from './pages/list'
+import usePage from './hooks/usePage'
 
 function App() {
   useAuthorize()
+  usePage()
 
-  const mode = useAppSelector(selectMode)
-  const theme = useMemo(() => themeSettings(mode), [mode])
+  const theme = useMemo(() => themeSettings(), [])
 
   useEffect(() => {
     let vh = window.innerHeight * 0.01
