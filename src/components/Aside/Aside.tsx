@@ -1,5 +1,5 @@
 import { Box, Divider, Typography, useTheme } from '@mui/material'
-import { FunctionComponent } from 'react'
+import { FunctionComponent, memo } from 'react'
 import AsideItem from './AsideItem'
 import TodayIcon from '@mui/icons-material/Today'
 import StickyNote2Icon from '@mui/icons-material/StickyNote2'
@@ -167,4 +167,4 @@ const Aside: FunctionComponent = () => {
   )
 }
 
-export default Aside
+export default memo(Aside)
