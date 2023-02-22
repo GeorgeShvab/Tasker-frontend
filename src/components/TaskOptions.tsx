@@ -55,6 +55,8 @@ interface FormValues {
 const TaskOptions: FunctionComponent = () => {
   const dispatch = useAppDispatch()
 
+  const page = usePage()
+
   const { palette } = useTheme()
 
   const isNotMobile = useMediaQuery('(min-width: 769px)')
@@ -153,7 +155,9 @@ const TaskOptions: FunctionComponent = () => {
 
         setAlert(null)
 
-        dispatch(setTask({ task: null, isSideBarOpened: true }))
+        dispatch(
+          setTask({ task: null, isSideBarOpened: isNotMobile ? true : false })
+        )
       } catch (e) {
         setAlert({
           status: true,
@@ -164,7 +168,19 @@ const TaskOptions: FunctionComponent = () => {
     }
   }
 
-  const page = usePage()
+  useEffect(() => {
+    if (
+      !['list', 'upcoming', 'tag', 'today'].some((item) => item === page.page)
+    ) {
+      dispatch(setTask({ isSideBarOpened: false }))
+    }
+  }, [page])
+
+  useEffect(() => {
+    if (selectedTask) {
+      setTags(selectedTask.data?.tags || [])
+    }
+  }, [selectedTask])
 
   const initialValues = {
     name: selectedTask.data?.name || '',
@@ -177,12 +193,6 @@ const TaskOptions: FunctionComponent = () => {
   const displayedDateExample = unformatDate(
     new Date(new Date().setDate(new Date().getDate() + 1)).toISOString()
   )
-
-  useEffect(() => {
-    if (selectedTask) {
-      setTags(selectedTask.data?.tags || [])
-    }
-  }, [selectedTask])
 
   const handleCloseSideBar = () => {
     dispatch(setTask({ isSideBarOpened: false }))

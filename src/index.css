@@ -39,7 +39,6 @@ body {
 
     min-height: var(--full-height);
   }
-  
 }
 
 h1 {
@@ -61,7 +60,6 @@ button {
 button:hover {
   border-color: #646cff;
 }
-
 
 @media (prefers-color-scheme: light) {
   :root {
