@@ -40,6 +40,12 @@ const tagApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ['Tags'],
     }),
+    getTag: builder.query<Tag, string>({
+      query: (id) => ({
+        url: 'tag/' + id,
+      }),
+      providesTags: (result, error, arg) => [{ type: 'Tag', id: arg }],
+    }),
   }),
 })
 
@@ -48,4 +54,5 @@ export const {
   useDeleteTagMutation,
   useUpdateTagMutation,
   useCreateTagMutation,
+  useGetTagQuery,
 } = tagApiSlice

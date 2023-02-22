@@ -33,6 +33,12 @@ const taskApiSlice = apiSlice.injectEndpoints({
       }),
       providesTags: (result, error, arg) => [{ type: 'ListTasks', id: arg }],
     }),
+    getTasksByTag: builder.query<Task[], string>({
+      query: (id) => ({
+        url: `tag/${id}/tasks`,
+      }),
+      providesTags: (result, error, arg) => [{ type: 'TagTasks', id: arg }],
+    }),
     updateTask: builder.mutation<Task, UpdateTaskBody>({
       query: (body) => ({
         url: 'task/' + body._id,
@@ -101,4 +107,5 @@ export const {
   useUpdateTaskMutation,
   useDeleteTaskMutation,
   useToggleCompletionMutation,
+  useGetTasksByTagQuery,
 } = taskApiSlice

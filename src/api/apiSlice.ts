@@ -91,6 +91,7 @@ const apiSlice = createApi({
     'Today',
     'Upcoming',
     'TagTasks',
+    'Tag',
   ],
 })
 

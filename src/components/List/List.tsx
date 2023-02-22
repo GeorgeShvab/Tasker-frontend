@@ -48,6 +48,7 @@ const List: FunctionComponent<types.List & { selected?: boolean }> = ({
   color,
   name,
   selected,
+  uncompletedTasks,
 }) => {
   const { palette } = useTheme()
 
@@ -149,15 +150,17 @@ const List: FunctionComponent<types.List & { selected?: boolean }> = ({
             </svg>
           }
           endIcon={
-            <Box
-              sx={{ backgroundColor: palette.grey.A100 }}
-              minWidth="25px"
-              borderRadius="2.5px"
-              height="15px"
-              padding="0 5px"
-            >
-              <Typography fontSize="10px">{tasks}</Typography>
-            </Box>
+            uncompletedTasks ? (
+              <Box
+                sx={{ backgroundColor: palette.grey.A100 }}
+                minWidth="25px"
+                borderRadius="2.5px"
+                height="15px"
+                padding="0 5px"
+              >
+                <Typography fontSize="10px">{uncompletedTasks}</Typography>
+              </Box>
+            ) : null
           }
           className={selected ? 'selected' : ''}
           fullWidth

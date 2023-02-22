@@ -36,7 +36,7 @@ const Task: FunctionComponent<
 
   return (
     <Box
-      padding={isNotMobile ? '5px 30px 15px 15px' : '5px 10px 13px 0'}
+      padding={isNotMobile ? '5px 30px 5px 15px' : '5px 10px 5px 0'}
       className={props.selected ? 'selected' : ''}
       sx={{
         '&:hover': {
@@ -72,6 +72,9 @@ const Task: FunctionComponent<
               sx={{
                 textDecoration: completed ? 'line-through' : 'none',
                 wordBreak: 'break-word',
+                '&:last-child': {
+                  mb: '0',
+                },
               }}
               mb="6px"
             >
@@ -83,6 +86,9 @@ const Task: FunctionComponent<
                 sx={{
                   textDecoration: completed ? 'line-through' : 'none',
                   wordBreak: 'break-word',
+                  '&:last-child': {
+                    paddingBottom: isNotMobile ? '9px' : '7px',
+                  },
                 }}
                 color={palette.grey[300]}
                 mb="6px"
@@ -97,6 +103,11 @@ const Task: FunctionComponent<
                 justifyContent="flex-start"
                 gap={isNotMobile ? '25px' : '10px'}
                 flex="0 0 auto"
+                sx={{
+                  '&:last-child': {
+                    paddingBottom: isNotMobile ? '9px' : '7px',
+                  },
+                }}
               >
                 {props.date && (
                   <Box

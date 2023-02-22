@@ -50,7 +50,7 @@ const ContentLayout: FunctionComponent<{
     >
       <Box
         component="header"
-        padding={isNotMobile ? '15px 30px' : '15px 10px'}
+        padding={isNotMobile ? '22px 30px' : '15px 10px'}
         position="sticky"
         width="100%"
         zIndex="2"

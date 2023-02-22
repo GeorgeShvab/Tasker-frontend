@@ -67,6 +67,8 @@ export interface List {
   color: string
   creator: ObjectId
   tasks: number
+  completedTasks: number
+  uncompletedTasks: number
 }
 
 export interface Tag {
@@ -77,6 +79,8 @@ export interface Tag {
   tasks: number
   createdAt: string
   updatedAt: string
+  completedTasks: number
+  uncompletedTasks: number
 }
 
 export interface Task {

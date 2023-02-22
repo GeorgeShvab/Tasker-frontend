@@ -11,6 +11,9 @@ import ProtectRoute from './components/ProtectRoute'
 import Notes from './pages/notes'
 import List from './pages/list'
 import usePage from './hooks/usePage'
+import Today from './pages/today'
+import Upcoming from './pages/upcoming'
+import Tag from './pages/tag'
 
 function App() {
   useAuthorize()
@@ -54,13 +57,13 @@ function App() {
                     <Routes>
                       <Route path="/" element={<MainPage />} />
                       <Route path="/notes" element={<Notes />} />
-                      <Route path="/upcoming" element={<></>} />
-                      <Route path="/today" element={<></>} />
+                      <Route path="/upcoming" element={<Upcoming />} />
+                      <Route path="/today" element={<Today />} />
                       <Route path="list">
                         <Route path=":id" element={<List />} />
                       </Route>
                       <Route path="tag">
-                        <Route path=":id" element={<></>} />
+                        <Route path=":id" element={<Tag />} />
                       </Route>
                     </Routes>
                   </ProtectRoute>

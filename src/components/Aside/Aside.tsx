@@ -21,8 +21,12 @@ const Aside: FunctionComponent = () => {
 
   const lists = useGetListsQuery()
   const tags = useGetTagsQuery()
-  const { data: todaysTasks } = useGetTasksQuery('?period=today')
-  const { data: upcomingTasks } = useGetTasksQuery('?period=upcoming')
+  const { data: todaysTasks } = useGetTasksQuery(
+    '?period=today&status=uncompleted'
+  )
+  const { data: upcomingTasks } = useGetTasksQuery(
+    '?period=upcoming&status=uncompleted'
+  )
 
   const page = usePage()
 
@@ -63,17 +67,19 @@ const Aside: FunctionComponent = () => {
                   size="large"
                   startIcon={<KeyboardDoubleArrowRightIcon />}
                   endIcon={
-                    <Box
-                      sx={{ backgroundColor: palette.grey.A100 }}
-                      minWidth="25px"
-                      borderRadius="2.5px"
-                      height="15px"
-                      padding="0 5px"
-                    >
-                      <Typography fontSize="10px">
-                        {upcomingTasks?.length || 0}
-                      </Typography>
-                    </Box>
+                    upcomingTasks?.length ? (
+                      <Box
+                        sx={{ backgroundColor: palette.grey.A100 }}
+                        minWidth="25px"
+                        borderRadius="2.5px"
+                        height="15px"
+                        padding="0 5px"
+                      >
+                        <Typography fontSize="10px">
+                          {upcomingTasks?.length || 0}
+                        </Typography>
+                      </Box>
+                    ) : null
                   }
                   className={page.page === 'upcoming' ? 'selected' : ''}
                   fullWidth
@@ -87,17 +93,19 @@ const Aside: FunctionComponent = () => {
                   size="large"
                   startIcon={<TodayIcon />}
                   endIcon={
-                    <Box
-                      sx={{ backgroundColor: palette.grey.A100 }}
-                      minWidth="25px"
-                      borderRadius="2.5px"
-                      height="15px"
-                      padding="0 5px"
-                    >
-                      <Typography fontSize="10px">
-                        {todaysTasks?.length || 0}
-                      </Typography>
-                    </Box>
+                    todaysTasks?.length ? (
+                      <Box
+                        sx={{ backgroundColor: palette.grey.A100 }}
+                        minWidth="25px"
+                        borderRadius="2.5px"
+                        height="15px"
+                        padding="0 5px"
+                      >
+                        <Typography fontSize="10px">
+                          {todaysTasks?.length || 0}
+                        </Typography>
+                      </Box>
+                    ) : null
                   }
                   className={page.page === 'today' ? 'selected' : ''}
                   fullWidth

@@ -182,12 +182,18 @@ const TaskOptions: FunctionComponent = () => {
     }
   }, [selectedTask])
 
+  const initialDate =
+    (selectedTask.data && unformatDate(selectedTask.data?.date)) ||
+    page.page === 'today'
+      ? unformatDate(new Date().toISOString())
+      : ''
+
   const initialValues = {
     name: selectedTask.data?.name || '',
     description: selectedTask.data?.description || '',
     list:
       selectedTask.data?.list?._id || page.page === 'list' ? page.id || '' : '',
-    date: (selectedTask.data && unformatDate(selectedTask.data?.date)) || '',
+    date: initialDate,
   }
 
   const displayedDateExample = unformatDate(

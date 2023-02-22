@@ -2,7 +2,12 @@ import { Box, useMediaQuery } from '@mui/material'
 import { FunctionComponent } from 'react'
 import { useParams } from 'react-router-dom'
 import { useGetListQuery } from '../../api/listApiSlice'
-import { useGetTasksByListQuery } from '../../api/taskApiSlice'
+import { useGetTagQuery } from '../../api/tagApiSlice'
+import {
+  useGetTasksByListQuery,
+  useGetTasksByTagQuery,
+  useGetTasksQuery,
+} from '../../api/taskApiSlice'
 import {
   Accordion,
   AccordionDetails,
@@ -14,14 +19,14 @@ import Tasks from '../../components/Task/Tasks'
 import { setTask } from '../../redux/slices/task'
 import { useAppDispatch } from '../../redux/store'
 
-const List: FunctionComponent = () => {
+const Tag: FunctionComponent = () => {
   const dispatch = useAppDispatch()
 
   const { id } = useParams()
 
-  const list = useGetListQuery(id || '')
+  const tag = useGetTagQuery(id || '')
 
-  const tasks = useGetTasksByListQuery(id || '')
+  const tasks = useGetTasksByTagQuery(id || '')
 
   const isNotMobile = useMediaQuery('(min-width: 769px)')
 
@@ -42,9 +47,9 @@ const List: FunctionComponent = () => {
       >
         <Box width={isNotMobile ? undefined : '100vw'}>
           <ContentLayout
-            title={list?.data?.name || ''}
-            isLoading={list.isLoading}
-            count={list.data?.uncompletedTasks}
+            title={tag.data?.name || ''}
+            isLoading={tag.isLoading}
+            count={tag.data?.uncompletedTasks}
           >
             <>
               <AddTask onClick={handleAddTaskClick} />
@@ -83,4 +88,4 @@ const List: FunctionComponent = () => {
   )
 }
 
-export default List
+export default Tag
