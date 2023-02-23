@@ -127,3 +127,26 @@ export const unformatDate = (input: string) => {
 
   return [date, month, year].join('-')
 }
+
+export const getBeginningOfTheNextWeek = (): Date => {
+  const beginningOfTheNextWeek = new Date(
+    new Date(
+      new Date().setDate(new Date().getDate() - (new Date().getDay() - 1) + 7)
+    ).setUTCHours(12, 0, 0, 0)
+  )
+
+  return beginningOfTheNextWeek
+}
+
+export const getNextDay = (): Date => {
+  const beginningOfTheNextDay = new Date(
+    new Date(new Date().setDate(new Date().getDate() + 1)).setUTCHours(
+      12,
+      0,
+      0,
+      0
+    )
+  )
+
+  return beginningOfTheNextDay
+}

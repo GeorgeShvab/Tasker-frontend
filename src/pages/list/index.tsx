@@ -26,7 +26,13 @@ const List: FunctionComponent = () => {
   const isNotMobile = useMediaQuery('(min-width: 769px)')
 
   const handleAddTaskClick = () => {
-    dispatch(setTask({ isSideBarOpened: true, task: null }))
+    dispatch(
+      setTask({
+        isSideBarOpened: true,
+        task: null,
+        defaultValues: { list: id },
+      })
+    )
   }
 
   return (

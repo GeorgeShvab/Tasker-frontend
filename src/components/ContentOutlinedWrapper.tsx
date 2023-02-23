@@ -24,7 +24,7 @@ const ContentOutlinedWrapper: FunctionComponent<{
           fontWeight="800"
           position="absolute"
           padding="10px"
-          top={isNotMobile ? '-21px' : '-16px'}
+          top="-21px"
           left={isNotMobile ? '17px' : '12px'}
           sx={{ backgroundColor: palette.background.default }}
         >

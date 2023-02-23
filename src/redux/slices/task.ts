@@ -1,18 +1,32 @@
 import { Action, createSlice } from '@reduxjs/toolkit'
-import { Task } from '../../../types'
+import { Tag, Task } from '../../../types'
+
+interface DefaultValues {
+  name?: string
+  description?: string
+  date?: string
+  list?: string
+  tags?: Tag[]
+}
 
 interface TaskState {
   data: Task | null
   isSideBarOpened: boolean
+  defaultValues: DefaultValues
 }
 
 interface SetTaskAction extends Action {
-  payload: { task?: Task | null; isSideBarOpened?: boolean }
+  payload: {
+    task?: Task | null
+    isSideBarOpened?: boolean
+    defaultValues?: DefaultValues
+  }
 }
 
 const initialState: TaskState = {
   data: null,
   isSideBarOpened: false,
+  defaultValues: {},
 }
 
 const taskSlice = createSlice({
@@ -28,6 +42,9 @@ const taskSlice = createSlice({
         action.payload.isSideBarOpened === undefined
           ? state.isSideBarOpened
           : action.payload.isSideBarOpened
+      state.defaultValues = action.payload?.defaultValues
+        ? action.payload.defaultValues
+        : {}
     },
   },
 })

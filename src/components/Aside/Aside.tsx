@@ -15,6 +15,7 @@ import AsideHeader from './AsideHeader'
 import Tags from '../Tag/Tags'
 import Lists from '../List/Lists'
 import usePage from '../../hooks/usePage'
+import Logout from '../Logout'
 
 const Aside: FunctionComponent = () => {
   const { palette } = useTheme()
@@ -145,22 +146,26 @@ const Aside: FunctionComponent = () => {
           </AsideItem>
         </Box>
         <Box padding="30px 20px 0">
-          <AsideButton
-            variant="text"
-            size="large"
-            startIcon={<SettingsIcon />}
-            fullWidth
-          >
-            Налаштування
-          </AsideButton>
-          <AsideButton
-            variant="text"
-            size="large"
-            startIcon={<ExitToAppIcon />}
-            fullWidth
-          >
-            Вийти з аккаунту
-          </AsideButton>
+          <Link to="/settings">
+            <AsideButton
+              variant="text"
+              size="large"
+              startIcon={<SettingsIcon />}
+              fullWidth
+            >
+              Налаштування
+            </AsideButton>
+          </Link>
+          <Logout>
+            <AsideButton
+              variant="text"
+              size="large"
+              startIcon={<ExitToAppIcon />}
+              fullWidth
+            >
+              Вийти з аккаунту
+            </AsideButton>
+          </Logout>
         </Box>
       </Box>
     </Box>

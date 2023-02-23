@@ -178,7 +178,7 @@ const TaskOptions: FunctionComponent = () => {
 
   useEffect(() => {
     if (selectedTask) {
-      setTags(selectedTask.data?.tags || [])
+      setTags(selectedTask.data?.tags || selectedTask.defaultValues.tags || [])
     }
   }, [selectedTask])
 
@@ -189,11 +189,13 @@ const TaskOptions: FunctionComponent = () => {
       : ''
 
   const initialValues = {
-    name: selectedTask.data?.name || '',
-    description: selectedTask.data?.description || '',
-    list:
-      selectedTask.data?.list?._id || page.page === 'list' ? page.id || '' : '',
-    date: initialDate,
+    name: selectedTask.data?.name || selectedTask.defaultValues.name || '',
+    description:
+      selectedTask.data?.description ||
+      selectedTask.defaultValues.description ||
+      '',
+    list: selectedTask.data?.list?._id || selectedTask.defaultValues.list || '',
+    date: selectedTask.defaultValues.date || initialDate,
   }
 
   const displayedDateExample = unformatDate(

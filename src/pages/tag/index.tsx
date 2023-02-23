@@ -31,7 +31,13 @@ const Tag: FunctionComponent = () => {
   const isNotMobile = useMediaQuery('(min-width: 769px)')
 
   const handleAddTaskClick = () => {
-    dispatch(setTask({ isSideBarOpened: true, task: null }))
+    dispatch(
+      setTask({
+        isSideBarOpened: true,
+        task: null,
+        defaultValues: tag.data ? { tags: [tag.data] } : {},
+      })
+    )
   }
 
   return (

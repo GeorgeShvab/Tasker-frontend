@@ -17,6 +17,11 @@ import AddTask from '../../components/Task/AddTask'
 import Tasks from '../../components/Task/Tasks'
 import { setTask } from '../../redux/slices/task'
 import { useAppDispatch } from '../../redux/store'
+import {
+  getBeginningOfTheNextWeek,
+  getNextDay,
+  unformatDate,
+} from '../../utils/date'
 
 const Upcoming: FunctionComponent = () => {
   const dispatch = useAppDispatch()
@@ -31,8 +36,16 @@ const Upcoming: FunctionComponent = () => {
 
   const isNotMobile = useMediaQuery('(min-width: 769px)')
 
-  const handleAddTaskClick = () => {
-    dispatch(setTask({ isSideBarOpened: true, task: null }))
+  const handleAddTaskClick = (date?: Date) => {
+    dispatch(
+      setTask({
+        isSideBarOpened: true,
+        task: null,
+        defaultValues: date
+          ? { date: unformatDate(new Date(date).toISOString()) }
+          : {},
+      })
+    )
   }
 
   return (
@@ -47,7 +60,7 @@ const Upcoming: FunctionComponent = () => {
             >
               <ContentOutlinedWrapper title={'Сьогодні'}>
                 <Box>
-                  <AddTask onClick={handleAddTaskClick} />
+                  <AddTask onClick={() => handleAddTaskClick(new Date())} />
                   <Box>
                     <Accordion defaultExpanded={true}>
                       <AccordionSummary sx={{ paddingLeft: '10px' }}>
@@ -84,7 +97,7 @@ const Upcoming: FunctionComponent = () => {
               </ContentOutlinedWrapper>
               <ContentOutlinedWrapper title={'Завтра'}>
                 <Box>
-                  <AddTask onClick={handleAddTaskClick} />
+                  <AddTask onClick={() => handleAddTaskClick(getNextDay())} />
                   <Box>
                     <Accordion defaultExpanded={true}>
                       <AccordionSummary sx={{ paddingLeft: '10px' }}>
@@ -122,7 +135,7 @@ const Upcoming: FunctionComponent = () => {
               </ContentOutlinedWrapper>
               <ContentOutlinedWrapper title={'На цьому тижні'}>
                 <Box>
-                  <AddTask onClick={handleAddTaskClick} />
+                  <AddTask onClick={() => handleAddTaskClick(getNextDay())} />
                   <Box>
                     <Accordion defaultExpanded={true}>
                       <AccordionSummary sx={{ paddingLeft: '10px' }}>
@@ -158,7 +171,11 @@ const Upcoming: FunctionComponent = () => {
               </ContentOutlinedWrapper>
               <ContentOutlinedWrapper title={'На наступному тижні'}>
                 <Box>
-                  <AddTask onClick={handleAddTaskClick} />
+                  <AddTask
+                    onClick={() =>
+                      handleAddTaskClick(getBeginningOfTheNextWeek())
+                    }
+                  />
                   <Box>
                     <Accordion defaultExpanded={true}>
                       <AccordionSummary sx={{ paddingLeft: '10px' }}>
