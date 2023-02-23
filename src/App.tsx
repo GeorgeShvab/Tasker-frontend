@@ -14,6 +14,8 @@ import usePage from './hooks/usePage'
 import Today from './pages/today'
 import Upcoming from './pages/upcoming'
 import Tag from './pages/tag'
+import Settings from './pages/settings'
+import Main from './pages/main'
 
 function App() {
   useAuthorize()
@@ -32,6 +34,7 @@ function App() {
         <CssBaseline />
         <Box sx={{ background: theme.palette.background.main }}>
           <Routes>
+            <Route path="/" element={<Main />} />
             <Route
               path="/login"
               element={
@@ -48,17 +51,16 @@ function App() {
                 </ProtectRoute>
               }
             />
-
             <Route
               path="/*"
               element={
                 <Layout>
                   <ProtectRoute>
                     <Routes>
-                      <Route path="/" element={<MainPage />} />
                       <Route path="/notes" element={<Notes />} />
                       <Route path="/upcoming" element={<Upcoming />} />
                       <Route path="/today" element={<Today />} />
+                      <Route path="/settings" element={<Settings />} />
                       <Route path="list">
                         <Route path=":id" element={<List />} />
                       </Route>
