@@ -22,17 +22,16 @@ import {
 import useOutsideClick from '../../hooks/useOutsideClick'
 import debounce from '../../utils/debounce'
 import ContextMenu from '../ContextMenu'
+import StickerActions from './StickerActions'
 
-type StickerAction = 'delete' | 'change_color'
+type StickerAction = 'delete' | 'change_color' | null
 
-const Sticker: FunctionComponent<types.Sticker> = ({
-  _id,
-  name,
-  description,
-  color,
-}) => {
-  const [deleteSticker] = useDeleteStickerMutation()
+const Sticker: FunctionComponent<types.Sticker> = (props) => {
+  const { _id, name, description, color } = props
+
   const [updateSticker] = useUpdateStickerMutation()
+
+  const [stickerAction, setStickerAction] = useState<StickerAction>(null)
 
   const isNotMobile = useMediaQuery('(min-width: 769px)')
 
@@ -44,54 +43,7 @@ const Sticker: FunctionComponent<types.Sticker> = ({
 
   const containerRef = useRef<HTMLDivElement>(null)
 
-  const colorInputRef = useRef<HTMLInputElement>(null)
-
   const descriptionInputEl = useRef<HTMLTextAreaElement>(null)
-
-  const [stickerAction, setStickerAction] = useState<StickerAction | null>(null)
-
-  const handleDeleteSticker = async () => {
-    try {
-      await deleteSticker(_id).unwrap()
-    } catch (e) {
-      setAlertStatus({
-        status: true,
-        msg: 'Помилка при видаленні нотатки',
-        type: 'error',
-      })
-    }
-
-    setStickerAction(null)
-  }
-
-  const handleChangeStickerColor = async () => {
-    const newColor = colorInputRef.current?.value
-    try {
-      if (newColor) {
-        await updateSticker({
-          color: newColor,
-          id: _id,
-          name,
-        }).unwrap()
-
-        setAlertStatus({
-          status: true,
-          msg: 'Колір нотатки змінено',
-          type: 'success',
-        })
-      } else {
-        throw new Error()
-      }
-    } catch (e) {
-      setAlertStatus({
-        status: true,
-        msg: 'Помилка при зміні кольору нотатки',
-        type: 'error',
-      })
-    }
-
-    setStickerAction(null)
-  }
 
   const handleFocus = () => {
     setFocus(true)
@@ -114,7 +66,7 @@ const Sticker: FunctionComponent<types.Sticker> = ({
     } catch (e) {
       setAlertStatus({
         status: true,
-        msg: "Не вдалось оновити нотатку, будь ласка, пеервірте з'єднання з інтернетом",
+        msg: "Не вдалось оновити нотатку, будь ласка, перевірте з'єднання з інтернетом",
         type: 'error',
       })
     }
@@ -274,43 +226,6 @@ const Sticker: FunctionComponent<types.Sticker> = ({
           </MenuList>
         )}
       </ContextMenu>
-      <Dialog
-        open={stickerAction === 'delete'}
-        onClose={() => setStickerAction(null)}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">
-          Ви впевнені що хочете видалити нотатку?
-        </DialogTitle>
-        <DialogActions>
-          <Button onClick={() => setStickerAction(null)}>Відмінити</Button>
-          <Button onClick={handleDeleteSticker} color="warning" autoFocus>
-            Видалити
-          </Button>
-        </DialogActions>
-      </Dialog>
-      <Dialog
-        open={stickerAction === 'change_color'}
-        onClose={() => setStickerAction(null)}
-        fullWidth
-      >
-        <DialogTitle>Оберіть новий колір нотатки</DialogTitle>
-        <DialogContent>
-          <TextField
-            type="color"
-            variant="outlined"
-            defaultValue={color}
-            inputRef={colorInputRef}
-            fullWidth
-            autoFocus
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setStickerAction(null)}>Відмінити</Button>
-          <Button onClick={handleChangeStickerColor}>Підтвердити</Button>
-        </DialogActions>
-      </Dialog>
       <Snackbar
         open={alertStatus?.status}
         autoHideDuration={10000}
@@ -325,6 +240,11 @@ const Sticker: FunctionComponent<types.Sticker> = ({
           {alertStatus?.msg}
         </Alert>
       </Snackbar>
+      <StickerActions
+        stickerAction={stickerAction}
+        setStickerAction={setStickerAction}
+        {...props}
+      />
     </>
   )
 }
