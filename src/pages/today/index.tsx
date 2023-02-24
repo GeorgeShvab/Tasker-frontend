@@ -28,6 +28,9 @@ const Today: FunctionComponent = () => {
     dispatch(setTask({ isSideBarOpened: true, task: null }))
   }
 
+  const uncompletedTasks = tasks.data?.filter((item) => !item.completed) || []
+  const completedTasks = tasks.data?.filter((item) => item.completed) || []
+
   return (
     <Box
       display="flex"
@@ -52,11 +55,7 @@ const Today: FunctionComponent = () => {
                     Дійсні завдання
                   </AccordionSummary>
                   <AccordionDetails>
-                    <Tasks
-                      tasks={
-                        tasks.data?.filter((item) => !item.completed) || []
-                      }
-                    />
+                    <Tasks tasks={uncompletedTasks} />
                   </AccordionDetails>
                 </Accordion>
               </Box>
@@ -67,9 +66,7 @@ const Today: FunctionComponent = () => {
                     Виконані завдання
                   </AccordionSummary>
                   <AccordionDetails>
-                    <Tasks
-                      tasks={tasks.data?.filter((item) => item.completed) || []}
-                    />
+                    <Tasks tasks={completedTasks} />
                   </AccordionDetails>
                 </Accordion>
               </Box>

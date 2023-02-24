@@ -7,7 +7,8 @@ import Task from './Task'
 
 const Tasks: FunctionComponent<{
   tasks: types.Task[]
-}> = ({ tasks }) => {
+  onStatusToggle?: (task: types.Task) => void
+}> = ({ tasks, onStatusToggle }) => {
   const dispatch = useAppDispatch()
   const selectedTask = useAppSelector(selectTask)
 
@@ -22,6 +23,7 @@ const Tasks: FunctionComponent<{
           key={item._id}
           selected={selectedTask?.data?._id === item._id}
           onClick={handleTaskClick}
+          onStatusToggle={onStatusToggle}
           {...item}
         />
       ))}

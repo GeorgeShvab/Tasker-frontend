@@ -40,6 +40,9 @@ const Tag: FunctionComponent = () => {
     )
   }
 
+  const uncompletedTasks = tasks.data?.filter((item) => !item.completed) || []
+  const completedTasks = tasks.data?.filter((item) => item.completed) || []
+
   return (
     <Box
       display="flex"
@@ -65,11 +68,7 @@ const Tag: FunctionComponent = () => {
                     Дійсні завдання
                   </AccordionSummary>
                   <AccordionDetails>
-                    <Tasks
-                      tasks={
-                        tasks.data?.filter((item) => !item.completed) || []
-                      }
-                    />
+                    <Tasks tasks={uncompletedTasks} />
                   </AccordionDetails>
                 </Accordion>
               </Box>
@@ -80,9 +79,7 @@ const Tag: FunctionComponent = () => {
                     Виконані завдання
                   </AccordionSummary>
                   <AccordionDetails>
-                    <Tasks
-                      tasks={tasks.data?.filter((item) => item.completed) || []}
-                    />
+                    <Tasks tasks={completedTasks} />
                   </AccordionDetails>
                 </Accordion>
               </Box>

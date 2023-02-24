@@ -48,6 +48,26 @@ const Upcoming: FunctionComponent = () => {
     )
   }
 
+  const uncompletedTodayTasks =
+    todayTasks.data?.filter((item) => !item.completed) || []
+  const completedTodayTasks =
+    todayTasks.data?.filter((item) => item.completed) || []
+
+  const uncompletedTomorrowTasks =
+    tomorrowTasks.data?.filter((item) => !item.completed) || []
+  const completedTomorrowTasks =
+    tomorrowTasks.data?.filter((item) => item.completed) || []
+
+  const uncompletedWeekTasks =
+    weekTasks.data?.filter((item) => !item.completed) || []
+  const completedWeekTasks =
+    weekTasks.data?.filter((item) => item.completed) || []
+
+  const uncompletedNextWeekTasks =
+    nextWeekTasks.data?.filter((item) => !item.completed) || []
+  const completedNextWeekTasks =
+    nextWeekTasks.data?.filter((item) => item.completed) || []
+
   return (
     <Box maxWidth={isNotMobile ? 'calc(100vw - 280px)' : '100vw'}>
       <Box maxWidth={isNotMobile ? 'calc(100vw - 280px)' : '100vw'}>
@@ -67,13 +87,7 @@ const Upcoming: FunctionComponent = () => {
                         Дійсні завдання
                       </AccordionSummary>
                       <AccordionDetails>
-                        <Tasks
-                          tasks={
-                            todayTasks.data?.filter(
-                              (item) => !item.completed
-                            ) || []
-                          }
-                        />
+                        <Tasks tasks={uncompletedTodayTasks} />
                       </AccordionDetails>
                     </Accordion>
                   </Box>
@@ -84,12 +98,7 @@ const Upcoming: FunctionComponent = () => {
                         Виконані завдання
                       </AccordionSummary>
                       <AccordionDetails>
-                        <Tasks
-                          tasks={
-                            todayTasks.data?.filter((item) => item.completed) ||
-                            []
-                          }
-                        />
+                        <Tasks tasks={completedTodayTasks} />
                       </AccordionDetails>
                     </Accordion>
                   </Box>
@@ -104,13 +113,7 @@ const Upcoming: FunctionComponent = () => {
                         Дійсні завдання
                       </AccordionSummary>
                       <AccordionDetails>
-                        <Tasks
-                          tasks={
-                            tomorrowTasks.data?.filter(
-                              (item) => !item.completed
-                            ) || []
-                          }
-                        />
+                        <Tasks tasks={uncompletedTomorrowTasks} />
                       </AccordionDetails>
                     </Accordion>
                   </Box>
@@ -121,13 +124,7 @@ const Upcoming: FunctionComponent = () => {
                         Виконані завдання
                       </AccordionSummary>
                       <AccordionDetails>
-                        <Tasks
-                          tasks={
-                            tomorrowTasks.data?.filter(
-                              (item) => item.completed
-                            ) || []
-                          }
-                        />
+                        <Tasks tasks={completedTomorrowTasks} />
                       </AccordionDetails>
                     </Accordion>
                   </Box>
@@ -142,12 +139,7 @@ const Upcoming: FunctionComponent = () => {
                         Дійсні завдання
                       </AccordionSummary>
                       <AccordionDetails>
-                        <Tasks
-                          tasks={
-                            weekTasks.data?.filter((item) => !item.completed) ||
-                            []
-                          }
-                        />
+                        <Tasks tasks={uncompletedWeekTasks} />
                       </AccordionDetails>
                     </Accordion>
                   </Box>
@@ -158,12 +150,7 @@ const Upcoming: FunctionComponent = () => {
                         Виконані завдання
                       </AccordionSummary>
                       <AccordionDetails>
-                        <Tasks
-                          tasks={
-                            weekTasks.data?.filter((item) => item.completed) ||
-                            []
-                          }
-                        />
+                        <Tasks tasks={completedWeekTasks} />
                       </AccordionDetails>
                     </Accordion>
                   </Box>
@@ -182,13 +169,7 @@ const Upcoming: FunctionComponent = () => {
                         Дійсні завдання
                       </AccordionSummary>
                       <AccordionDetails>
-                        <Tasks
-                          tasks={
-                            nextWeekTasks.data?.filter(
-                              (item) => !item.completed
-                            ) || []
-                          }
-                        />
+                        <Tasks tasks={uncompletedNextWeekTasks} />
                       </AccordionDetails>
                     </Accordion>
                   </Box>
@@ -198,13 +179,7 @@ const Upcoming: FunctionComponent = () => {
                         Виконані завдання
                       </AccordionSummary>
                       <AccordionDetails>
-                        <Tasks
-                          tasks={
-                            nextWeekTasks.data?.filter(
-                              (item) => item.completed
-                            ) || []
-                          }
-                        />
+                        <Tasks tasks={completedNextWeekTasks} />
                       </AccordionDetails>
                     </Accordion>
                   </Box>
