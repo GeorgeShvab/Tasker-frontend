@@ -16,6 +16,7 @@ import Upcoming from './pages/upcoming'
 import Tag from './pages/tag'
 import Settings from './pages/settings'
 import Main from './pages/main'
+import InitialLoadingOverlay from './components/InitialLoadingOverlay'
 
 function App() {
   useAuthorize()
@@ -54,22 +55,25 @@ function App() {
             <Route
               path="/*"
               element={
-                <Layout>
-                  <ProtectRoute>
-                    <Routes>
-                      <Route path="/notes" element={<Notes />} />
-                      <Route path="/upcoming" element={<Upcoming />} />
-                      <Route path="/today" element={<Today />} />
-                      <Route path="/settings" element={<Settings />} />
-                      <Route path="list">
-                        <Route path=":id" element={<List />} />
-                      </Route>
-                      <Route path="tag">
-                        <Route path=":id" element={<Tag />} />
-                      </Route>
-                    </Routes>
-                  </ProtectRoute>
-                </Layout>
+                <>
+                  <Layout>
+                    <ProtectRoute>
+                      <Routes>
+                        <Route path="/notes" element={<Notes />} />
+                        <Route path="/upcoming" element={<Upcoming />} />
+                        <Route path="/today" element={<Today />} />
+                        <Route path="/settings" element={<Settings />} />
+                        <Route path="list">
+                          <Route path=":id" element={<List />} />
+                        </Route>
+                        <Route path="tag">
+                          <Route path=":id" element={<Tag />} />
+                        </Route>
+                      </Routes>
+                    </ProtectRoute>
+                  </Layout>
+                  <InitialLoadingOverlay />
+                </>
               }
             ></Route>
           </Routes>
