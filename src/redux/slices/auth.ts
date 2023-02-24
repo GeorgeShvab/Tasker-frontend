@@ -14,6 +14,10 @@ interface SetUserAction extends Action {
   payload: User
 }
 
+interface SetNameAction extends Action {
+  payload: { firstName: string; lastName: string }
+}
+
 const initialState: AuthState = {
   data: null,
   isLoading: true,
@@ -43,12 +47,21 @@ const authSlice = createSlice({
     setLoading: (state, action: { payload: boolean }) => {
       state.isLoading = action.payload
     },
+    setName: (state, action: SetNameAction) => {
+      state.data = state.data
+        ? {
+            ...state.data,
+            firstName: action.payload.firstName,
+            lastName: action.payload.lastName,
+          }
+        : null
+    },
   },
 })
 
 export default authSlice.reducer
 
-export const { authorizeUser, setUser, unauthorize, setLoading } =
+export const { authorizeUser, setUser, unauthorize, setLoading, setName } =
   authSlice.actions
 
 export const selectUser = ({ auth }: { auth: AuthState }) => auth

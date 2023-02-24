@@ -120,7 +120,7 @@ const LoginForm: FunctionComponent = () => {
                   label="Пароль"
                   type="password"
                   name="password"
-                  autoComplete="new-password"
+                  autoComplete="current-password"
                   sx={{}}
                   fullWidth
                   onBlur={handleBlur}
