@@ -34,31 +34,39 @@ const MainPage: FunctionComponent = () => {
 
   return (
     <>
-      <Box overflow="hidden">
+      <Box
+        height="auto"
+        position="relative"
+        minHeight="100vh"
+        overflow="hidden"
+      >
         <Box
           component="header"
           padding="20px 0"
           display="flex"
           justifyContent="center"
+          zIndex="1"
         >
           <Logo />
         </Box>
         <Box
           component="main"
           display="flex"
-          padding="0 30px"
-          height="calc(100vh - 68px)"
+          padding={isNotMobile ? '0 30px' : '0 15px'}
+          minHeight="calc(100vh - 68px)"
+          height={isNotMobile ? 'calc(100vh - 68px)' : undefined}
           flexDirection={isNotMobile ? undefined : 'column-reverse'}
+          width={'100%'}
         >
           <Box
             flex="3 0 50%"
-            padding={isNotMobile ? '100px 50px 50px 5%' : '20px 0'}
+            padding={isNotMobile ? '100px 50px 50px 5%' : '30px 0'}
             display="flex"
             flexDirection="column"
             justifyContent="space-between"
             height="100%"
           >
-            <Box>
+            <Box zIndex="1">
               <Typography
                 variant="h1"
                 fontWeight="800"
@@ -71,7 +79,7 @@ const MainPage: FunctionComponent = () => {
               <Typography
                 variant={isNotMobile ? 'h5' : 'h6'}
                 maxWidth={isNotMobile ? '75%' : '100%'}
-                mb="20px"
+                mb={isNotMobile ? '20px' : '40px'}
               >
                 <span
                   style={{ fontWeight: '800', color: palette.primary.main }}
@@ -101,23 +109,30 @@ const MainPage: FunctionComponent = () => {
               </Box>
             </Box>
 
-            <Typography textAlign={isNotMobile ? undefined : 'center'}>
+            <Typography
+              textAlign={isNotMobile ? undefined : 'center'}
+              paddingBottom="15px"
+            >
               &copy;2023 Георгій Шваб. Всі права захищено.
               <br />
               Код проєкту можна знайти на моєму{' '}
               <a href="https://github.com/GeorgeShvab">GitHub</a>.
             </Typography>
           </Box>
-          <Box flex={isNotMobile ? '0 0 50%' : '0 0 40%'} position="relative">
-            <Box
-              position="absolute"
-              width={isNotMobile ? '160%' : 'auto'}
-              height="150%"
-              top={isNotMobile ? '-120px' : '-100px'}
-              right={isNotMobile ? '-35%' : '-275px'}
-            >
-              <img src={image} height="100%" style={{ objectFit: 'contain' }} />
-            </Box>
+          <Box flex="0 0 50%" minHeight="200px" position="relative">
+            <img
+              src={image}
+              alt="Вітаємо"
+              height={isNotMobile ? '140%' : '180%'}
+              width={isNotMobile ? 'auto' : '110%'}
+              style={{
+                objectFit: 'contain',
+                position: 'absolute',
+                top: isNotMobile ? '-100px' : '-90px',
+                right: isNotMobile ? '-35%' : '-43%',
+                left: isNotMobile ? '-30%' : undefined,
+              }}
+            />
           </Box>
         </Box>
       </Box>
