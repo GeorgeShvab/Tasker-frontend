@@ -16,6 +16,7 @@ import Tags from '../Tag/Tags'
 import Lists from '../List/Lists'
 import usePage from '../../hooks/usePage'
 import Logout from '../Logout'
+import SearchIcon from '@mui/icons-material/Search'
 
 const Aside: FunctionComponent = () => {
   const { palette } = useTheme()
@@ -123,6 +124,17 @@ const Aside: FunctionComponent = () => {
                   fullWidth
                 >
                   <span>Нотатки</span>
+                </AsideButton>
+              </Link>
+              <Link to="/search">
+                <AsideButton
+                  variant="text"
+                  size="large"
+                  startIcon={<SearchIcon fontSize="small" />}
+                  className={page.page === 'search' ? 'selected' : ''}
+                  fullWidth
+                >
+                  <span>Пошук</span>
                 </AsideButton>
               </Link>
             </Box>

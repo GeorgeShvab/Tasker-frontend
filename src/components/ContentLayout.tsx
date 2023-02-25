@@ -1,12 +1,21 @@
-import { useMediaQuery, Box, useTheme, Skeleton } from '@mui/material'
+import {
+  useMediaQuery,
+  Box,
+  useTheme,
+  Skeleton,
+  TextField,
+} from '@mui/material'
 import { FunctionComponent, ReactElement, UIEvent, useState } from 'react'
+import usePage from '../hooks/usePage'
 import throttle from '../utils/throttle'
 import MenuBtn from './MenuBtn'
+import Search from './Search'
 import Title from './Title'
+import SearchIcon from '@mui/icons-material/Search'
 
 const ContentLayout: FunctionComponent<{
   children: ReactElement
-  title: string
+  title: string | ReactElement
   count?: number
   isLoading?: boolean
 }> = ({ children, title, count, isLoading }) => {
@@ -25,6 +34,8 @@ const ContentLayout: FunctionComponent<{
   }
 
   handleScroll = throttle(handleScroll, 25)
+
+  const page = usePage()
 
   return (
     <Box
@@ -63,13 +74,17 @@ const ContentLayout: FunctionComponent<{
             ? '1px solid ' + palette.grey.A200
             : '1px solid ' + palette.grey.A200 + '00'
         }
-        display={isNotMobile ? 'block' : 'flex'}
-        gap="20px"
+        display="flex" //{isNotMobile ? 'flex' : 'flex'}
+        gap={isNotMobile ? '20px' : '10px'}
         alignItems="center"
       >
         {!isNotMobile && <MenuBtn />}
         {!isLoading ? (
-          <Title count={count}>{title}</Title>
+          typeof title === 'string' ? (
+            <Title count={count}>{title}</Title>
+          ) : (
+            title
+          )
         ) : (
           <Skeleton
             variant="rectangular"

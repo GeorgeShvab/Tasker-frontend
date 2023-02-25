@@ -170,7 +170,9 @@ const TaskOptions: FunctionComponent = () => {
 
   useEffect(() => {
     if (
-      !['list', 'upcoming', 'tag', 'today'].some((item) => item === page.page)
+      !['list', 'upcoming', 'tag', 'today', 'search'].some(
+        (item) => item === page.page
+      )
     ) {
       dispatch(setTask({ isSideBarOpened: false }))
     }

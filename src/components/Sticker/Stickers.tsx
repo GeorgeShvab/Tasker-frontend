@@ -9,7 +9,8 @@ import useMediaQuery from '@mui/material/useMediaQuery'
 const Stickers: FunctionComponent<{
   stickers: types.Sticker[]
   isLoading: boolean
-}> = ({ stickers, isLoading }) => {
+  addButton?: boolean
+}> = ({ stickers, isLoading, addButton = true }) => {
   const { palette } = useTheme()
 
   const [alertStatus, setAlertStatus] = useState<types.AlertStatus | null>(null)
@@ -51,25 +52,27 @@ const Stickers: FunctionComponent<{
     >
       {!isLoading ? (
         <>
-          <Paper
-            sx={{
-              padding: '20px',
-              backgroundColor: palette.grey[100],
-              '&:hover': { backgroundColor: palette.grey[200] },
-              transition: 'background 0.15s',
-              aspectRatio: '1 / 1',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              '& > *': {
-                fontSize: '55px !important',
-              },
-            }}
-            elevation={2}
-            onClick={handleCreateSticker}
-          >
-            <AddIcon fontSize="large" />
-          </Paper>
+          {addButton && (
+            <Paper
+              sx={{
+                padding: '20px',
+                backgroundColor: palette.grey[100],
+                '&:hover': { backgroundColor: palette.grey[200] },
+                transition: 'background 0.15s',
+                aspectRatio: '1 / 1',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                '& > *': {
+                  fontSize: '55px !important',
+                },
+              }}
+              elevation={2}
+              onClick={handleCreateSticker}
+            >
+              <AddIcon fontSize="large" />
+            </Paper>
+          )}
           {stickers?.map((item) => (
             <Sticker key={item._id} {...item} />
           ))}

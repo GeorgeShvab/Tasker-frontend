@@ -42,7 +42,7 @@ const AsideHeader: FunctionComponent<{
     <Box component="header" padding="0 20px">
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Logo />
-        <IconButton
+        {/*<IconButton
           onClick={collapseClick}
           className={isCollapsed ? 'selected' : ''}
           sx={{
@@ -53,7 +53,7 @@ const AsideHeader: FunctionComponent<{
           }}
         >
           <SearchIcon />
-        </IconButton>
+        </IconButton>*/}
       </Box>
       <Collapse in={isCollapsed}>
         <Box paddingTop="15px">

@@ -129,7 +129,7 @@ const Layout: FunctionComponent<{ children: ReactElement }> = ({
         onTouchEnd={handleContentTouchEnd}
         sx={{ overflow: 'hidden', transition: 'flex 0.5s ease-in-out' }}
       >
-        {children}
+        <Box width={isNotMobile ? 'auto' : '100vw'}>{children}</Box>
       </Box>
       <Box
         flex={

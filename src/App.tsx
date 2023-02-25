@@ -18,6 +18,7 @@ import Settings from './pages/settings'
 import Main from './pages/main'
 import InitialLoadingOverlay from './components/InitialLoadingOverlay'
 import About from './pages/about'
+import Search from './pages/search'
 
 function App() {
   useAuthorize()
@@ -61,6 +62,7 @@ function App() {
                   <Layout>
                     <ProtectRoute>
                       <Routes>
+                        <Route path="/search" element={<Search />} />
                         <Route path="/notes" element={<Notes />} />
                         <Route path="/upcoming" element={<Upcoming />} />
                         <Route path="/today" element={<Today />} />
