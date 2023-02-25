@@ -17,6 +17,7 @@ import Tag from './pages/tag'
 import Settings from './pages/settings'
 import Main from './pages/main'
 import InitialLoadingOverlay from './components/InitialLoadingOverlay'
+import About from './pages/about'
 
 function App() {
   useAuthorize()
@@ -52,6 +53,7 @@ function App() {
                 </ProtectRoute>
               }
             />
+            <Route path="/about" element={<About />} />
             <Route
               path="/*"
               element={

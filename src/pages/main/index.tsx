@@ -95,6 +95,7 @@ const MainPage: FunctionComponent = () => {
                 gap="15px"
                 justifyContent={isNotMobile ? 'flex-start' : 'center'}
                 mb="20px"
+                flexWrap="wrap"
               >
                 <Link to="/registration">
                   <Button size="large" variant="contained">
@@ -113,6 +114,9 @@ const MainPage: FunctionComponent = () => {
               textAlign={isNotMobile ? undefined : 'center'}
               paddingBottom="15px"
             >
+              <Typography mb="15px">
+                Вже авторизовані? <Link to="/upcoming">Перейти до завдань</Link>
+              </Typography>
               &copy;2023 Георгій Шваб. Всі права захищено.
               <br />
               Код проєкту можна знайти на моєму{' '}
