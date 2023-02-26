@@ -69,127 +69,119 @@ const Upcoming: FunctionComponent = () => {
     nextWeekTasks.data?.filter((item) => item.completed) || []
 
   return (
-    <Box maxWidth={isNotMobile ? 'calc(100vw - 280px)' : '100vw'}>
-      <Box maxWidth={isNotMobile ? 'calc(100vw - 280px)' : '100vw'}>
-        <Box width={isNotMobile ? undefined : '100vw'}>
-          <ContentLayout title={'Найближчі завдання'} count={0}>
-            <Box
-              display="grid"
-              gridTemplateColumns="1fr"
-              gap={isNotMobile ? '30px' : '20px'}
-            >
-              <ContentOutlinedWrapper title={'Сьогодні'}>
-                <Box>
-                  <AddTask onClick={() => handleAddTaskClick(new Date())} />
-                  <Box>
-                    <Accordion defaultExpanded={true}>
-                      <AccordionSummary sx={{ paddingLeft: '10px' }}>
-                        Дійсні завдання
-                      </AccordionSummary>
-                      <AccordionDetails>
-                        <Tasks tasks={uncompletedTodayTasks} />
-                      </AccordionDetails>
-                    </Accordion>
-                  </Box>
-
-                  <Box>
-                    <Accordion>
-                      <AccordionSummary sx={{ paddingLeft: '10px' }}>
-                        Виконані завдання
-                      </AccordionSummary>
-                      <AccordionDetails>
-                        <Tasks tasks={completedTodayTasks} />
-                      </AccordionDetails>
-                    </Accordion>
-                  </Box>
-                </Box>
-              </ContentOutlinedWrapper>
-              <ContentOutlinedWrapper title={'Завтра'}>
-                <Box>
-                  <AddTask onClick={() => handleAddTaskClick(getNextDay())} />
-                  <Box>
-                    <Accordion defaultExpanded={true}>
-                      <AccordionSummary sx={{ paddingLeft: '10px' }}>
-                        Дійсні завдання
-                      </AccordionSummary>
-                      <AccordionDetails>
-                        <Tasks tasks={uncompletedTomorrowTasks} />
-                      </AccordionDetails>
-                    </Accordion>
-                  </Box>
-
-                  <Box>
-                    <Accordion>
-                      <AccordionSummary sx={{ paddingLeft: '10px' }}>
-                        Виконані завдання
-                      </AccordionSummary>
-                      <AccordionDetails>
-                        <Tasks tasks={completedTomorrowTasks} />
-                      </AccordionDetails>
-                    </Accordion>
-                  </Box>
-                </Box>
-              </ContentOutlinedWrapper>
-              <ContentOutlinedWrapper title={'На цьому тижні'}>
-                <Box>
-                  <AddTask onClick={() => handleAddTaskClick(getNextDay())} />
-                  <Box>
-                    <Accordion defaultExpanded={true}>
-                      <AccordionSummary sx={{ paddingLeft: '10px' }}>
-                        Дійсні завдання
-                      </AccordionSummary>
-                      <AccordionDetails>
-                        <Tasks tasks={uncompletedWeekTasks} />
-                      </AccordionDetails>
-                    </Accordion>
-                  </Box>
-
-                  <Box>
-                    <Accordion>
-                      <AccordionSummary sx={{ paddingLeft: '10px' }}>
-                        Виконані завдання
-                      </AccordionSummary>
-                      <AccordionDetails>
-                        <Tasks tasks={completedWeekTasks} />
-                      </AccordionDetails>
-                    </Accordion>
-                  </Box>
-                </Box>
-              </ContentOutlinedWrapper>
-              <ContentOutlinedWrapper title={'На наступному тижні'}>
-                <Box>
-                  <AddTask
-                    onClick={() =>
-                      handleAddTaskClick(getBeginningOfTheNextWeek())
-                    }
-                  />
-                  <Box>
-                    <Accordion defaultExpanded={true}>
-                      <AccordionSummary sx={{ paddingLeft: '10px' }}>
-                        Дійсні завдання
-                      </AccordionSummary>
-                      <AccordionDetails>
-                        <Tasks tasks={uncompletedNextWeekTasks} />
-                      </AccordionDetails>
-                    </Accordion>
-                  </Box>
-                  <Box>
-                    <Accordion>
-                      <AccordionSummary sx={{ paddingLeft: '10px' }}>
-                        Виконані завдання
-                      </AccordionSummary>
-                      <AccordionDetails>
-                        <Tasks tasks={completedNextWeekTasks} />
-                      </AccordionDetails>
-                    </Accordion>
-                  </Box>
-                </Box>
-              </ContentOutlinedWrapper>
+    <ContentLayout title={'Найближчі завдання'} count={0}>
+      <Box
+        display="grid"
+        gridTemplateColumns="1fr"
+        gap={isNotMobile ? '30px' : '20px'}
+      >
+        <ContentOutlinedWrapper title={'Сьогодні'}>
+          <Box>
+            <AddTask onClick={() => handleAddTaskClick(new Date())} />
+            <Box>
+              <Accordion defaultExpanded={true}>
+                <AccordionSummary sx={{ paddingLeft: '10px' }}>
+                  Дійсні завдання
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Tasks tasks={uncompletedTodayTasks} />
+                </AccordionDetails>
+              </Accordion>
             </Box>
-          </ContentLayout>
-        </Box>
+
+            <Box>
+              <Accordion>
+                <AccordionSummary sx={{ paddingLeft: '10px' }}>
+                  Виконані завдання
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Tasks tasks={completedTodayTasks} />
+                </AccordionDetails>
+              </Accordion>
+            </Box>
+          </Box>
+        </ContentOutlinedWrapper>
+        <ContentOutlinedWrapper title={'Завтра'}>
+          <Box>
+            <AddTask onClick={() => handleAddTaskClick(getNextDay())} />
+            <Box>
+              <Accordion defaultExpanded={true}>
+                <AccordionSummary sx={{ paddingLeft: '10px' }}>
+                  Дійсні завдання
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Tasks tasks={uncompletedTomorrowTasks} />
+                </AccordionDetails>
+              </Accordion>
+            </Box>
+
+            <Box>
+              <Accordion>
+                <AccordionSummary sx={{ paddingLeft: '10px' }}>
+                  Виконані завдання
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Tasks tasks={completedTomorrowTasks} />
+                </AccordionDetails>
+              </Accordion>
+            </Box>
+          </Box>
+        </ContentOutlinedWrapper>
+        <ContentOutlinedWrapper title={'На цьому тижні'}>
+          <Box>
+            <AddTask onClick={() => handleAddTaskClick(getNextDay())} />
+            <Box>
+              <Accordion defaultExpanded={true}>
+                <AccordionSummary sx={{ paddingLeft: '10px' }}>
+                  Дійсні завдання
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Tasks tasks={uncompletedWeekTasks} />
+                </AccordionDetails>
+              </Accordion>
+            </Box>
+
+            <Box>
+              <Accordion>
+                <AccordionSummary sx={{ paddingLeft: '10px' }}>
+                  Виконані завдання
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Tasks tasks={completedWeekTasks} />
+                </AccordionDetails>
+              </Accordion>
+            </Box>
+          </Box>
+        </ContentOutlinedWrapper>
+        <ContentOutlinedWrapper title={'На наступному тижні'}>
+          <Box>
+            <AddTask
+              onClick={() => handleAddTaskClick(getBeginningOfTheNextWeek())}
+            />
+            <Box>
+              <Accordion defaultExpanded={true}>
+                <AccordionSummary sx={{ paddingLeft: '10px' }}>
+                  Дійсні завдання
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Tasks tasks={uncompletedNextWeekTasks} />
+                </AccordionDetails>
+              </Accordion>
+            </Box>
+            <Box>
+              <Accordion>
+                <AccordionSummary sx={{ paddingLeft: '10px' }}>
+                  Виконані завдання
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Tasks tasks={completedNextWeekTasks} />
+                </AccordionDetails>
+              </Accordion>
+            </Box>
+          </Box>
+        </ContentOutlinedWrapper>
       </Box>
-    </Box>
+    </ContentLayout>
   )
 }
 

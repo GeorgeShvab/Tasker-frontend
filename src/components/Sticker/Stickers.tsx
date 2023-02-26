@@ -1,5 +1,5 @@
 import { Alert, Box, Paper, Skeleton, Snackbar, useTheme } from '@mui/material'
-import { FunctionComponent, useState } from 'react'
+import { FunctionComponent, useEffect, useRef, useState } from 'react'
 import * as types from '../../../types'
 import Sticker from './Sticker'
 import AddIcon from '@mui/icons-material/Add'
@@ -31,23 +31,10 @@ const Stickers: FunctionComponent<{
 
   const isNotMobile = useMediaQuery('(min-width: 769px)')
 
-  let gridTemplateColumns: string = 'repeat(auto-fit, minmax(300px, 0.3333fr))'
-
-  const isGreaterThan1290 = useMediaQuery('(min-width: 1290px)')
-  const isGreaterThan924 = useMediaQuery('(min-width: 924px)')
-
-  if (isGreaterThan1290) {
-    gridTemplateColumns = 'repeat(auto-fit, minmax(300px, 0.3333fr))'
-  } else if (isGreaterThan924) {
-    gridTemplateColumns = 'repeat(auto-fit, minmax(250px, 0.5fr))'
-  } else {
-    gridTemplateColumns = '1fr'
-  }
-
   return (
     <Box
       display="grid"
-      gridTemplateColumns={gridTemplateColumns}
+      gridTemplateColumns={isNotMobile ? '1fr 1fr' : '1fr'}
       gap={isNotMobile ? '15px' : '10px'}
     >
       {!isLoading ? (

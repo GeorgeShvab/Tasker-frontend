@@ -28,8 +28,6 @@ const Tag: FunctionComponent = () => {
 
   const tasks = useGetTasksByTagQuery(id || '')
 
-  const isNotMobile = useMediaQuery('(min-width: 769px)')
-
   const handleAddTaskClick = () => {
     dispatch(
       setTask({
@@ -44,50 +42,36 @@ const Tag: FunctionComponent = () => {
   const completedTasks = tasks.data?.filter((item) => item.completed) || []
 
   return (
-    <Box
-      display="flex"
-      maxWidth={isNotMobile ? 'calc(100vw - 280px)' : '100vw'}
-      overflow="hidden"
+    <ContentLayout
+      title={tag.data?.name || ''}
+      isLoading={tag.isLoading}
+      count={tag.data?.uncompletedTasks}
     >
-      <Box
-        flex={isNotMobile ? '1 3 auto' : '1 3 auto'}
-        maxWidth={isNotMobile ? 'calc(100vw - 280px)' : '100vw'}
-        overflow="hidden"
-      >
-        <Box width={isNotMobile ? undefined : '100vw'}>
-          <ContentLayout
-            title={tag.data?.name || ''}
-            isLoading={tag.isLoading}
-            count={tag.data?.uncompletedTasks}
-          >
-            <>
-              <AddTask onClick={handleAddTaskClick} />
-              <Box>
-                <Accordion defaultExpanded={true}>
-                  <AccordionSummary sx={{ paddingLeft: '10px' }}>
-                    Дійсні завдання
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    <Tasks tasks={uncompletedTasks} />
-                  </AccordionDetails>
-                </Accordion>
-              </Box>
-
-              <Box>
-                <Accordion>
-                  <AccordionSummary sx={{ paddingLeft: '10px' }}>
-                    Виконані завдання
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    <Tasks tasks={completedTasks} />
-                  </AccordionDetails>
-                </Accordion>
-              </Box>
-            </>
-          </ContentLayout>
+      <>
+        <AddTask onClick={handleAddTaskClick} />
+        <Box>
+          <Accordion defaultExpanded={true}>
+            <AccordionSummary sx={{ paddingLeft: '10px' }}>
+              Дійсні завдання
+            </AccordionSummary>
+            <AccordionDetails>
+              <Tasks tasks={uncompletedTasks} />
+            </AccordionDetails>
+          </Accordion>
         </Box>
-      </Box>
-    </Box>
+
+        <Box>
+          <Accordion>
+            <AccordionSummary sx={{ paddingLeft: '10px' }}>
+              Виконані завдання
+            </AccordionSummary>
+            <AccordionDetails>
+              <Tasks tasks={completedTasks} />
+            </AccordionDetails>
+          </Accordion>
+        </Box>
+      </>
+    </ContentLayout>
   )
 }
 
