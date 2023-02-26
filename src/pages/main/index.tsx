@@ -106,18 +106,21 @@ const MainPage: FunctionComponent = () => {
               </Box>
             </Box>
 
-            <Typography
+            <Box
               textAlign={isNotMobile ? undefined : 'center'}
               paddingBottom="15px"
             >
               <Typography mb="15px">
                 Вже авторизовані? <Link to="/upcoming">Перейти до завдань</Link>
               </Typography>
-              &copy;2023 Георгій Шваб. Всі права захищено.
-              <br />
-              Код проєкту можна знайти на моєму{' '}
-              <a href="https://github.com/GeorgeShvab">GitHub</a>.
-            </Typography>
+              <Typography>
+                &copy;2023 Георгій Шваб. Всі права захищено.
+              </Typography>
+              <Typography>
+                Код проєкту можна знайти на моєму{' '}
+                <a href="https://github.com/GeorgeShvab">GitHub</a>.
+              </Typography>
+            </Box>
           </Box>
           <Box flex="0 0 50%" minHeight="200px" position="relative">
             <img

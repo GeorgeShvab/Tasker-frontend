@@ -3,11 +3,13 @@ import useMediaQuery from '@mui/material/useMediaQuery'
 import useTheme from '@mui/material/styles/useTheme'
 import Typography from '@mui/material/Typography'
 import { FunctionComponent, ReactElement } from 'react'
+import { SxProps } from '@mui/material/styles'
 
 const ContentOutlinedWrapper: FunctionComponent<{
   children: ReactElement
   title?: string
-}> = ({ children, title }) => {
+  sx?: SxProps
+}> = ({ children, title, sx }) => {
   const { palette } = useTheme()
 
   const isNotMobile = useMediaQuery('(min-width: 769px)')
@@ -18,6 +20,7 @@ const ContentOutlinedWrapper: FunctionComponent<{
       border={'1px solid ' + palette.grey[100]}
       borderRadius="5px"
       position="relative"
+      sx={sx}
     >
       {title && (
         <Typography

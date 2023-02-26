@@ -5,26 +5,51 @@ import ContentLayout from '../../components/ContentLayout'
 import ContentOutlinedWrapper from '../../components/ContentOutlinedWrapper'
 import NameForm from './NameForm'
 import PasswordForm from './PasswordForm'
+import { Typography } from '@mui/material'
+import { Link } from 'react-router-dom'
 
 const Settings: FunctionComponent = () => {
   const isNotMobile = useMediaQuery('(min-width: 769px)')
+
   return (
     <ContentLayout title="Налаштування">
-      <ContentOutlinedWrapper>
-        <Box
-          display="grid"
-          gridTemplateColumns="repeat(auto-fit, minmax(250px, 375px))"
-          padding={isNotMobile ? '5px 10px' : '5px'}
-          gap="50px"
+      <Box
+        display="grid"
+        gridTemplateColumns={isNotMobile ? '1fr 1fr' : '1fr'}
+        gap={isNotMobile ? '20px' : '10px'}
+      >
+        <ContentOutlinedWrapper
+          sx={{
+            background: '#ffffff',
+          }}
         >
-          <Box maxWidth="450px">
-            <PasswordForm />
-          </Box>
-          <Box maxWidth="450px">
-            <NameForm />
-          </Box>
-        </Box>
-      </ContentOutlinedWrapper>
+          <NameForm />
+        </ContentOutlinedWrapper>
+
+        <ContentOutlinedWrapper
+          sx={{
+            background: '#ffffff',
+            borderRadius: 1,
+            gridColumn: isNotMobile ? '2 / 3' : undefined,
+            gridRow: isNotMobile ? '1 / 3' : '3 / 4',
+            maxWidth: '550px',
+            width: '100%',
+          }}
+        >
+          <Typography>
+            Більше інформації про проєкт можна знайти{' '}
+            <Link to="/about">тут</Link>.
+          </Typography>
+        </ContentOutlinedWrapper>
+
+        <ContentOutlinedWrapper
+          sx={{
+            background: '#ffffff',
+          }}
+        >
+          <PasswordForm />
+        </ContentOutlinedWrapper>
+      </Box>
     </ContentLayout>
   )
 }
