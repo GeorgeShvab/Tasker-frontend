@@ -11,6 +11,7 @@ import {
 import ContentLayout from '../../components/ContentLayout'
 import AddTask from '../../components/Task/AddTask'
 import Tasks from '../../components/Task/Tasks'
+import useTitle from '../../hooks/useTitle'
 import { setTask } from '../../redux/slices/task'
 import { useAppDispatch } from '../../redux/store'
 
@@ -22,6 +23,14 @@ const List: FunctionComponent = () => {
   const list = useGetListQuery(id || '')
 
   const tasks = useGetTasksByListQuery(id || '')
+
+  const title = list.data
+    ? `${list.data.name}${
+        list.data.uncompletedTasks ? ` (${list.data.uncompletedTasks})` : ''
+      }`
+    : 'Tasker'
+
+  useTitle(title)
 
   const handleAddTaskClick = () => {
     dispatch(

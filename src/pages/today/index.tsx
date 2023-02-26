@@ -9,6 +9,7 @@ import {
 import ContentLayout from '../../components/ContentLayout'
 import AddTask from '../../components/Task/AddTask'
 import Tasks from '../../components/Task/Tasks'
+import useTitle from '../../hooks/useTitle'
 import { setTask } from '../../redux/slices/task'
 import { useAppDispatch } from '../../redux/store'
 
@@ -23,6 +24,12 @@ const Today: FunctionComponent = () => {
 
   const uncompletedTasks = tasks.data?.filter((item) => !item.completed) || []
   const completedTasks = tasks.data?.filter((item) => item.completed) || []
+
+  const title =
+    'Сьогоднішні завдання' +
+    (uncompletedTasks.length ? ` (${uncompletedTasks.length})` : '')
+
+  useTitle(title)
 
   return (
     <ContentLayout title={'Сьогоднішні завдання'} count={tasks.data?.length}>

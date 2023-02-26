@@ -7,9 +7,12 @@ import CenterContainer from '../../components/CenterContainer'
 import LoginForm from './Form'
 import image from '../../assets/images/survey.png'
 import Logo from '../../components/Logo'
+import useTitle from '../../hooks/useTitle'
 
 const Login: FunctionComponent = () => {
   const theme = useTheme()
+
+  useTitle('Вхід')
 
   const isMobile = useMediaQuery('(max-width: 768px)')
 

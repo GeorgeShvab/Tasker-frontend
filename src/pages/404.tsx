@@ -4,8 +4,11 @@ import { Link } from 'react-router-dom'
 import CenterContainer from '../components/CenterContainer'
 import image from '../assets/images/404.png'
 import Typography from '@mui/material/Typography'
+import useTitle from '../hooks/useTitle'
 
 const NotFoundPage: FunctionComponent = () => {
+  useTitle('Сторінку не знайдено')
+
   return (
     <CenterContainer height="var(--full-height)">
       <Box padding="20px" maxWidth="500px" width="100%" textAlign="center">

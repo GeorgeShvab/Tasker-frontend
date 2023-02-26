@@ -4,8 +4,11 @@ import Box from '@mui/material/Box'
 import { FunctionComponent } from 'react'
 import { Link } from 'react-router-dom'
 import Logo from '../../components/Logo'
+import useTitle from '../../hooks/useTitle'
 
 const About: FunctionComponent = () => {
+  useTitle('Про нас')
+
   return (
     <Box>
       <Box

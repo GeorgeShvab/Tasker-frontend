@@ -10,11 +10,14 @@ import Stickers from '../../components/Sticker/Stickers'
 import Typography from '@mui/material/Typography'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import CenterContainer from '../../components/CenterContainer'
+import useTitle from '../../hooks/useTitle'
 
 const Search: FunctionComponent = () => {
   const isNotMobile = useMediaQuery('(min-width: 769px)')
 
   const query = useQuery()
+
+  useTitle(query.query ? `Пошук за запитом ${query.query}` : 'Пошук')
 
   const [trigger, data] = useLazySearchQuery()
 

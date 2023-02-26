@@ -11,6 +11,7 @@ import {
 import ContentLayout from '../../components/ContentLayout'
 import AddTask from '../../components/Task/AddTask'
 import Tasks from '../../components/Task/Tasks'
+import useTitle from '../../hooks/useTitle'
 import { setTask } from '../../redux/slices/task'
 import { useAppDispatch } from '../../redux/store'
 
@@ -20,6 +21,14 @@ const Tag: FunctionComponent = () => {
   const { id } = useParams()
 
   const tag = useGetTagQuery(id || '')
+
+  const title = tag.data
+    ? `${tag.data.name}${
+        tag.data.uncompletedTasks ? ` (${tag.data.uncompletedTasks})` : ''
+      }`
+    : 'Tasker'
+
+  useTitle(title)
 
   const tasks = useGetTasksByTagQuery(id || '')
 

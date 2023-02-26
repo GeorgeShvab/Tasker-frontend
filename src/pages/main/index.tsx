@@ -12,9 +12,12 @@ import useTheme from '@mui/material/styles/useTheme'
 import { Link } from 'react-router-dom'
 import { useAppSelector } from '../../redux/store'
 import { isAuthorized } from '../../redux/slices/auth'
+import useTitle from '../../hooks/useTitle'
 
 const MainPage: FunctionComponent = () => {
   const isNotMobile = useMediaQuery('(min-width: 769px)')
+
+  useTitle('Головна')
 
   const [open, setOpen] = useState<boolean>(false)
 

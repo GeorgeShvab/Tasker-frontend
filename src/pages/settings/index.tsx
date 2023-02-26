@@ -7,9 +7,12 @@ import NameForm from './NameForm'
 import PasswordForm from './PasswordForm'
 import { Typography } from '@mui/material'
 import { Link } from 'react-router-dom'
+import useTitle from '../../hooks/useTitle'
 
 const Settings: FunctionComponent = () => {
   const isNotMobile = useMediaQuery('(min-width: 769px)')
+
+  useTitle('Налаштування')
 
   return (
     <ContentLayout title="Налаштування">

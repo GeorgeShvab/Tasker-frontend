@@ -11,6 +11,7 @@ import ContentLayout from '../../components/ContentLayout'
 import ContentOutlinedWrapper from '../../components/ContentOutlinedWrapper'
 import AddTask from '../../components/Task/AddTask'
 import Tasks from '../../components/Task/Tasks'
+import useTitle from '../../hooks/useTitle'
 import { setTask } from '../../redux/slices/task'
 import { useAppDispatch } from '../../redux/store'
 import {
@@ -63,6 +64,22 @@ const Upcoming: FunctionComponent = () => {
     nextWeekTasks.data?.filter((item) => !item.completed) || []
   const completedNextWeekTasks =
     nextWeekTasks.data?.filter((item) => item.completed) || []
+
+  const title =
+    'Найближчі завдання' +
+    (uncompletedTodayTasks.length +
+    uncompletedTomorrowTasks.length +
+    uncompletedWeekTasks.length +
+    uncompletedNextWeekTasks.length
+      ? ` (${
+          uncompletedTodayTasks.length +
+          uncompletedTomorrowTasks.length +
+          uncompletedWeekTasks.length +
+          uncompletedNextWeekTasks.length
+        })`
+      : '')
+
+  useTitle(title)
 
   return (
     <ContentLayout title={'Найближчі завдання'} count={0}>
