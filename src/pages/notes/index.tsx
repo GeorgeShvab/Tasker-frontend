@@ -1,6 +1,7 @@
 import { FunctionComponent } from 'react'
 import { useGetStickersQuery } from '../../api/stickerApiSlice'
 import ContentLayout from '../../components/ContentLayout'
+import Layout from '../../components/Layout'
 import MainContentWrapper from '../../components/MainContentWrapper'
 import Stickers from '../../components/Sticker/Stickers'
 

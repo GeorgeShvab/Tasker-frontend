@@ -14,6 +14,7 @@ import Box from '@mui/material/Box'
 import Stickers from '../../components/Sticker/Stickers'
 import { Typography, useMediaQuery } from '@mui/material'
 import CenterContainer from '../../components/CenterContainer'
+import Layout from '../../components/Layout'
 
 const Search: FunctionComponent = () => {
   const isNotMobile = useMediaQuery('(min-width: 769px)')

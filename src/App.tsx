@@ -19,6 +19,7 @@ import Main from './pages/main'
 import InitialLoadingOverlay from './components/InitialLoadingOverlay'
 import About from './pages/about'
 import Search from './pages/search'
+import NotFound from './pages/404'
 
 function App() {
   useAuthorize()
@@ -60,21 +61,20 @@ function App() {
               element={
                 <>
                   <Layout>
-                    <ProtectRoute>
-                      <Routes>
-                        <Route path="/search" element={<Search />} />
-                        <Route path="/notes" element={<Notes />} />
-                        <Route path="/upcoming" element={<Upcoming />} />
-                        <Route path="/today" element={<Today />} />
-                        <Route path="/settings" element={<Settings />} />
-                        <Route path="list">
-                          <Route path=":id" element={<List />} />
-                        </Route>
-                        <Route path="tag">
-                          <Route path=":id" element={<Tag />} />
-                        </Route>
-                      </Routes>
-                    </ProtectRoute>
+                    <Routes>
+                      <Route path="/search" element={<Search />} />
+                      <Route path="/notes" element={<Notes />} />
+                      <Route path="/upcoming" element={<Upcoming />} />
+                      <Route path="/today" element={<Today />} />
+                      <Route path="/settings" element={<Settings />} />
+                      <Route path="list">
+                        <Route path=":id" element={<List />} />
+                      </Route>
+                      <Route path="tag">
+                        <Route path=":id" element={<Tag />} />
+                      </Route>
+                      <Route path="*" element={<NotFound />}></Route>
+                    </Routes>
                   </Layout>
                   <InitialLoadingOverlay />
                 </>

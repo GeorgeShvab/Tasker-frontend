@@ -5,6 +5,7 @@ import { selectMenu, toggleMenu } from '../redux/slices/menu'
 import { selectTask, setTask } from '../redux/slices/task'
 import { useAppDispatch, useAppSelector } from '../redux/store'
 import Aside from './Aside/Aside'
+import ProtectRoute from './ProtectRoute'
 import TaskOptions from './TaskOptions'
 
 const Layout: FunctionComponent<{ children: ReactElement }> = ({
@@ -77,97 +78,99 @@ const Layout: FunctionComponent<{ children: ReactElement }> = ({
   }
 
   return (
-    <Box
-      display="flex"
-      width="100vw"
-      height="var(--full-height)"
-      overflow={'hidden'}
-    >
+    <ProtectRoute>
       <Box
-        flex={isNotMobile ? '0 0 280px' : isMenuOpened ? '0 0 75vw' : '0 0 0'}
-        height="100%"
-        overflow="auto"
-        sx={
-          isNotMobile
-            ? {
-                '&::-webkit-scrollbar': {
-                  width: '5px',
-                },
-                '&::-webkit-scrollbar-track': {
-                  backgroundColor: palette.grey.A100,
-                },
-                '&::-webkit-scrollbar-thumb': {
-                  backgroundColor: palette.grey[200],
-                },
-                overflowX: 'hidden',
-                transition: 'flex 0.5s ease-in-out',
-              }
-            : {
-                transition: 'flex 0.5s ease-in-out',
-                overflowX: 'hidden',
-              }
-        }
-      >
-        <Box
-          minWidth={isNotMobile ? undefined : '75vw'}
-          onTouchStart={handleTouchStart}
-          onTouchEnd={handleAsideTouchEnd}
-          height="100%"
-        >
-          <Aside />
-        </Box>
-      </Box>
-      <Box
-        flex={
-          isNotMobile
-            ? '3 3 auto'
-            : selectedTask.isSideBarOpened
-            ? '0 3 0'
-            : '2 3 100vw'
-        }
-        onTouchStart={handleTouchStart}
-        onTouchEnd={handleContentTouchEnd}
-        sx={{ overflow: 'hidden', transition: 'flex 0.5s ease-in-out' }}
-      >
-        <Box width={isNotMobile ? 'auto' : '100vw'}>{children}</Box>
-      </Box>
-      <Box
-        flex={
-          selectedTask.isSideBarOpened
-            ? isNotMobile
-              ? '0 0 350px'
-              : '3 0 100vw'
-            : '0 0 0'
-        }
+        display="flex"
+        width="100vw"
         height="var(--full-height)"
-        sx={
-          isNotMobile
-            ? {
-                '&::-webkit-scrollbar': {
-                  width: '5px',
-                },
-                '&::-webkit-scrollbar-track': {
-                  backgroundColor: palette.grey.A100,
-                },
-                '&::-webkit-scrollbar-thumb': {
-                  backgroundColor: palette.grey[200],
-                },
-                transition: 'flex 0.5s ease-in-out',
-                overflowX: 'hidden',
-              }
-            : { transition: 'flex 0.5s ease-in-out', overflowX: 'hidden' }
-        }
+        overflow={'hidden'}
       >
         <Box
-          width={isNotMobile ? '350px' : '100vw'}
-          height="var(--full-height)"
-          onTouchStart={handleTouchStart}
-          onTouchEnd={handleTaskBarTouchEnd}
+          flex={isNotMobile ? '0 0 280px' : isMenuOpened ? '0 0 75vw' : '0 0 0'}
+          height="100%"
+          overflow="auto"
+          sx={
+            isNotMobile
+              ? {
+                  '&::-webkit-scrollbar': {
+                    width: '5px',
+                  },
+                  '&::-webkit-scrollbar-track': {
+                    backgroundColor: palette.grey.A100,
+                  },
+                  '&::-webkit-scrollbar-thumb': {
+                    backgroundColor: palette.grey[200],
+                  },
+                  overflowX: 'hidden',
+                  transition: 'flex 0.5s ease-in-out',
+                }
+              : {
+                  transition: 'flex 0.5s ease-in-out',
+                  overflowX: 'hidden',
+                }
+          }
         >
-          <TaskOptions />
+          <Box
+            minWidth={isNotMobile ? undefined : '75vw'}
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleAsideTouchEnd}
+            height="100%"
+          >
+            <Aside />
+          </Box>
+        </Box>
+        <Box
+          flex={
+            isNotMobile
+              ? '3 3 auto'
+              : selectedTask.isSideBarOpened
+              ? '0 3 0'
+              : '2 3 100vw'
+          }
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleContentTouchEnd}
+          sx={{ overflow: 'hidden', transition: 'flex 0.5s ease-in-out' }}
+        >
+          <Box width={isNotMobile ? 'auto' : '100vw'}>{children}</Box>
+        </Box>
+        <Box
+          flex={
+            selectedTask.isSideBarOpened
+              ? isNotMobile
+                ? '0 0 350px'
+                : '3 0 100vw'
+              : '0 0 0'
+          }
+          height="var(--full-height)"
+          sx={
+            isNotMobile
+              ? {
+                  '&::-webkit-scrollbar': {
+                    width: '5px',
+                  },
+                  '&::-webkit-scrollbar-track': {
+                    backgroundColor: palette.grey.A100,
+                  },
+                  '&::-webkit-scrollbar-thumb': {
+                    backgroundColor: palette.grey[200],
+                  },
+                  transition: 'flex 0.5s ease-in-out',
+                  overflowX: 'hidden',
+                }
+              : { transition: 'flex 0.5s ease-in-out', overflowX: 'hidden' }
+          }
+        >
+          <Box
+            width={isNotMobile ? '350px' : '100vw'}
+            height="var(--full-height)"
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTaskBarTouchEnd}
+          >
+            <TaskOptions />
+          </Box>
         </Box>
       </Box>
-    </Box>
+    </ProtectRoute>
   )
 }
 

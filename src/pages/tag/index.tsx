@@ -14,6 +14,7 @@ import {
   AccordionSummary,
 } from '../../components/Accordion'
 import ContentLayout from '../../components/ContentLayout'
+import Layout from '../../components/Layout'
 import AddTask from '../../components/Task/AddTask'
 import Tasks from '../../components/Task/Tasks'
 import { setTask } from '../../redux/slices/task'

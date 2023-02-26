@@ -17,6 +17,7 @@ import { FunctionComponent, useState } from 'react'
 import * as types from '../../../types'
 import Tag from './Tag'
 import * as yup from 'yup'
+import { useCreateTagMutation } from '../../api/tagApiSlice'
 
 interface AlertStatus {
   msg: string
@@ -34,19 +35,22 @@ const nameSchema = yup.object().shape({
 
 const Tags: FunctionComponent<{
   tags: types.Tag[]
-  callback: (values: { name: string }) => void
   page?: types.PageState
   isLoading: boolean
-}> = ({ tags, callback, page, isLoading }) => {
+}> = ({ tags, page, isLoading }) => {
   const { palette } = useTheme()
 
   const [open, setOpen] = useState<boolean>(false)
 
   const [alertStatus, setAlertStatus] = useState<null | AlertStatus>(null)
 
+  const [createTag] = useCreateTagMutation()
+
   const handleSubmit = async (values: { name: string }) => {
     try {
-      await callback(values)
+      const data = await createTag({
+        name: values.name,
+      }).unwrap()
 
       setAlertStatus({
         msg: 'Тег створено',

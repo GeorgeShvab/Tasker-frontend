@@ -32,14 +32,6 @@ const Aside: FunctionComponent = () => {
 
   const page = usePage()
 
-  const [createTag] = useCreateTagMutation()
-
-  const handleCreateTag = async (values: { name: string }) => {
-    const data = await createTag({
-      name: values.name,
-    }).unwrap()
-  }
-
   return (
     <Box
       component="aside"
@@ -153,7 +145,6 @@ const Aside: FunctionComponent = () => {
               tags={tags.data || []}
               page={page}
               isLoading={tags.isLoading}
-              callback={handleCreateTag}
             />
           </AsideItem>
         </Box>
