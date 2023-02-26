@@ -1,17 +1,15 @@
-import {
-  Alert,
-  Box,
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  Snackbar,
-  TextField,
-  Typography,
-  useTheme,
-  Skeleton,
-} from '@mui/material'
+import Alert from '@mui/material/Alert'
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+import Dialog from '@mui/material/Dialog'
+import DialogActions from '@mui/material/DialogActions'
+import DialogContent from '@mui/material/DialogContent'
+import DialogTitle from '@mui/material/DialogTitle'
+import Snackbar from '@mui/material/Snackbar'
+import TextField from '@mui/material/TextField'
+import Typography from '@mui/material/Typography'
+import useTheme from '@mui/material/styles/useTheme'
+import Skeleton from '@mui/material/Skeleton'
 import { Formik } from 'formik'
 import { FunctionComponent, useState } from 'react'
 import * as types from '../../../types'

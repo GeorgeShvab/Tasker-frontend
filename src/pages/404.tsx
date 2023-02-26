@@ -3,7 +3,7 @@ import { FunctionComponent } from 'react'
 import { Link } from 'react-router-dom'
 import CenterContainer from '../components/CenterContainer'
 import image from '../assets/images/404.png'
-import { Typography } from '@mui/material'
+import Typography from '@mui/material/Typography'
 
 const NotFoundPage: FunctionComponent = () => {
   return (

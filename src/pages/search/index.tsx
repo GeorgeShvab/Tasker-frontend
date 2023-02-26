@@ -2,19 +2,14 @@ import { FunctionComponent, useEffect, useState } from 'react'
 import ContentLayout from '../../components/ContentLayout'
 import useQuery from '../../hooks/useQuery'
 import SearchComponent from '../../components/Search'
-import { useLazySearchQuery, useSearchQuery } from '../../api/searchApiSlice'
+import { useLazySearchQuery } from '../../api/searchApiSlice'
 import ContentOutlinedWrapper from '../../components/ContentOutlinedWrapper'
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-} from '../../components/Accordion'
 import Tasks from '../../components/Task/Tasks'
 import Box from '@mui/material/Box'
 import Stickers from '../../components/Sticker/Stickers'
-import { Typography, useMediaQuery } from '@mui/material'
+import Typography from '@mui/material/Typography'
+import useMediaQuery from '@mui/material/useMediaQuery'
 import CenterContainer from '../../components/CenterContainer'
-import Layout from '../../components/Layout'
 
 const Search: FunctionComponent = () => {
   const isNotMobile = useMediaQuery('(min-width: 769px)')

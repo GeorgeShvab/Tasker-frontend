@@ -1,13 +1,10 @@
-import {
-  Alert,
-  Box,
-  Button,
-  Snackbar,
-  TextField,
-  Typography,
-} from '@mui/material'
+import Alert from '@mui/material/Alert'
+import Button from '@mui/material/Button'
+import Snackbar from '@mui/material/Snackbar'
+import TextField from '@mui/material/TextField'
+import Typography from '@mui/material/Typography'
 import { Formik, FormikHelpers } from 'formik'
-import { FunctionComponent, useEffect, useState } from 'react'
+import { FunctionComponent, useState } from 'react'
 import * as yup from 'yup'
 import { AlertStatus } from '../../../types'
 import { useUpdateNameMutation } from '../../api/authApiSlice'

@@ -1,17 +1,15 @@
 import { FunctionComponent, useRef, useState } from 'react'
 import { AlertStatus, Tag } from '../../../types'
 import * as yup from 'yup'
-import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
-  DialogActions,
-  Button,
-  TextField,
-  Snackbar,
-  Alert,
-} from '@mui/material'
+import Dialog from '@mui/material/Dialog'
+import DialogTitle from '@mui/material/DialogTitle'
+import DialogContent from '@mui/material/DialogContent'
+import DialogContentText from '@mui/material/DialogContentText'
+import DialogActions from '@mui/material/DialogActions'
+import Button from '@mui/material/Button'
+import TextField from '@mui/material/TextField'
+import Alert from '@mui/material/Alert'
+import Snackbar from '@mui/material/Snackbar'
 import { Formik } from 'formik'
 import {
   useDeleteTagMutation,

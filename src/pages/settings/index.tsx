@@ -1,10 +1,8 @@
-import { useMediaQuery } from '@mui/material'
+import useMediaQuery from '@mui/material/useMediaQuery'
 import Box from '@mui/material/Box'
 import { FunctionComponent } from 'react'
 import ContentLayout from '../../components/ContentLayout'
 import ContentOutlinedWrapper from '../../components/ContentOutlinedWrapper'
-import Layout from '../../components/Layout'
-import MainContentWrapper from '../../components/MainContentWrapper'
 import NameForm from './NameForm'
 import PasswordForm from './PasswordForm'
 

@@ -1,5 +1,6 @@
-import { useMediaQuery, useTheme } from '@mui/material'
 import Box from '@mui/material/Box'
+import useMediaQuery from '@mui/material/useMediaQuery'
+import useTheme from '@mui/material/styles/useTheme'
 import Typography from '@mui/material/Typography'
 import { FunctionComponent, ReactElement } from 'react'
 

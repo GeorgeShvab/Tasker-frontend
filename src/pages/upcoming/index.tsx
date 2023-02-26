@@ -1,11 +1,7 @@
-import { Box, useMediaQuery } from '@mui/material'
+import Box from '@mui/material/Box'
+import useMediaQuery from '@mui/material/useMediaQuery'
 import { FunctionComponent } from 'react'
-import { useParams } from 'react-router-dom'
-import { useGetListQuery } from '../../api/listApiSlice'
-import {
-  useGetTasksByListQuery,
-  useGetTasksQuery,
-} from '../../api/taskApiSlice'
+import { useGetTasksQuery } from '../../api/taskApiSlice'
 import {
   Accordion,
   AccordionDetails,
@@ -13,7 +9,6 @@ import {
 } from '../../components/Accordion'
 import ContentLayout from '../../components/ContentLayout'
 import ContentOutlinedWrapper from '../../components/ContentOutlinedWrapper'
-import Layout from '../../components/Layout'
 import AddTask from '../../components/Task/AddTask'
 import Tasks from '../../components/Task/Tasks'
 import { setTask } from '../../redux/slices/task'

@@ -1,4 +1,5 @@
-import { Portal, useTheme } from '@mui/material'
+import Portal from '@mui/material/Box'
+import useTheme from '@mui/material/styles/useTheme'
 import Box from '@mui/material/Box'
 import { FunctionComponent, useState, useEffect } from 'react'
 import { useAppSelector } from '../redux/store'

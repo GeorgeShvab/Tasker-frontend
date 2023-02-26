@@ -1,4 +1,7 @@
-import { Box, Divider, Typography, useTheme } from '@mui/material'
+import useTheme from '@mui/material/styles/useTheme'
+import Typography from '@mui/material/Typography'
+import Divider from '@mui/material/Divider'
+import Box from '@mui/material/Box'
 import { FunctionComponent, memo } from 'react'
 import AsideItem from './AsideItem'
 import TodayIcon from '@mui/icons-material/Today'

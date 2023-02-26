@@ -1,12 +1,10 @@
 import { LoadingButton } from '@mui/lab'
-import {
-  Alert,
-  Box,
-  Snackbar,
-  TextField,
-  Typography,
-  useMediaQuery,
-} from '@mui/material'
+import useMediaQuery from '@mui/material/useMediaQuery'
+import Alert from '@mui/material/Alert'
+import Box from '@mui/material/Box'
+import Snackbar from '@mui/material/Snackbar'
+import TextField from '@mui/material/TextField'
+import Typography from '@mui/material/Typography'
 import { FormikHelpers, Formik } from 'formik'
 import { FunctionComponent, useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'

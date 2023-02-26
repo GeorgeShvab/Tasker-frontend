@@ -1,4 +1,5 @@
-import { useTheme, Typography } from '@mui/material'
+import useTheme from '@mui/material/styles/useTheme'
+import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import { FunctionComponent } from 'react'
 import { Tag } from '../../../types'

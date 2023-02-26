@@ -2,7 +2,11 @@ import { Formik, FormikHelpers } from 'formik'
 import { FunctionComponent, useState } from 'react'
 import { AlertStatus } from '../../../types'
 import * as yup from 'yup'
-import { Snackbar, Alert, Button, TextField, Typography } from '@mui/material'
+import Alert from '@mui/material/Alert'
+import Button from '@mui/material/Button'
+import Snackbar from '@mui/material/Snackbar'
+import TextField from '@mui/material/TextField'
+import Typography from '@mui/material/Typography'
 import { useUpdatePasswordMutation } from '../../api/authApiSlice'
 
 const validationSchema = yup.object().shape({

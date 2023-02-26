@@ -1,4 +1,5 @@
-import { useMediaQuery, useTheme } from '@mui/material'
+import useTheme from '@mui/material/styles/useTheme'
+import useMediaQuery from '@mui/material/useMediaQuery'
 import Box from '@mui/material/Box'
 import { SxProps } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'

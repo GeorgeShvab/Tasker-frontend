@@ -1,17 +1,12 @@
-import {
-  useMediaQuery,
-  Box,
-  useTheme,
-  Skeleton,
-  TextField,
-} from '@mui/material'
+import useMediaQuery from '@mui/material/useMediaQuery'
+import Box from '@mui/material/Box'
+import useTheme from '@mui/material/styles/useTheme'
+import Skeleton from '@mui/material/Skeleton'
 import { FunctionComponent, ReactElement, UIEvent, useState } from 'react'
 import usePage from '../hooks/usePage'
 import throttle from '../utils/throttle'
 import MenuBtn from './MenuBtn'
-import Search from './Search'
 import Title from './Title'
-import SearchIcon from '@mui/icons-material/Search'
 
 const ContentLayout: FunctionComponent<{
   children: ReactElement

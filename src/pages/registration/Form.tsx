@@ -1,11 +1,9 @@
-import {
-  Box,
-  Typography,
-  TextField,
-  useMediaQuery,
-  Snackbar,
-  Alert,
-} from '@mui/material'
+import Alert from '@mui/material/Alert'
+import Box from '@mui/material/Box'
+import Snackbar from '@mui/material/Snackbar'
+import TextField from '@mui/material/TextField'
+import Typography from '@mui/material/Typography'
+import useMediaQuery from '@mui/material/useMediaQuery'
 import LoadingButton from '@mui/lab/LoadingButton'
 import { Formik, FormikHelpers } from 'formik'
 import { FunctionComponent, useState } from 'react'

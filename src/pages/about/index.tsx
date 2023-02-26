@@ -1,5 +1,6 @@
-import { Paper, Typography } from '@mui/material'
-import { Box } from '@mui/system'
+import Paper from '@mui/material/Paper'
+import Typography from '@mui/material/Typography'
+import Box from '@mui/material/Box'
 import { FunctionComponent } from 'react'
 import { Link } from 'react-router-dom'
 import Logo from '../../components/Logo'

@@ -1,4 +1,5 @@
-import { SxProps, Typography, useTheme } from '@mui/material'
+import Typography from '@mui/material/Typography'
+import { SxProps, useTheme } from '@mui/material/styles'
 import { FC } from 'react'
 import { Link } from 'react-router-dom'
 

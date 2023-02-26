@@ -1,10 +1,8 @@
-import {
-  TextField,
-  Box,
-  InputAdornment,
-  useMediaQuery,
-  IconButton,
-} from '@mui/material'
+import Box from '@mui/material/Box'
+import TextField from '@mui/material/TextField'
+import InputAdornment from '@mui/material/InputAdornment'
+import useMediaQuery from '@mui/material/useMediaQuery'
+import IconButton from '@mui/material/IconButton'
 import { FunctionComponent, useState, FormEvent } from 'react'
 import SearchIcon from '@mui/icons-material/Search'
 import CloseIcon from '@mui/icons-material/Close'

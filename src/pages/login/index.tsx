@@ -1,5 +1,7 @@
-import { Paper, useMediaQuery, useTheme } from '@mui/material'
+import useTheme from '@mui/material/styles/useTheme'
 import Box from '@mui/material/Box'
+import Paper from '@mui/material/Paper'
+import useMediaQuery from '@mui/material/useMediaQuery'
 import { FunctionComponent } from 'react'
 import CenterContainer from '../../components/CenterContainer'
 import LoginForm from './Form'

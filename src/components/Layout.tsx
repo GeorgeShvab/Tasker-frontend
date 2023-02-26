@@ -1,4 +1,6 @@
-import { Box, useMediaQuery, useTheme } from '@mui/material'
+import Box from '@mui/material/Box'
+import useMediaQuery from '@mui/material/useMediaQuery'
+import useTheme from '@mui/material/styles/useTheme'
 import { FunctionComponent, ReactElement, TouchEvent } from 'react'
 import { TouchData } from '../../types'
 import { selectMenu, toggleMenu } from '../redux/slices/menu'

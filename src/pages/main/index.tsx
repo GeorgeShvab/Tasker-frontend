@@ -2,17 +2,13 @@ import Box from '@mui/material/Box'
 import { FunctionComponent, useEffect, useState } from 'react'
 import Logo from '../../components/Logo'
 import image from '../../assets/images/survey.png'
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  Typography,
-  useMediaQuery,
-} from '@mui/material'
-import { useTheme } from '@mui/system'
+import useMediaQuery from '@mui/material/useMediaQuery'
+import Button from '@mui/material/Button'
+import Dialog from '@mui/material/Dialog'
+import DialogActions from '@mui/material/DialogActions'
+import DialogTitle from '@mui/material/DialogTitle'
+import Typography from '@mui/material/Typography'
+import useTheme from '@mui/material/styles/useTheme'
 import { Link } from 'react-router-dom'
 import { useAppSelector } from '../../redux/store'
 import { isAuthorized } from '../../redux/slices/auth'

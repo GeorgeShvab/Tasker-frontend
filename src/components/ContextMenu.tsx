@@ -1,4 +1,8 @@
-import { Popper, Grow, Paper, ClickAwayListener, SxProps } from '@mui/material'
+import Popper from '@mui/material/Popper'
+import Grow from '@mui/material/Grow'
+import Paper from '@mui/material/Paper'
+import ClickAwayListener from '@mui/material/ClickAwayListener'
+import { SxProps } from '@mui/material/styles'
 import {
   useState,
   useRef,

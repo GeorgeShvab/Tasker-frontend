@@ -1,5 +1,7 @@
-import { Box, IconButton, Typography } from '@mui/material'
-import { useTheme } from '@mui/system'
+import Box from '@mui/material/Box'
+import IconButton from '@mui/material/IconButton'
+import Typography from '@mui/material/Typography'
+import useTheme from '@mui/material/styles/useTheme'
 import { FunctionComponent } from 'react'
 import AddIcon from '@mui/icons-material/Add'
 

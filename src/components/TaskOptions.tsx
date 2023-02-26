@@ -1,31 +1,23 @@
-import {
-  Alert,
-  Box,
-  Button,
-  FormControl,
-  IconButton,
-  Input,
-  InputLabel,
-  MenuItem,
-  Select,
-  Snackbar,
-  TextField,
-  Tooltip,
-  Typography,
-  useMediaQuery,
-  useTheme,
-} from '@mui/material'
+import Box from '@mui/material/Box'
+import Alert from '@mui/material/Alert'
+import Button from '@mui/material/Button'
+import FormControl from '@mui/material/FormControl'
+import IconButton from '@mui/material/IconButton'
+import MenuItem from '@mui/material/MenuItem'
+import Select from '@mui/material/Select'
+import Snackbar from '@mui/material/Snackbar'
+import TextField from '@mui/material/TextField'
+import Tooltip from '@mui/material/Tooltip'
+import Typography from '@mui/material/Typography'
+import useMediaQuery from '@mui/material/useMediaQuery'
+import useTheme from '@mui/material/styles/useTheme'
 import { Formik, FormikHelpers } from 'formik'
 import { FunctionComponent, useEffect, useState } from 'react'
-import { MonitorEventEmitter } from 'react-dnd'
 import { useDrop } from 'react-dnd/dist/hooks'
-import { DropTargetMonitor } from 'react-dnd/dist/types/monitors'
 import * as yup from 'yup'
-import { AlertStatus, Tag, Task } from '../../types'
+import { AlertStatus, Tag } from '../../types'
 import { useGetListsQuery } from '../api/listApiSlice'
-import { useCreateTagMutation, useGetTagsQuery } from '../api/tagApiSlice'
 import PoorTags from './Tag/PoorTags'
-import Tags from './Tag/Tags'
 import InfoIcon from '@mui/icons-material/Info'
 import { useAppDispatch, useAppSelector } from '../redux/store'
 import { selectTask, setTask } from '../redux/slices/task'
@@ -37,6 +29,7 @@ import {
 import { formatDate, unformatDate } from '../utils/date'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import usePage from '../hooks/usePage'
+import { useGetTagsQuery } from '../api/tagApiSlice'
 
 const formSchema = yup.object().shape({
   name: yup.string().max(200, 'Назва повинна містити не більше 200 символів'),

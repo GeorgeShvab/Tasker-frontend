@@ -1,24 +1,14 @@
-import {
-  MenuList,
-  MenuItem,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Button,
-  TextField,
-  Alert,
-  Snackbar,
-  useMediaQuery,
-} from '@mui/material'
 import Box from '@mui/material/Box'
 import Paper from '@mui/material/Paper'
+import MenuList from '@mui/material/MenuList'
+import TextField from '@mui/material/TextField'
+import MenuItem from '@mui/material/MenuItem'
+import Alert from '@mui/material/Alert'
+import Snackbar from '@mui/material/Snackbar'
+import useMediaQuery from '@mui/material/useMediaQuery'
 import { FunctionComponent, useState, useRef, ChangeEvent, memo } from 'react'
 import * as types from '../../../types'
-import {
-  useDeleteStickerMutation,
-  useUpdateStickerMutation,
-} from '../../api/stickerApiSlice'
+import { useUpdateStickerMutation } from '../../api/stickerApiSlice'
 import useOutsideClick from '../../hooks/useOutsideClick'
 import debounce from '../../utils/debounce'
 import ContextMenu from '../ContextMenu'

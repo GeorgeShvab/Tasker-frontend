@@ -1,7 +1,7 @@
-import { Typography, useTheme } from '@mui/material'
+import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import { FunctionComponent, ReactElement } from 'react'
-import { SxProps } from '@mui/material'
+import { SxProps, useTheme } from '@mui/material/styles'
 
 const AsideItem: FunctionComponent<{
   children: ReactElement

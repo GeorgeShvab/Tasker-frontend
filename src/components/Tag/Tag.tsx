@@ -1,4 +1,7 @@
-import { MenuItem, MenuList, Typography, useTheme } from '@mui/material'
+import MenuItem from '@mui/material/MenuItem'
+import MenuList from '@mui/material/MenuList'
+import Typography from '@mui/material/Typography'
+import useTheme from '@mui/material/styles/useTheme'
 import Box from '@mui/material/Box'
 import { FunctionComponent, useState, useRef } from 'react'
 import { Link } from 'react-router-dom'

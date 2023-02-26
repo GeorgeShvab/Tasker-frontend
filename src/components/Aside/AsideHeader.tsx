@@ -1,10 +1,7 @@
-import {
-  Box,
-  IconButton,
-  TextField,
-  InputAdornment,
-  Collapse,
-} from '@mui/material'
+import Box from '@mui/material/Box'
+import TextField from '@mui/material/TextField'
+import Collapse from '@mui/material/Collapse'
+import InputAdornment from '@mui/material/InputAdornment'
 import { FunctionComponent, useState, FormEvent } from 'react'
 import SearchIcon from '@mui/icons-material/Search'
 import Logo from '../Logo'
