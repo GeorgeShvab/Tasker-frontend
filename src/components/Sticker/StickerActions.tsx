@@ -10,6 +10,8 @@ import {
   useDeleteStickerMutation,
   useUpdateStickerMutation,
 } from '../../api/stickerApiSlice'
+import Snackbar from '@mui/material/Snackbar'
+import Alert from '@mui/material/Alert'
 
 type StickerAction = 'delete' | 'change_color' | null
 
@@ -108,6 +110,20 @@ const StickerActions: FunctionComponent<
           <Button onClick={handleChangeStickerColor}>Підтвердити</Button>
         </DialogActions>
       </Dialog>
+      <Snackbar
+        open={alertStatus?.status}
+        autoHideDuration={5000}
+        onClose={() =>
+          setAlertStatus((prev) =>
+            prev !== null ? { ...prev, status: false } : null
+          )
+        }
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      >
+        <Alert severity={alertStatus?.type} sx={{ width: '100%' }}>
+          {alertStatus?.msg}
+        </Alert>
+      </Snackbar>
     </>
   )
 }
