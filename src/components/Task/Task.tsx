@@ -107,9 +107,6 @@ const Task: FunctionComponent<
                   sx={{
                     textDecoration: completed ? 'line-through' : 'none',
                     wordBreak: 'break-word',
-                    '&:last-child': {
-                      paddingBottom: isNotMobile ? '8px' : '7px',
-                    },
                   }}
                   color={palette.grey[300]}
                   mb="6px"

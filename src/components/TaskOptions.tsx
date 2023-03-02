@@ -163,7 +163,7 @@ const TaskOptions: FunctionComponent = () => {
 
   useEffect(() => {
     if (
-      !['list', 'upcoming', 'tag', 'today', 'search'].some(
+      !['list', 'upcoming', 'tag', 'today', 'search', 'all'].some(
         (item) => item === page.page
       )
     ) {

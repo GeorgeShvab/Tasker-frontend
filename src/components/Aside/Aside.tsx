@@ -11,7 +11,7 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp'
 import SettingsIcon from '@mui/icons-material/Settings'
 import AsideButton from './AsideButton'
 import { useGetListsQuery } from '../../api/listApiSlice'
-import { useCreateTagMutation, useGetTagsQuery } from '../../api/tagApiSlice'
+import { useGetTagsQuery } from '../../api/tagApiSlice'
 import { useGetTasksQuery } from '../../api/taskApiSlice'
 import { Link } from 'react-router-dom'
 import AsideHeader from './AsideHeader'
@@ -20,6 +20,7 @@ import Lists from '../List/Lists'
 import usePage from '../../hooks/usePage'
 import Logout from '../Logout'
 import SearchIcon from '@mui/icons-material/Search'
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted'
 
 const Aside: FunctionComponent = () => {
   const { palette } = useTheme()
@@ -32,6 +33,8 @@ const Aside: FunctionComponent = () => {
   const { data: upcomingTasks } = useGetTasksQuery(
     '?period=upcoming&status=uncompleted'
   )
+
+  const { data: allTasks } = useGetTasksQuery('?status=uncompleted')
 
   const page = usePage()
 
@@ -58,6 +61,32 @@ const Aside: FunctionComponent = () => {
         <Box padding="40px 20px 0">
           <AsideItem text="Завдання">
             <Box>
+              <Link to="/all">
+                <AsideButton
+                  variant="text"
+                  size="large"
+                  startIcon={<FormatListBulletedIcon fontSize="small" />}
+                  endIcon={
+                    allTasks?.length ? (
+                      <Box
+                        sx={{ backgroundColor: palette.grey.A100 }}
+                        minWidth="25px"
+                        borderRadius="2.5px"
+                        height="15px"
+                        padding="0 5px"
+                      >
+                        <Typography fontSize="10px">
+                          {allTasks?.length || 0}
+                        </Typography>
+                      </Box>
+                    ) : null
+                  }
+                  className={page.page === 'all' ? 'selected' : ''}
+                  fullWidth
+                >
+                  <span>Всі</span>
+                </AsideButton>
+              </Link>
               <Link to="/upcoming">
                 <AsideButton
                   variant="text"

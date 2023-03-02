@@ -21,6 +21,7 @@ import InitialLoadingOverlay from './components/InitialLoadingOverlay'
 import About from './pages/about'
 import Search from './pages/search'
 import NotFound from './pages/404'
+import AllTasks from './pages/all'
 
 function App() {
   useAuthorize()
@@ -68,6 +69,7 @@ function App() {
                       <Route path="/upcoming" element={<Upcoming />} />
                       <Route path="/today" element={<Today />} />
                       <Route path="/settings" element={<Settings />} />
+                      <Route path="/all" element={<AllTasks />} />
                       <Route path="list">
                         <Route path=":id" element={<List />} />
                       </Route>
