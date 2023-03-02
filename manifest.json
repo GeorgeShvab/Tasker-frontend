@@ -1,0 +1,18 @@
+{
+  "short_name": "Tasker",
+  "name": "Tasker",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "128x128"
+    }
+  ],
+  "id": "/upcoming",
+  "start_url": "/upcoming",
+  "background_color": "#fcfcfc",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#fcfcfc",
+  "description": "Tasker - зручний TODO веб застосунок"
+}
