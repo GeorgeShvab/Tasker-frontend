@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box'
 import useMediaQuery from '@mui/material/useMediaQuery'
-import { FunctionComponent } from 'react'
+import { FunctionComponent, useEffect } from 'react'
 import { useGetTasksQuery } from '../../api/taskApiSlice'
 import {
   Accordion,
@@ -19,6 +19,7 @@ import {
   getNextDay,
   unformatDate,
 } from '../../utils/date'
+import { useGetCountQuery } from '../../api/apiSlice'
 
 const Upcoming: FunctionComponent = () => {
   const dispatch = useAppDispatch()
@@ -30,6 +31,23 @@ const Upcoming: FunctionComponent = () => {
   const weekTasks = useGetTasksQuery('?period=week')
 
   const nextWeekTasks = useGetTasksQuery('?period=next_week')
+
+  const { data: count } = useGetCountQuery()
+
+  useEffect(() => {
+    if (!todayTasks.isLoading) {
+      todayTasks.refetch()
+    }
+    if (!tomorrowTasks.isLoading) {
+      tomorrowTasks.refetch()
+    }
+    if (!weekTasks.isLoading) {
+      weekTasks.refetch()
+    }
+    if (!nextWeekTasks.isLoading) {
+      nextWeekTasks.refetch()
+    }
+  }, [])
 
   const isNotMobile = useMediaQuery('(min-width: 769px)')
 
@@ -82,7 +100,7 @@ const Upcoming: FunctionComponent = () => {
   useTitle(title)
 
   return (
-    <ContentLayout title={'Найближчі завдання'} count={0}>
+    <ContentLayout title={'Найближчі завдання'} count={count?.upcoming}>
       <Box
         display="grid"
         gridTemplateColumns="1fr"

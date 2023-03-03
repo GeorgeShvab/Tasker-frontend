@@ -30,7 +30,10 @@ const tagApiSlice = apiSlice.injectEndpoints({
         method: 'PATCH',
         body,
       }),
-      invalidatesTags: ['Tags'],
+      invalidatesTags: (result, error, arg) => [
+        { type: 'Tag', id: arg.id },
+        'Tags',
+      ],
     }),
     createTag: builder.mutation<Tag, { name: string }>({
       query: (body) => ({

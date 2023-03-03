@@ -1,5 +1,5 @@
 import Box from '@mui/material/Box'
-import { FunctionComponent } from 'react'
+import { FunctionComponent, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useGetTagQuery } from '../../api/tagApiSlice'
 import { useGetTasksByTagQuery } from '../../api/taskApiSlice'
@@ -31,6 +31,12 @@ const Tag: FunctionComponent = () => {
   useTitle(title)
 
   const tasks = useGetTasksByTagQuery(id || '')
+
+  useEffect(() => {
+    if (!tasks.isLoading) {
+      tasks.refetch()
+    }
+  }, [])
 
   const handleAddTaskClick = () => {
     dispatch(

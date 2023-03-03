@@ -38,7 +38,7 @@ const Task: FunctionComponent<
     try {
       setCompleted((prev) => !prev)
 
-      await toggle(props._id).unwrap()
+      await toggle(task).unwrap()
 
       onStatusToggle && onStatusToggle(task)
     } catch (e) {

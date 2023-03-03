@@ -1,5 +1,6 @@
 import apiSlice from './apiSlice'
 import { Task } from '../../types'
+import parsePeriod from '../utils/parsePeriod'
 
 interface UpdateTaskBody {
   _id: string
@@ -26,18 +27,24 @@ const taskApiSlice = apiSlice.injectEndpoints({
       query: (query) => ({
         url: 'tasks' + (query || ''),
       }),
+      providesTags: (result, error, arg) => [
+        { type: 'PeriodTasks', id: arg ? parsePeriod(arg) || 'All' : 'All' },
+      ],
+      forceRefetch: () => true,
     }),
     getTasksByList: builder.query<Task[], string>({
       query: (id) => ({
         url: `list/${id}/tasks`,
       }),
       providesTags: (result, error, arg) => [{ type: 'ListTasks', id: arg }],
+      forceRefetch: () => true,
     }),
     getTasksByTag: builder.query<Task[], string>({
       query: (id) => ({
         url: `tag/${id}/tasks`,
       }),
       providesTags: (result, error, arg) => [{ type: 'TagTasks', id: arg }],
+      forceRefetch: () => true,
     }),
     updateTask: builder.mutation<Task, UpdateTaskBody>({
       query: (body) => ({
@@ -50,11 +57,16 @@ const taskApiSlice = apiSlice.injectEndpoints({
           type: 'TagTasks',
           id: item,
         })),
+        ...arg.tags.map((item): { type: 'Tag'; id: string } => ({
+          type: 'Tag',
+          id: item,
+        })),
         { type: 'ListTasks', id: arg.list },
         { type: 'ListTasks', id: arg.prevList },
-        'Today',
-        'Upcoming',
+        { type: 'List', id: arg.list },
+        { type: 'List', id: arg.prevList },
         'Lists',
+        'PeriodTasks',
       ],
     }),
     createTask: builder.mutation<Task, CreateTaskBody>({
@@ -68,14 +80,16 @@ const taskApiSlice = apiSlice.injectEndpoints({
           type: 'TagTasks',
           id: item,
         })),
+        ...arg.tags.map((item): { type: 'Tag'; id: string } => ({
+          type: 'Tag',
+          id: item,
+        })),
         { type: 'ListTasks', id: arg.list || undefined },
-        'Today',
-        'Upcoming',
         'Lists',
+        'PeriodTasks',
       ],
     }),
     deleteTask: builder.mutation<void, Task>({
-      // taskes object task as parameter instead of id to invalidate tags nad lists
       query: (body) => ({
         url: 'task/' + body._id,
         method: 'DELETE',
@@ -85,17 +99,26 @@ const taskApiSlice = apiSlice.injectEndpoints({
           type: 'TagTasks',
           id: item._id,
         })),
+        ...arg.tags.map((item): { type: 'Tag'; id: string } => ({
+          type: 'Tag',
+          id: item._id,
+        })),
         { type: 'ListTasks', id: arg.list?._id || '' },
-        'Today',
-        'Upcoming',
+        { type: 'List', id: arg.list?._id || '' },
         'Lists',
+        'PeriodTasks',
       ],
     }),
-    toggleCompletion: builder.mutation<void, string>({
-      query: (id) => ({
-        url: 'task/' + id + '/complete',
+    toggleCompletion: builder.mutation<void, Task>({
+      query: (task) => ({
+        url: 'task/' + task._id + '/complete',
         method: 'PATCH',
       }),
+      invalidatesTags: (result, error, args) => [
+        { type: 'List', id: args.list?._id || undefined },
+        'Lists',
+        'Count',
+      ],
     }),
   }),
 })

@@ -8,10 +8,7 @@ import {
 import { unauthorize } from '../redux/slices/auth'
 import { Mutex } from 'async-mutex'
 
-interface RefreshResponse {
-  accessToken: string
-  refreshToken: string
-}
+const mutex = new Mutex()
 
 const baseQuery = fetchBaseQuery({
   baseUrl: import.meta.env.VITE_APP_SERVER_API,
@@ -25,8 +22,6 @@ const baseQuery = fetchBaseQuery({
     return headers
   },
 })
-
-const mutex = new Mutex()
 
 const baseQueryWithRefetch: typeof baseQuery = async (
   args,
@@ -79,9 +74,23 @@ const baseQueryWithRefetch: typeof baseQuery = async (
   return result
 }
 
+interface CountResponse {
+  all: number
+  today: number
+  upcoming: number
+}
+
 const apiSlice = createApi({
   baseQuery: baseQueryWithRefetch,
-  endpoints: (build) => ({}),
+  keepUnusedDataFor: 30,
+  endpoints: (builder) => ({
+    getCount: builder.query<CountResponse, void>({
+      query: () => ({
+        url: 'count',
+      }),
+      providesTags: ['Count'],
+    }),
+  }),
   tagTypes: [
     'Tags',
     'Lists',
@@ -92,7 +101,12 @@ const apiSlice = createApi({
     'Upcoming',
     'TagTasks',
     'Tag',
+    'PeriodTasks',
+    'All',
+    'Count',
   ],
 })
 
 export default apiSlice
+
+export const { useGetCountQuery } = apiSlice

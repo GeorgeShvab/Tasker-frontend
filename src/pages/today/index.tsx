@@ -1,5 +1,5 @@
 import Box from '@mui/material/Box'
-import { FunctionComponent } from 'react'
+import { FunctionComponent, useEffect } from 'react'
 import { useGetTasksQuery } from '../../api/taskApiSlice'
 import {
   Accordion,
@@ -12,11 +12,20 @@ import Tasks from '../../components/Task/Tasks'
 import useTitle from '../../hooks/useTitle'
 import { setTask } from '../../redux/slices/task'
 import { useAppDispatch } from '../../redux/store'
+import { useGetCountQuery } from '../../api/apiSlice'
 
 const Today: FunctionComponent = () => {
   const dispatch = useAppDispatch()
 
   const tasks = useGetTasksQuery('?period=today')
+
+  const { data: count } = useGetCountQuery()
+
+  useEffect(() => {
+    if (!tasks.isLoading) {
+      tasks.refetch()
+    }
+  }, [])
 
   const handleAddTaskClick = () => {
     dispatch(setTask({ isSideBarOpened: true, task: null }))
@@ -32,7 +41,7 @@ const Today: FunctionComponent = () => {
   useTitle(title)
 
   return (
-    <ContentLayout title={'Сьогоднішні завдання'} count={tasks.data?.length}>
+    <ContentLayout title={'Сьогоднішні завдання'} count={count?.today}>
       <>
         <AddTask onClick={handleAddTaskClick} />
         <Box>

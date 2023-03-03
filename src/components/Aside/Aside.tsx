@@ -21,20 +21,15 @@ import usePage from '../../hooks/usePage'
 import Logout from '../Logout'
 import SearchIcon from '@mui/icons-material/Search'
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted'
+import { useGetCountQuery } from '../../api/apiSlice'
 
 const Aside: FunctionComponent = () => {
   const { palette } = useTheme()
 
   const lists = useGetListsQuery()
   const tags = useGetTagsQuery()
-  const { data: todaysTasks } = useGetTasksQuery(
-    '?period=today&status=uncompleted'
-  )
-  const { data: upcomingTasks } = useGetTasksQuery(
-    '?period=upcoming&status=uncompleted'
-  )
 
-  const { data: allTasks } = useGetTasksQuery('?status=uncompleted')
+  const { data: count } = useGetCountQuery()
 
   const page = usePage()
 
@@ -67,7 +62,7 @@ const Aside: FunctionComponent = () => {
                   size="large"
                   startIcon={<FormatListBulletedIcon fontSize="small" />}
                   endIcon={
-                    allTasks?.length ? (
+                    count?.all ? (
                       <Box
                         sx={{ backgroundColor: palette.grey.A100 }}
                         minWidth="25px"
@@ -75,9 +70,7 @@ const Aside: FunctionComponent = () => {
                         height="15px"
                         padding="0 5px"
                       >
-                        <Typography fontSize="10px">
-                          {allTasks?.length || 0}
-                        </Typography>
+                        <Typography fontSize="10px">{count?.all}</Typography>
                       </Box>
                     ) : null
                   }
@@ -93,7 +86,7 @@ const Aside: FunctionComponent = () => {
                   size="large"
                   startIcon={<KeyboardDoubleArrowRightIcon />}
                   endIcon={
-                    upcomingTasks?.length ? (
+                    count?.upcoming ? (
                       <Box
                         sx={{ backgroundColor: palette.grey.A100 }}
                         minWidth="25px"
@@ -102,7 +95,7 @@ const Aside: FunctionComponent = () => {
                         padding="0 5px"
                       >
                         <Typography fontSize="10px">
-                          {upcomingTasks?.length || 0}
+                          {count?.upcoming}
                         </Typography>
                       </Box>
                     ) : null
@@ -119,7 +112,7 @@ const Aside: FunctionComponent = () => {
                   size="large"
                   startIcon={<TodayIcon />}
                   endIcon={
-                    todaysTasks?.length ? (
+                    count?.today ? (
                       <Box
                         sx={{ backgroundColor: palette.grey.A100 }}
                         minWidth="25px"
@@ -127,9 +120,7 @@ const Aside: FunctionComponent = () => {
                         height="15px"
                         padding="0 5px"
                       >
-                        <Typography fontSize="10px">
-                          {todaysTasks?.length || 0}
-                        </Typography>
+                        <Typography fontSize="10px">{count?.today}</Typography>
                       </Box>
                     ) : null
                   }

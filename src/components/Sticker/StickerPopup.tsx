@@ -8,7 +8,13 @@ import Paper from '@mui/material/Paper'
 import Alert from '@mui/material/Alert'
 import Snackbar from '@mui/material/Snackbar'
 import useMediaQuery from '@mui/material/useMediaQuery'
-import { ChangeEvent, FunctionComponent, useState } from 'react'
+import {
+  ChangeEvent,
+  FunctionComponent,
+  useState,
+  useRef,
+  useEffect,
+} from 'react'
 import * as types from '../../../types'
 import { useUpdateStickerMutation } from '../../api/stickerApiSlice'
 import debounce from '../../utils/debounce'
@@ -22,9 +28,22 @@ const StikcerPopup: FunctionComponent<
 
   const [updateSticker] = useUpdateStickerMutation()
 
+  const descriptionRef = useRef<HTMLTextAreaElement>(null)
+
   const isNotMobile = useMediaQuery('(min-width: 769px)')
 
   const [alertStatus, setAlertStatus] = useState<null | types.AlertStatus>(null)
+
+  useEffect(() => {
+    //for autofocus on the last charecter of field
+
+    descriptionRef.current?.focus()
+
+    descriptionRef.current?.setSelectionRange(
+      descriptionRef.current?.value.length,
+      descriptionRef.current?.value.length
+    )
+  }, [])
 
   let handleDescriptionInput: any = async (
     e: ChangeEvent<HTMLTextAreaElement>
@@ -176,6 +195,7 @@ const StikcerPopup: FunctionComponent<
                     color: palette.grey[700],
                   },
                 }}
+                inputRef={descriptionRef}
                 placeholder="Опис"
                 multiline
                 fullWidth

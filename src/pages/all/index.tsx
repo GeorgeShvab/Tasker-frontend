@@ -1,4 +1,4 @@
-import { FunctionComponent } from 'react'
+import { FunctionComponent, useEffect } from 'react'
 import { useGetTasksQuery } from '../../api/taskApiSlice'
 import {
   Accordion,
@@ -11,11 +11,15 @@ import Box from '@mui/material/Box'
 import ContentLayout from '../../components/ContentLayout'
 import AddTask from '../../components/Task/AddTask'
 import { useAppDispatch } from '../../redux/store'
+import useTitle from '../../hooks/useTitle'
+import { useGetCountQuery } from '../../api/apiSlice'
 
 const AllTasks: FunctionComponent = () => {
   const dispatch = useAppDispatch()
 
   const tasks = useGetTasksQuery()
+
+  const { data: count } = useGetCountQuery()
 
   const completedTasks = tasks.data?.filter((item) => item.completed) || []
   const uncompletedTasks = tasks.data?.filter((item) => !item.completed) || []
@@ -28,8 +32,16 @@ const AllTasks: FunctionComponent = () => {
     )
   }
 
+  useTitle('Всі завдання')
+
+  useEffect(() => {
+    if (!tasks.isLoading) {
+      tasks.refetch()
+    }
+  }, [])
+
   return (
-    <ContentLayout title={'Всі завдання'} count={uncompletedTasks?.length}>
+    <ContentLayout title={'Всі завдання'} count={count?.all}>
       <>
         <AddTask onClick={handleAddTaskClick} />
         <Box>

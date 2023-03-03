@@ -1,5 +1,5 @@
 import Box from '@mui/material/Box'
-import { FunctionComponent } from 'react'
+import { FunctionComponent, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useGetListQuery } from '../../api/listApiSlice'
 import { useGetTasksByListQuery } from '../../api/taskApiSlice'
@@ -41,6 +41,13 @@ const List: FunctionComponent = () => {
       })
     )
   }
+
+  useEffect(() => {
+    if (!tasks.isLoading && !list.isLoading) {
+      tasks.refetch()
+      list.refetch()
+    }
+  }, [id])
 
   const uncompletedTasks = tasks.data?.filter((item) => !item.completed) || []
   const completedTasks = tasks.data?.filter((item) => item.completed) || []
