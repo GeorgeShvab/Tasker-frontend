@@ -19,7 +19,7 @@ import {
   getNextDay,
   unformatDate,
 } from '../../utils/date'
-import { useGetCountQuery } from '../../api/apiSlice'
+import { useGetTasksCountQuery } from '../../api/taskApiSlice'
 
 const Upcoming: FunctionComponent = () => {
   const dispatch = useAppDispatch()
@@ -32,7 +32,7 @@ const Upcoming: FunctionComponent = () => {
 
   const nextWeekTasks = useGetTasksQuery('?period=next_week')
 
-  const { data: count } = useGetCountQuery()
+  const { data: count } = useGetTasksCountQuery()
 
   useEffect(() => {
     if (!todayTasks.isLoading) {
@@ -63,25 +63,17 @@ const Upcoming: FunctionComponent = () => {
     )
   }
 
-  const uncompletedTodayTasks =
-    todayTasks.data?.filter((item) => !item.completed) || []
-  const completedTodayTasks =
-    todayTasks.data?.filter((item) => item.completed) || []
+  const uncompletedTodayTasks = todayTasks.data?.uncompletedTasks || []
+  const completedTodayTasks = todayTasks.data?.completedTasks || []
 
-  const uncompletedTomorrowTasks =
-    tomorrowTasks.data?.filter((item) => !item.completed) || []
-  const completedTomorrowTasks =
-    tomorrowTasks.data?.filter((item) => item.completed) || []
+  const uncompletedTomorrowTasks = tomorrowTasks.data?.uncompletedTasks || []
+  const completedTomorrowTasks = tomorrowTasks.data?.completedTasks || []
 
-  const uncompletedWeekTasks =
-    weekTasks.data?.filter((item) => !item.completed) || []
-  const completedWeekTasks =
-    weekTasks.data?.filter((item) => item.completed) || []
+  const uncompletedWeekTasks = weekTasks.data?.uncompletedTasks || []
+  const completedWeekTasks = weekTasks.data?.completedTasks || []
 
-  const uncompletedNextWeekTasks =
-    nextWeekTasks.data?.filter((item) => !item.completed) || []
-  const completedNextWeekTasks =
-    nextWeekTasks.data?.filter((item) => item.completed) || []
+  const uncompletedNextWeekTasks = nextWeekTasks.data?.uncompletedTasks || []
+  const completedNextWeekTasks = nextWeekTasks.data?.completedTasks || []
 
   const title =
     'Найближчі завдання' +

@@ -20,10 +20,21 @@ interface CreateTaskBody {
   list?: string | null
 }
 
+interface TasksQueryResponse {
+  completedTasks: Task[]
+  uncompletedTasks: Task[]
+}
+
+interface CountResponse {
+  all: number
+  today: number
+  upcoming: number
+}
+
 const taskApiSlice = apiSlice.injectEndpoints({
   overrideExisting: true,
   endpoints: (builder) => ({
-    getTasks: builder.query<Task[], string | void>({
+    getTasks: builder.query<TasksQueryResponse, string | void>({
       query: (query) => ({
         url: 'tasks' + (query || ''),
       }),
@@ -32,14 +43,14 @@ const taskApiSlice = apiSlice.injectEndpoints({
       ],
       forceRefetch: () => true,
     }),
-    getTasksByList: builder.query<Task[], string>({
+    getTasksByList: builder.query<TasksQueryResponse, string>({
       query: (id) => ({
         url: `list/${id}/tasks`,
       }),
       providesTags: (result, error, arg) => [{ type: 'ListTasks', id: arg }],
       forceRefetch: () => true,
     }),
-    getTasksByTag: builder.query<Task[], string>({
+    getTasksByTag: builder.query<TasksQueryResponse, string>({
       query: (id) => ({
         url: `tag/${id}/tasks`,
       }),
@@ -67,6 +78,7 @@ const taskApiSlice = apiSlice.injectEndpoints({
         { type: 'List', id: arg.prevList },
         'Lists',
         'PeriodTasks',
+        'Count',
       ],
     }),
     createTask: builder.mutation<Task, CreateTaskBody>({
@@ -87,6 +99,7 @@ const taskApiSlice = apiSlice.injectEndpoints({
         { type: 'ListTasks', id: arg.list || undefined },
         'Lists',
         'PeriodTasks',
+        'Count',
       ],
     }),
     deleteTask: builder.mutation<void, Task>({
@@ -107,6 +120,7 @@ const taskApiSlice = apiSlice.injectEndpoints({
         { type: 'List', id: arg.list?._id || '' },
         'Lists',
         'PeriodTasks',
+        'Count',
       ],
     }),
     toggleCompletion: builder.mutation<void, Task>({
@@ -120,6 +134,12 @@ const taskApiSlice = apiSlice.injectEndpoints({
         'Count',
       ],
     }),
+    getTasksCount: builder.query<CountResponse, void>({
+      query: () => ({
+        url: 'count',
+      }),
+      providesTags: ['Count'],
+    }),
   }),
 })
 
@@ -131,4 +151,5 @@ export const {
   useDeleteTaskMutation,
   useToggleCompletionMutation,
   useGetTasksByTagQuery,
+  useGetTasksCountQuery,
 } = taskApiSlice

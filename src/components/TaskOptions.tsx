@@ -12,7 +12,7 @@ import Typography from '@mui/material/Typography'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import useTheme from '@mui/material/styles/useTheme'
 import { Formik, FormikHelpers } from 'formik'
-import { FunctionComponent, useEffect, useState } from 'react'
+import { FunctionComponent, useEffect, useRef, useState } from 'react'
 import { useDrop } from 'react-dnd/dist/hooks'
 import * as yup from 'yup'
 import { AlertStatus, Tag } from '../../types'
@@ -48,6 +48,8 @@ interface FormValues {
 const TaskOptions: FunctionComponent = () => {
   const dispatch = useAppDispatch()
 
+  const nameInputEl = useRef<HTMLTextAreaElement>(null)
+
   const page = usePage()
 
   const { palette } = useTheme()
@@ -55,6 +57,21 @@ const TaskOptions: FunctionComponent = () => {
   const isNotMobile = useMediaQuery('(min-width: 769px)')
 
   const selectedTask = useAppSelector(selectTask)
+
+  useEffect(() => {
+    if (selectedTask.isSideBarOpened) {
+      setTimeout(() => {
+        nameInputEl.current?.focus()
+
+        nameInputEl.current?.setSelectionRange(
+          selectedTask.data?.name.length || 0,
+          selectedTask.data?.name.length || 0
+        )
+      }, 500) // timeout because it much beautiful
+    } else {
+      nameInputEl.current?.blur()
+    }
+  }, [selectedTask])
 
   const lists = useGetListsQuery()
   const userTags = useGetTagsQuery()
@@ -106,6 +123,10 @@ const TaskOptions: FunctionComponent = () => {
           prevList: selectedTask.data?.list?._id,
         }).unwrap()
 
+        if (!isNotMobile) {
+          dispatch(setTask({ isSideBarOpened: false }))
+        }
+
         setAlert(null)
       } catch (e) {
         setAlert({
@@ -124,6 +145,10 @@ const TaskOptions: FunctionComponent = () => {
           tags: tags.map((item) => item._id),
           list: values.list || null,
         }).unwrap()
+
+        if (!isNotMobile) {
+          dispatch(setTask({ isSideBarOpened: false }))
+        }
 
         setAlert(null)
 
@@ -260,6 +285,7 @@ const TaskOptions: FunctionComponent = () => {
                       error={Boolean(touched.name) && Boolean(errors.name)}
                       helperText={(touched.name && errors.name) || ' '}
                       inputProps={{ maxLength: 200 }}
+                      inputRef={nameInputEl}
                       fullWidth
                       multiline
                     />

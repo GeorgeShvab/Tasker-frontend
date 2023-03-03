@@ -12,17 +12,17 @@ import ContentLayout from '../../components/ContentLayout'
 import AddTask from '../../components/Task/AddTask'
 import { useAppDispatch } from '../../redux/store'
 import useTitle from '../../hooks/useTitle'
-import { useGetCountQuery } from '../../api/apiSlice'
+import { useGetTasksCountQuery } from '../../api/taskApiSlice'
 
 const AllTasks: FunctionComponent = () => {
   const dispatch = useAppDispatch()
 
   const tasks = useGetTasksQuery()
 
-  const { data: count } = useGetCountQuery()
+  const { data: count } = useGetTasksCountQuery()
 
-  const completedTasks = tasks.data?.filter((item) => item.completed) || []
-  const uncompletedTasks = tasks.data?.filter((item) => !item.completed) || []
+  const completedTasks = tasks.data?.completedTasks || []
+  const uncompletedTasks = tasks.data?.uncompletedTasks || []
 
   const handleAddTaskClick = () => {
     dispatch(
@@ -32,7 +32,7 @@ const AllTasks: FunctionComponent = () => {
     )
   }
 
-  useTitle('Всі завдання')
+  useTitle('Всі завдання' + (count?.all ? ` (${count.all})` : ''))
 
   useEffect(() => {
     if (!tasks.isLoading) {

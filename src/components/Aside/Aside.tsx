@@ -12,7 +12,6 @@ import SettingsIcon from '@mui/icons-material/Settings'
 import AsideButton from './AsideButton'
 import { useGetListsQuery } from '../../api/listApiSlice'
 import { useGetTagsQuery } from '../../api/tagApiSlice'
-import { useGetTasksQuery } from '../../api/taskApiSlice'
 import { Link } from 'react-router-dom'
 import AsideHeader from './AsideHeader'
 import Tags from '../Tag/Tags'
@@ -21,7 +20,7 @@ import usePage from '../../hooks/usePage'
 import Logout from '../Logout'
 import SearchIcon from '@mui/icons-material/Search'
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted'
-import { useGetCountQuery } from '../../api/apiSlice'
+import { useGetTasksCountQuery } from '../../api/taskApiSlice'
 
 const Aside: FunctionComponent = () => {
   const { palette } = useTheme()
@@ -29,7 +28,7 @@ const Aside: FunctionComponent = () => {
   const lists = useGetListsQuery()
   const tags = useGetTagsQuery()
 
-  const { data: count } = useGetCountQuery()
+  const { data: count } = useGetTasksCountQuery()
 
   const page = usePage()
 

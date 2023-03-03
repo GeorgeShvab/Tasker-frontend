@@ -74,23 +74,10 @@ const baseQueryWithRefetch: typeof baseQuery = async (
   return result
 }
 
-interface CountResponse {
-  all: number
-  today: number
-  upcoming: number
-}
-
 const apiSlice = createApi({
   baseQuery: baseQueryWithRefetch,
   keepUnusedDataFor: 30,
-  endpoints: (builder) => ({
-    getCount: builder.query<CountResponse, void>({
-      query: () => ({
-        url: 'count',
-      }),
-      providesTags: ['Count'],
-    }),
-  }),
+  endpoints: (builder) => ({}),
   tagTypes: [
     'Tags',
     'Lists',
@@ -108,5 +95,3 @@ const apiSlice = createApi({
 })
 
 export default apiSlice
-
-export const { useGetCountQuery } = apiSlice

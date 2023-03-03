@@ -49,8 +49,8 @@ const List: FunctionComponent = () => {
     }
   }, [id])
 
-  const uncompletedTasks = tasks.data?.filter((item) => !item.completed) || []
-  const completedTasks = tasks.data?.filter((item) => item.completed) || []
+  const uncompletedTasks = tasks.data?.uncompletedTasks || []
+  const completedTasks = tasks.data?.completedTasks || []
 
   return (
     <ContentLayout

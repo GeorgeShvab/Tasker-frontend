@@ -12,14 +12,14 @@ import Tasks from '../../components/Task/Tasks'
 import useTitle from '../../hooks/useTitle'
 import { setTask } from '../../redux/slices/task'
 import { useAppDispatch } from '../../redux/store'
-import { useGetCountQuery } from '../../api/apiSlice'
+import { useGetTasksCountQuery } from '../../api/taskApiSlice'
 
 const Today: FunctionComponent = () => {
   const dispatch = useAppDispatch()
 
   const tasks = useGetTasksQuery('?period=today')
 
-  const { data: count } = useGetCountQuery()
+  const { data: count } = useGetTasksCountQuery()
 
   useEffect(() => {
     if (!tasks.isLoading) {
@@ -31,8 +31,8 @@ const Today: FunctionComponent = () => {
     dispatch(setTask({ isSideBarOpened: true, task: null }))
   }
 
-  const uncompletedTasks = tasks.data?.filter((item) => !item.completed) || []
-  const completedTasks = tasks.data?.filter((item) => item.completed) || []
+  const uncompletedTasks = tasks.data?.uncompletedTasks || []
+  const completedTasks = tasks.data?.completedTasks || []
 
   const title =
     'Сьогоднішні завдання' +
