@@ -1,14 +1,15 @@
 import Box from '@mui/material/Box'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import useTheme from '@mui/material/styles/useTheme'
-import { FunctionComponent, ReactElement, TouchEvent } from 'react'
+import { FunctionComponent, ReactElement, TouchEvent, useEffect } from 'react'
 import { TouchData } from '../../types'
 import { selectMenu, toggleMenu } from '../redux/slices/menu'
 import { selectTask, setTask } from '../redux/slices/task'
 import { useAppDispatch, useAppSelector } from '../redux/store'
 import Aside from './Aside/Aside'
 import ProtectRoute from './ProtectRoute'
-import TaskOptions from './TaskOptions'
+import TaskSidebar from './TaskSidebar/TaskSidebar'
+import usePage from '../hooks/usePage'
 
 const Layout: FunctionComponent<{ children: ReactElement }> = ({
   children,
@@ -20,6 +21,18 @@ const Layout: FunctionComponent<{ children: ReactElement }> = ({
   const isMenuOpened = useAppSelector(selectMenu)
 
   const isNotMobile = useMediaQuery('(min-width: 769px)')
+
+  const page = usePage()
+
+  useEffect(() => {
+    if (
+      !['list', 'upcoming', 'tag', 'today', 'search', 'all'].includes(
+        page.page || ''
+      )
+    ) {
+      dispatch(setTask({ isSideBarOpened: false }))
+    }
+  }, [page])
 
   const touchData: TouchData = {
     xStart: null,
@@ -168,7 +181,7 @@ const Layout: FunctionComponent<{ children: ReactElement }> = ({
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTaskBarTouchEnd}
           >
-            <TaskOptions />
+            <TaskSidebar />
           </Box>
         </Box>
       </Box>

@@ -7,29 +7,20 @@ import MenuItem from '@mui/material/MenuItem'
 import Select from '@mui/material/Select'
 import Snackbar from '@mui/material/Snackbar'
 import TextField from '@mui/material/TextField'
-import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import useTheme from '@mui/material/styles/useTheme'
-import { Formik, FormikHelpers } from 'formik'
-import { FunctionComponent, useEffect, useRef, useState } from 'react'
-import { useDrop } from 'react-dnd/dist/hooks'
+import { Formik } from 'formik'
+import { FunctionComponent, useEffect, useRef } from 'react'
 import * as yup from 'yup'
-import { AlertStatus, Tag } from '../../types'
-import { useGetListsQuery } from '../api/listApiSlice'
-import PoorTags from './Tag/PoorTags'
-import InfoIcon from '@mui/icons-material/Info'
-import { useAppDispatch, useAppSelector } from '../redux/store'
-import { selectTask, setTask } from '../redux/slices/task'
-import {
-  useCreateTaskMutation,
-  useDeleteTaskMutation,
-  useUpdateTaskMutation,
-} from '../api/taskApiSlice'
-import { formatDate, unformatDate } from '../utils/date'
+import { useGetListsQuery } from '../../api/listApiSlice'
+import { useAppDispatch, useAppSelector } from '../../redux/store'
+import { selectTask, setTask } from '../../redux/slices/task'
+import { getNextDay, unformatDate } from '../../utils/date'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
-import usePage from '../hooks/usePage'
-import { useGetTagsQuery } from '../api/tagApiSlice'
+import TaskSideBarTags from './TaskSidebarTags'
+import useGetInitialValues from './useGetInitialValues'
+import useTaskActions from './useTaskActions'
 
 const formSchema = yup.object().shape({
   name: yup.string().max(200, 'Назва повинна містити не більше 200 символів'),
@@ -38,25 +29,21 @@ const formSchema = yup.object().shape({
     .max(2000, 'Назва опису завдання повинна містити не більше 2000 символів'),
 })
 
-interface FormValues {
-  name: string
-  description: string
-  date: string
-  list: string
-}
-
-const TaskOptions: FunctionComponent = () => {
+const TaskSidebar: FunctionComponent = () => {
   const dispatch = useAppDispatch()
 
   const nameInputEl = useRef<HTMLTextAreaElement>(null)
-
-  const page = usePage()
 
   const { palette } = useTheme()
 
   const isNotMobile = useMediaQuery('(min-width: 769px)')
 
   const selectedTask = useAppSelector(selectTask)
+
+  const lists = useGetListsQuery()
+
+  const { handleSubmit, handleDeleteTask, alert, setAlert, tags, setTags } =
+    useTaskActions() //I am not sure about this emplementation but decided to put most of logic in hook
 
   useEffect(() => {
     if (
@@ -72,160 +59,21 @@ const TaskOptions: FunctionComponent = () => {
     } else {
       nameInputEl.current?.blur()
     }
-  }, [selectedTask])
 
-  const lists = useGetListsQuery()
-  const userTags = useGetTagsQuery()
-
-  const [tags, setTags] = useState<Tag[]>([])
-
-  const [alert, setAlert] = useState<AlertStatus | null>(null)
-
-  const onDrop = (tag: Tag) => {
-    if (!tags.find((item) => item._id === tag._id)) {
-      setTags((prev) => [...prev, tag])
-    }
-  }
-
-  const [collectedProps, drop] = useDrop(
-    () => ({
-      accept: 'Tag',
-      drop: onDrop,
-    }),
-    [tags]
-  )
-
-  const handleDeleteTag = (tag: Tag) => {
-    setTags((prev) => prev.filter((item) => item._id !== tag._id))
-  }
-
-  const [createTask] = useCreateTaskMutation()
-  const [updateTask] = useUpdateTaskMutation()
-  const [deleteTask] = useDeleteTaskMutation()
-
-  const handleSubmit = async (
-    values: FormValues,
-    { setErrors, resetForm }: FormikHelpers<FormValues>
-  ) => {
-    if (!values.name) {
-      setErrors({ name: 'Введіть назву' })
-      return
-    }
-
-    if (selectedTask.data) {
-      try {
-        let taskDate = formatDate(values.date)
-
-        await updateTask({
-          ...values,
-          _id: selectedTask.data?._id,
-          tags: tags.map((item) => item._id),
-          date: taskDate,
-          prevList: selectedTask.data?.list?._id,
-        }).unwrap()
-
-        if (!isNotMobile) {
-          dispatch(setTask({ isSideBarOpened: false }))
-        }
-
-        setAlert(null)
-      } catch (e) {
-        setAlert({
-          status: true,
-          msg: 'Не вдалось оновити завдання',
-          type: 'error',
-        })
-      }
-    } else {
-      try {
-        let taskDate = formatDate(values.date)
-
-        await createTask({
-          ...values,
-          date: taskDate,
-          tags: tags.map((item) => item._id),
-          list: values.list || null,
-        }).unwrap()
-
-        if (!isNotMobile) {
-          dispatch(setTask({ isSideBarOpened: false }))
-        }
-
-        setAlert(null)
-
-        resetForm()
-      } catch (e) {
-        setAlert({
-          status: true,
-          msg: 'Не вдалось створити завдання',
-          type: 'error',
-        })
-      }
-    }
-  }
-
-  const handleDeleteTask = async () => {
-    if (selectedTask.data) {
-      try {
-        await deleteTask({
-          ...selectedTask.data,
-          list: selectedTask.data?.list,
-        }).unwrap()
-
-        setAlert(null)
-
-        dispatch(
-          setTask({ task: null, isSideBarOpened: isNotMobile ? true : false })
-        )
-      } catch (e) {
-        setAlert({
-          status: true,
-          msg: 'Не вдалось видалити завдання',
-          type: 'error',
-        })
-      }
-    }
-  }
-
-  useEffect(() => {
-    if (
-      !['list', 'upcoming', 'tag', 'today', 'search', 'all'].some(
-        (item) => item === page.page
-      )
-    ) {
-      dispatch(setTask({ isSideBarOpened: false }))
-    }
-  }, [page])
-
-  useEffect(() => {
     if (selectedTask) {
       setTags(selectedTask.data?.tags || selectedTask.defaultValues.tags || [])
     }
   }, [selectedTask])
 
-  const initialDate =
-    (selectedTask.data && unformatDate(selectedTask.data?.date)) ||
-    page.page === 'today'
-      ? unformatDate(new Date().toISOString())
-      : ''
-
-  const initialValues = {
-    name: selectedTask.data?.name || selectedTask.defaultValues.name || '',
-    description:
-      selectedTask.data?.description ||
-      selectedTask.defaultValues.description ||
-      '',
-    list: selectedTask.data?.list?._id || selectedTask.defaultValues.list || '',
-    date: selectedTask.defaultValues.date || initialDate,
-  }
-
   const displayedDateExample = unformatDate(
-    new Date(new Date().setDate(new Date().getDate() + 1)).toISOString()
+    new Date(getNextDay()).toISOString()
   )
 
   const handleCloseSideBar = () => {
     dispatch(setTask({ isSideBarOpened: false }))
   }
+
+  const initialValues = useGetInitialValues()
 
   return (
     <>
@@ -365,51 +213,7 @@ const TaskOptions: FunctionComponent = () => {
                         fullWidth
                       />
                     </Box>
-                    <Box alignItems="center" gap="20px">
-                      <Box
-                        mb="10px"
-                        display="flex"
-                        alignItems="center"
-                        gap="10px"
-                        justifyContent={
-                          isNotMobile ? 'flex-start' : 'space-between'
-                        }
-                      >
-                        <Typography>Теги</Typography>
-                        {!isNotMobile && (
-                          <Typography color={palette.grey[400]} fontSize="12px">
-                            {userTags.data?.length === 0
-                              ? 'Створіть тег у відповідній вкладці меню'
-                              : 'Виберіть теги з ваших тегів внизу'}
-                          </Typography>
-                        )}
-                        {isNotMobile && (
-                          <Tooltip
-                            title={
-                              isNotMobile
-                                ? 'Щоб додати тег до завдання перетягніть його з ваших тегів'
-                                : 'Щоб додати тег до завдання виберіть його з ваших тегів'
-                            }
-                          >
-                            <InfoIcon
-                              fontSize="small"
-                              sx={{ fontSize: '14px' }}
-                            />
-                          </Tooltip>
-                        )}
-                      </Box>
-                      <Box ref={drop} minHeight="200px">
-                        <PoorTags tags={tags} onDelete={handleDeleteTag} />
-                      </Box>
-                      {!isNotMobile && (
-                        <Box>
-                          <PoorTags
-                            tags={userTags.data || []}
-                            onClick={onDrop}
-                          />
-                        </Box>
-                      )}
-                    </Box>
+                    <TaskSideBarTags tags={tags} setTags={setTags} />
                   </Box>
                 </Box>
                 <Box display="flex" gap="15px">
@@ -459,4 +263,4 @@ const TaskOptions: FunctionComponent = () => {
   )
 }
 
-export default TaskOptions
+export default TaskSidebar
