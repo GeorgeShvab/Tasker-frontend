@@ -86,7 +86,7 @@ const Task: FunctionComponent<
             <IconButton onClick={toggleCompletion} sx={{ flex: '0 0 auto' }}>
               {completed ? <CheckBoxIcon /> : <CheckBoxOutlineBlankIcon />}
             </IconButton>
-            <Box flex="3 3 auto" paddingTop="7px">
+            <Box flex="3 3 auto" padding="7px 0">
               <Typography
                 variant="h5"
                 fontWeight="500"
@@ -107,6 +107,9 @@ const Task: FunctionComponent<
                   sx={{
                     textDecoration: completed ? 'line-through' : 'none',
                     wordBreak: 'break-word',
+                    '&:last-child': {
+                      mb: '0',
+                    },
                   }}
                   color={palette.grey[300]}
                   mb="6px"
@@ -123,9 +126,10 @@ const Task: FunctionComponent<
                   flex="0 0 auto"
                   sx={{
                     '&:last-child': {
-                      paddingBottom: isNotMobile ? '8px' : '7px',
+                      mb: '0',
                     },
                   }}
+                  mb="6px"
                 >
                   {props.date && (
                     <Box

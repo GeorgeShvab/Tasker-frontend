@@ -185,8 +185,10 @@ const StikcerPopup: FunctionComponent<
               <TextField
                 defaultValue={description}
                 onInput={handleDescriptionInput}
+                spellCheck={false}
                 inputProps={{
                   maxLength: 3000,
+                  spellCheck: 'false',
                   style: {
                     minHeight: isNotMobile
                       ? 'calc(var(--full-height) - calc(var(--full-height) / 10) - 90px)'

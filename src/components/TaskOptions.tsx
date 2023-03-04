@@ -59,15 +59,16 @@ const TaskOptions: FunctionComponent = () => {
   const selectedTask = useAppSelector(selectTask)
 
   useEffect(() => {
-    if (selectedTask.isSideBarOpened) {
+    if (
+      selectedTask.isSideBarOpened &&
+      !selectedTask.data?.name &&
+      !selectedTask.defaultValues?.name
+    ) {
       setTimeout(() => {
         nameInputEl.current?.focus()
 
-        nameInputEl.current?.setSelectionRange(
-          selectedTask.data?.name.length || 0,
-          selectedTask.data?.name.length || 0
-        )
-      }, 500) // timeout because it much beautiful
+        nameInputEl.current?.setSelectionRange(0, 0)
+      }, 500) // timeout because it looks much better
     } else {
       nameInputEl.current?.blur()
     }
@@ -370,20 +371,32 @@ const TaskOptions: FunctionComponent = () => {
                         display="flex"
                         alignItems="center"
                         gap="10px"
+                        justifyContent={
+                          isNotMobile ? 'flex-start' : 'space-between'
+                        }
                       >
                         <Typography>Теги</Typography>
-                        <Tooltip
-                          title={
-                            isNotMobile
-                              ? 'Щоб додати тег до завдання перетягніть його з ваших тегів'
-                              : 'Щоб додати тег до завдання виберіть його з ваших тегів'
-                          }
-                        >
-                          <InfoIcon
-                            fontSize="small"
-                            sx={{ fontSize: '14px' }}
-                          />
-                        </Tooltip>
+                        {!isNotMobile && (
+                          <Typography color={palette.grey[400]} fontSize="12px">
+                            {userTags.data?.length === 0
+                              ? 'Створіть тег у відповідній вкладці меню'
+                              : 'Виберіть теги з ваших тегів внизу'}
+                          </Typography>
+                        )}
+                        {isNotMobile && (
+                          <Tooltip
+                            title={
+                              isNotMobile
+                                ? 'Щоб додати тег до завдання перетягніть його з ваших тегів'
+                                : 'Щоб додати тег до завдання виберіть його з ваших тегів'
+                            }
+                          >
+                            <InfoIcon
+                              fontSize="small"
+                              sx={{ fontSize: '14px' }}
+                            />
+                          </Tooltip>
+                        )}
                       </Box>
                       <Box ref={drop} minHeight="200px">
                         <PoorTags tags={tags} onDelete={handleDeleteTag} />

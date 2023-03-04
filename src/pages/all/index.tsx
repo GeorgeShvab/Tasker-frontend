@@ -28,6 +28,8 @@ const AllTasks: FunctionComponent = () => {
     dispatch(
       setTask({
         isSideBarOpened: true,
+        task: null,
+        defaultValues: {},
       })
     )
   }
